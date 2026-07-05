@@ -22,17 +22,7 @@ Official sources:
 
 Laravel Boost officially documents setup for Cursor, Claude Code, Codex, Gemini CLI, GitHub Copilot in VS Code, and Junie. The MCP server can also be registered manually in other MCP-compatible clients using the documented command and arguments.
 
-- Claude Code
-- Claude Desktop
-- ChatGPT
-- Codex
-- Cursor
 - OpenCode
-- VS Code
-- Windsurf
-- Cline
-- Roo Code
-- Continue
 
 ## When to Use
 

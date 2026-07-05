@@ -34,12 +34,7 @@ Use the examples in [`configs/`](./configs/) as client-specific starting points:
 
 | Client | Example | Typical location |
 | --- | --- | --- |
-| Claude Desktop | [`configs/claude-desktop.json`](./configs/claude-desktop.json) | Claude Desktop MCP configuration file. |
-| Codex | [`configs/codex.json`](./configs/codex.json) | Codex MCP configuration or generated Codex config. |
-| Cursor | [`configs/cursor.json`](./configs/cursor.json) | Project or user MCP configuration used by Cursor. |
 | OpenCode | [`configs/opencode.json`](./configs/opencode.json) | OpenCode MCP configuration. |
-| VS Code | [`configs/vscode.json`](./configs/vscode.json) | VS Code MCP configuration, such as `.vscode/mcp.json` when supported by the client extension. |
-| Windsurf | [`configs/windsurf.json`](./configs/windsurf.json) | Windsurf MCP configuration. |
 
 Because client configuration paths change over time, prefer the client's official documentation for the exact file location. Keep the command and args unchanged unless your Laravel app runs in a wrapper environment such as Docker, Sail, DDEV, or a remote container.
 

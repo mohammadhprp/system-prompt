@@ -60,12 +60,7 @@ mcps/<mcp-slug>/
 ├── capabilities.md
 ├── troubleshooting.md
 └── configs/
-    ├── claude-desktop.json
-    ├── codex.json
-    ├── cursor.json
     ├── opencode.json
-    ├── vscode.json
-    └── windsurf.json
 ```
 
 Naming conventions:
@@ -115,7 +110,7 @@ Keep additions small, explicit, and framework-agnostic unless they live in a dow
 
 ## Contributing
 
-See `CONTRIBUTING.md`. Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
+See [CONTRIBUTING](CONTRIBUTING.md). Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
 
 ## Roadmap
 

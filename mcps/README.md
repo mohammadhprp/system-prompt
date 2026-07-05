@@ -42,12 +42,7 @@ mcps/<mcp-slug>/
 ├── capabilities.md
 ├── troubleshooting.md
 └── configs/
-    ├── claude-desktop.json
-    ├── codex.json
-    ├── cursor.json
     ├── opencode.json
-    ├── vscode.json
-    └── windsurf.json
 ```
 
 ## Naming Conventions
