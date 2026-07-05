@@ -1,8 +1,8 @@
-# Backend Engineering Skills
+# AI Coding Agent Framework
 
-A framework-agnostic AI skills repository for backend software engineering. It teaches AI coding agents how to reason, design, review, test, and operate backend systems with the discipline expected from a senior engineer.
+A framework-agnostic system for AI coding agents. It combines reusable skills, engineering standards, templates, and MCP server documentation so agents can reason, design, review, test, operate, and connect to project-aware tools with senior engineering discipline.
 
-This repository is not a prompt dump. It is a structured library of reusable skills, standards, and templates that agents can load only when relevant.
+This repository is not just a prompt dump or a skill library. It is a structured, extensible operating framework for AI-assisted software engineering.
 
 ## Philosophy
 
@@ -28,8 +28,49 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `AGENTS.md` | Entry point for agents: loading rules, skill map, conflict resolution. |
 | `system-prompt.md` | Global behavior contract for backend engineering work. |
 | `skills/` | Procedural skills used for specific tasks. |
+| `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
 | `standards/` | Canonical engineering standards referenced by skills. |
 | `templates/` | Ready-to-use workflow documents. |
+
+
+## MCP Catalog
+
+The [`mcps/`](mcps/) directory is a curated catalog of Model Context Protocol servers for AI coding agents. Each entry explains what the MCP does, when to use it, how to install it, how to configure it across common AI clients, and how to troubleshoot it.
+
+MCPs are useful because they let agents connect to project-aware tools through a standard protocol instead of relying only on static files or generic model knowledge. A good MCP can expose documentation search, runtime inspection, logs, schema information, or other controlled capabilities that make agent output more accurate and easier to verify.
+
+### How to Choose an MCP
+
+Before adding an MCP to a project, check:
+
+- **Fit**: the server should match the framework, platform, or workflow being worked on.
+- **Authority**: prefer first-party or officially documented MCPs.
+- **Permissions**: understand whether the MCP can read secrets, query databases, execute code, or modify state.
+- **Client support**: confirm the target AI client supports the MCP transport and configuration format.
+- **Operational value**: install MCPs that materially improve context, safety, or verification.
+
+### How to Contribute a New MCP
+
+Every MCP must follow this structure:
+
+```text
+mcps/<mcp-slug>/
+├── README.md
+├── install.md
+├── capabilities.md
+├── troubleshooting.md
+└── configs/
+    ├── opencode.json
+```
+
+Naming conventions:
+
+- Use lowercase kebab-case for MCP directory names.
+- Use the official MCP name in Markdown page titles.
+- Use stable, lowercase MCP server names in config examples.
+- Keep all required file names exactly as shown above.
+
+When contributing, prefer official documentation over third-party sources, include practical verification steps, document limitations, and keep content concise and client-neutral except where a specific client requires unique setup.
 
 ## How AI Agents Should Use This Repository
 
@@ -69,7 +110,7 @@ Keep additions small, explicit, and framework-agnostic unless they live in a dow
 
 ## Contributing
 
-See `CONTRIBUTING.md`. Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
+See [CONTRIBUTING](CONTRIBUTING.md). Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
 
 ## Roadmap
 
