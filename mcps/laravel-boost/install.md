@@ -40,41 +40,9 @@ Because client configuration paths change over time, prefer the client's officia
 
 ## Client Setup Notes
 
-### Claude Code
+### OpenCode
 
-Boost usually enables Claude Code automatically. If it does not, run this from the Laravel application root:
-
-```bash
-claude mcp add -s local -t stdio laravel-boost php artisan boost:mcp
-```
-
-### Codex
-
-Boost usually enables Codex automatically. If it does not, run this from the Laravel application root:
-
-```bash
-codex mcp add laravel-boost -- php "artisan" "boost:mcp"
-```
-
-### Cursor
-
-1. Open the command palette.
-2. Open MCP settings.
-3. Enable `laravel-boost`.
-
-### VS Code with GitHub Copilot
-
-1. Open the command palette.
-2. Run `MCP: List Servers`.
-3. Select `laravel-boost`.
-4. Choose `Start server`.
-
-### PhpStorm
-
-1. Press `shift` twice.
-2. Search for `MCP Settings`.
-3. Enable `laravel-boost`.
-4. Apply the change.
+Copy [`configs/opencode.json`](./configs/opencode.json) into your OpenCode project root or user config directory and restart the OpenCode agent. The server will start automatically when the agent needs it.
 
 ## Verification
 

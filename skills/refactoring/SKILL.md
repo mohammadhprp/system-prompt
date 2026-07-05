@@ -26,15 +26,14 @@ Use this skill when the task involves removing duplication, simplifying code, re
 - Stop refactoring when the code is simpler enough for the current goal.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Identify the improvement goal: reduce duplication, simplify logic, improve naming, extract module.
+2. Verify existing test coverage. If coverage is weak, add characterization tests first.
+3. Make one conceptual change at a time. Commit or stage after each safe step.
+4. Preserve external behavior: same inputs produce same outputs, same errors, same side effects.
+5. Run the full test suite after each change step.
+6. Compare before and after: verify the improvement did not introduce subtle behavioral differences.
+7. Remove dead code, commented code, and unused dependencies found during the refactor.
+8. Stop when the code is clear enough for the current maintenance needs - avoid over-refactoring.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -45,33 +44,30 @@ Use this skill when the task involves removing duplication, simplifying code, re
 - Reference related standards: standards/naming.md, standards/testing.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- Improved code with one conceptual change per step.
+- Passing test suite before and after each step.
+- Characterization tests for legacy code with weak coverage.
+- Before/after comparison confirming behavior preservation.
+- Removed dead code, commented code, and unused dependencies.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Refactoring and changing behavior in the same step.
+- Removing tests or code that seems unused but is actually relied upon implicitly.
+- Over-abstracting: creating interfaces, base classes, or indirection before a clear need exists.
+- Refactoring for performance without measuring the baseline.
+- Leaving the code in a half-refactored state.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- A refactor introduces a subtle behavior change that tests do not catch.
+- Over-refactoring produces a more complex design than the original.
+- A rename misses a reference, causing a production issue.
+- A shared abstraction created during refactoring becomes a coupling point that is hard to undo.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] Existing tests pass before and after each refactoring step.
+- [ ] One conceptual change is made at a time.
+- [ ] External behavior is preserved (same inputs, outputs, errors, side effects).
+- [ ] Dead code, commented code, and unused dependencies are removed.
+- [ ] Naming reflects business meaning after the refactor.
+- [ ] Refactored code is simpler, not more complex.
+- [ ] Characterization tests exist for legacy code with weak coverage.

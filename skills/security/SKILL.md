@@ -27,15 +27,15 @@ Use this skill when the task involves authentication, authorization, secrets, en
 - Abuse controls such as rate limits should protect expensive and sensitive actions.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Identify data assets, entry points, and trust boundaries in the system.
+2. Review authentication: is identity verified at every entry point?
+3. Review authorization: is access checked against the resource, not assumed from the caller?
+4. Review input handling: are all inputs validated, sanitized, or parameterized at every boundary?
+5. Review secrets: are any credentials, tokens, or keys exposed in code, logs, configs, or errors?
+6. Review data protection: is encryption applied for data in transit and sensitive data at rest?
+7. Review abuse controls: rate limiting, payload limits, request throttling for expensive actions.
+8. Test security boundaries: attempt injection, forced browsing, privilege escalation.
+9. Document residual risks and recommended mitigations.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -46,33 +46,31 @@ Use this skill when the task involves authentication, authorization, secrets, en
 - Reference related standards: standards/security.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- Security review of authentication, authorization, and input handling.
+- Secrets exposure analysis.
+- Data protection review (in transit and at rest).
+- Abuse control assessment.
+- Residual risks and recommended mitigations.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Performing authorization checks only in the UI or frontend and not at the API boundary.
+- Storing secrets in source code, environment files committed to git, or inline configs.
+- Trusting input from internal services, background jobs, or message queues without validation.
+- Using weak or outdated cryptographic algorithms.
+- Ignoring rate limiting on authentication endpoints, allowing brute force.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- A vulnerability is introduced because input validation is missing on a new endpoint.
+- A secret is exposed in logs or error responses, causing a credential leak.
+- Authorization is checked on the first request but not re-verified for subsequent operations in a workflow.
+- A security review misses an issue because it focused on code and ignored infrastructure config.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] Authentication is enforced at every external entry point.
+- [ ] Authorization checks happen at the resource boundary, not just in the UI.
+- [ ] All inputs are validated, sanitized, or parameterized.
+- [ ] Secrets are never in source code, logs, errors, or example configs.
+- [ ] Encryption is applied for data in transit (TLS) and sensitive data at rest.
+- [ ] Rate limiting protects authentication and expensive endpoints.
+- [ ] Output encoding prevents injection in responses to other systems.
+- [ ] Dependencies are scanned for known vulnerabilities.

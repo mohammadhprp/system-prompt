@@ -25,15 +25,15 @@ Use this skill when the task involves general backend planning, requirement anal
 - Choose the simplest solution that satisfies current known needs and can evolve safely.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Restate the user goal in concrete backend terms with explicit scope and non-goals.
+2. Identify actors, data entities, invariants, and failure modes.
+3. Identify external dependencies, integration points, and data flows.
+4. Inspect existing project patterns and conventions before proposing changes.
+5. Decide whether clarifying questions are needed. Ask only questions that materially affect design or risk.
+6. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, rollback.
+7. Compare at least one simpler alternative when the proposed solution adds complexity.
+8. Verify with the narrowest meaningful tests, then broader checks when risk justifies them.
+9. Summarize tradeoffs, residual risks, and follow-up work.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -51,7 +51,7 @@ Use this skill when the task involves general backend planning, requirement anal
 - A checklist showing completion evidence.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
+- Starting with code before understanding invariants, data ownership, or failure modes.
 - Designing for imagined future scale while ignoring present correctness.
 - Treating validation, authorization, logging, and tests as optional polish.
 - Creating generic abstractions after seeing only one use case.
@@ -59,18 +59,18 @@ Use this skill when the task involves general backend planning, requirement anal
 - Writing documents that describe implementation but omit failure handling.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
+- A simple request becomes a broad rewrite because scope was not bounded.
 - A change works locally but cannot be safely deployed or rolled back.
 - Data becomes inconsistent because constraints or transactions were skipped.
 - Operators cannot diagnose incidents because logs and metrics are missing.
 - Reviewers cannot evaluate risk because decisions and assumptions are implicit.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
+- [ ] Goal, scope, and non-goals are clearly defined.
+- [ ] Simpler alternatives were considered and documented.
+- [ ] Data integrity and backward compatibility are protected.
 - [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
+- [ ] Tests cover normal paths, edge cases, and failure paths.
 - [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] Deployment and rollback are understood and tested.
+- [ ] The deliverable explains reasoning and evidence, not just code.

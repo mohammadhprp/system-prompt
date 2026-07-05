@@ -27,15 +27,15 @@ Use this skill when the task involves creating or changing service contracts, re
 - Rate limiting and abuse controls should fail predictably with useful retry guidance.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Identify the resource, action, and state transitions the endpoint models.
+2. Define the request contract: path params, query params, headers, body shape, auth requirements.
+3. Define the response contract: status codes, body shape, error format, pagination/filtering shape.
+4. Check backward compatibility with existing clients and contracts.
+5. Add validation at the boundary: type checks, constraint checks, auth checks.
+6. Add idempotency handling for mutating endpoints where clients may retry.
+7. Add observability: request-level metrics, structured logs for errors, trace context.
+8. Verify with contract tests and integration tests for the boundary behavior.
+9. Document the endpoint: examples, limits, errors, auth, rate limits.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -46,33 +46,30 @@ Use this skill when the task involves creating or changing service contracts, re
 - Reference related standards: standards/api.md, standards/security.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- Request and response contract spec.
+- Validation rules with error examples.
+- Backward compatibility analysis.
+- Idempotency and rate limiting design.
+- Contract and integration test plan.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Returning internal error details in production error responses.
+- Designing endpoints that mirror database tables instead of business operations.
+- Forgetting idempotency on payment, order, and inventory endpoints.
+- Making pagination unstable by sorting on non-deterministic fields.
+- Ignoring rate limit headers and retry-after guidance.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- A client cannot parse the error response because the shape is inconsistent.
+- A breaking change ships without versioning, breaking existing integrations.
+- An unbounded filter or sort causes a database or memory outage.
+- Rate limits are enforced without informative headers, causing opaque failures.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] Request validation covers type, format, required fields, and allowed values.
+- [ ] Error responses are structurally consistent across all endpoints.
+- [ ] Idempotency key is accepted and enforced on mutating endpoints.
+- [ ] Pagination is bounded, deterministic, and has a default and max limit.
+- [ ] Rate limit headers (X-RateLimit-*) are present where applicable.
+- [ ] Backward compatibility is verified or a versioning strategy is documented.
+- [ ] Auth and authz are enforced at the boundary, not in the client.

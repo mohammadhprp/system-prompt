@@ -1,52 +1,41 @@
 # Postmortem
 
-## Summary
+## Incident Summary
+One paragraph describing what happened and the impact.
 
-State the decision, change, incident, or task in two to four sentences.
+## Severity
+Critical | Major | Minor
 
-## Context
-
-Describe the business need, affected users, systems, data, constraints, and timing.
-
-## Goals
-
-- Clear measurable outcome.
-- Production behavior that must be preserved.
-
-## Non-Goals
-
-- Work intentionally excluded from this change.
-
-## Proposal
-
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
-
-## Alternatives Considered
-
-| Option | Why not chosen |
+## Timeline
+| Time (UTC) | Event |
 | --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
+| | |
 
-## Risks and Mitigations
+## Detection
+How was this discovered? By whom? How long after introduction?
 
-| Risk | Mitigation | Owner |
-| --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
+## Root Cause Analysis
 
-## Testing and Evidence
+### Trigger
+What event started the chain?
 
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
+### Contributing Factors
+What conditions made it possible?
 
-## Deployment
+### Why Analysis
+1. Why did X happen? Because...
+2. Why did Y happen? Because...
 
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
+## Impact
+Metric changes, user impact, duration, cost.
 
-## Example
+## Mitigation
+What was done to stop the incident? How long did it take?
 
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+## Corrective Actions
+- [ ] Type: Short description (owner, tracking link)
+- [ ] Type: Short description (owner, tracking link)
+Types: Prevent recurrence | Improve detection | Improve mitigation | Process improvement
+
+## Appendix
+Links to dashboards, logs, PRs, related documents.

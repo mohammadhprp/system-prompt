@@ -1,31 +1,31 @@
 # API Design Examples
 
-## Example 1: Orders Change
+## Example 1: Order Creation Endpoint
 
-A request asks to add a new order status. Good agent behavior:
+Design a POST /orders endpoint for an e-commerce API. Good agent behavior:
 
-- Confirm which actors can set the status and which transitions are valid.
-- Check whether reports, notifications, payments, and inventory workflows depend on existing statuses.
-- Add validation at the contract boundary and enforce state transitions near the domain logic.
-- Include tests for valid transitions, invalid transitions, and compatibility with existing orders.
-- Add operational notes if the status affects dashboards or alerts.
+- Define the request schema with required and optional fields; validate at the contract boundary with clear error messages.
+- Require an idempotency key so retries do not create duplicate orders.
+- Check authorization: verify the authenticated user owns the payment method and shipping address.
+- Return 201 with the created order and a Location header; return 422 for validation failures and 409 for duplicate idempotency keys.
+- Include a request example covering full, minimal, and invalid payloads.
 
-## Example 2: Payments Risk
+## Example 2: Pagination Design
 
-A request asks to retry failed payment processing. Good agent behavior:
+Design cursor-based pagination for a GET /products endpoint with 10k+ items. Good agent behavior:
 
-- Require idempotency so duplicate retries do not double-charge users.
-- Store retry attempts and final outcome with enough detail for support and audit.
-- Use bounded retries and clear failure states.
-- Emit structured logs and metrics for retry count, success rate, and terminal failures.
-- Document rollback if the retry behavior causes unexpected load or user impact.
+- Use opaque cursor tokens (base64-encoded sort values) instead of offset/limit to avoid drift from inserts.
+- Enforce a maximum page size (e.g., 100) and document the default (e.g., 20).
+- Sort by a stable composite key (e.g., created_at + id) so items don't shift between pages.
+- Return next_cursor only when more results exist; omit it on the last page.
+- Add tests for empty results, exactly one page, exact page boundaries, and concurrent inserts during pagination.
 
-## Example 3: Reports Endpoint
+## Example 3: API Versioning
 
-A request asks for a reports endpoint over orders and products. Good agent behavior:
+Add a required `currency` field to the existing GET /orders response without breaking mobile clients. Good agent behavior:
 
-- Clarify freshness, authorization, filters, pagination, and expected volume.
-- Avoid scanning unbounded data on every request.
-- Return stable error shapes and predictable sorting.
-- Add tests for permissions, empty results, invalid filters, and large result sets.
-- Prefer a simple query first; introduce precomputation only with evidence.
+- Add the field to the response body immediately; clients that ignore unknown fields continue working.
+- Make the new field required, but only for API version 2025-03 and later; keep it optional in older versions.
+- Document the deprecation date for the old version and include a `Sunset` header on deprecated endpoints.
+- Add a migration guide showing the response diff before and after.
+- Add a test that calls both versions and verifies the contract for each.

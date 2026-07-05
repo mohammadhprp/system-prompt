@@ -26,15 +26,14 @@ Use this skill when the task involves structured logging, metrics, distributed t
 - Dashboards should support both real-time triage and trend review.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Identify the operational signals needed: what questions will operators ask during normal operation and incidents?
+2. Add structured logs with stable field names, correlation IDs, and severity levels.
+3. Define metrics: rates (RPS), errors, durations (latency), saturation (CPU, memory, connections), and business outcomes.
+4. Add distributed tracing for requests that cross service boundaries.
+5. Implement health check endpoints that distinguish liveness (process alive) from readiness (able to serve traffic).
+6. Set up dashboards for triage (real-time) and trends (daily/weekly).
+7. Configure alerts that are actionable, documented with runbooks, and free of noise.
+8. Test observability: verify logs appear, metrics have values, traces propagate, alerts fire.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -45,33 +44,31 @@ Use this skill when the task involves structured logging, metrics, distributed t
 - Reference related standards: standards/observability.md, standards/logging.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- Structured logging schema with field names and severity levels.
+- Metrics definition: rates, errors, durations, saturation, business outcomes.
+- Distributed tracing configuration and propagation plan.
+- Health check implementation (liveness vs readiness).
+- Dashboard layouts and alert rules with runbook links.
+- Observability test plan.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Logging everything at the same level, making it impossible to distinguish critical from noise.
+- Creating dashboards that look impressive but cannot be used to diagnose an incident.
+- Setting alerts that page without a clear mitigation step.
+- Adding tracing to only some services, breaking the end-to-end trace.
+- Forgetting to log or metric business outcomes (orders placed, payments completed).
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- An incident cannot be diagnosed because logs are too verbose or too sparse.
+- An alert fires but no one knows what to do because there is no runbook.
+- Metrics have high cardinality labels, causing monitoring infrastructure to fail.
+- Traces are sampled away for the exact request that failed.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] Logs are structured with consistent field names and correlation IDs.
+- [ ] Sensitive data is excluded from logs, metrics, and traces.
+- [ ] Metrics track rates, errors, durations, saturation, and business outcomes.
+- [ ] Health checks distinguish liveness from readiness.
+- [ ] Alerts are actionable and linked to a runbook.
+- [ ] Dashboards support both triage and trend analysis.
+- [ ] Tracing covers all services in the request path.

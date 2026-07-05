@@ -1,31 +1,31 @@
 # Refactoring Examples
 
-## Example 1: Orders Change
+## Example 1: Extract Method
 
-A request asks to add a new order status. Good agent behavior:
+Refactor a large `checkout` function where tax calculation is inlined across 40 lines. Good agent behavior:
 
-- Confirm which actors can set the status and which transitions are valid.
-- Check whether reports, notifications, payments, and inventory workflows depend on existing statuses.
-- Add validation at the contract boundary and enforce state transitions near the domain logic.
-- Include tests for valid transitions, invalid transitions, and compatibility with existing orders.
-- Add operational notes if the status affects dashboards or alerts.
+- Extract the tax logic into a pure function `calculateTax(subtotal, customerLocation, discount)` that takes inputs and returns a result.
+- Keep the extracted function deterministic with no side effects, DB calls, or external service dependencies.
+- Write unit tests covering zero tax, maximum tax, bundled items, and edge-case locations before touching the calling code.
+- Inline the extracted function call at the original site and verify the output matches exactly with a snapshot test.
+- Ensure the function handles null/undefined defensively to match the original behavior.
 
-## Example 2: Payments Risk
+## Example 2: Rename for Clarity
 
-A request asks to retry failed payment processing. Good agent behavior:
+A module uses `x`, `d`, and `calc` throughout—rename to business terms. Good agent behavior:
 
-- Require idempotency so duplicate retries do not double-charge users.
-- Store retry attempts and final outcome with enough detail for support and audit.
-- Use bounded retries and clear failure states.
-- Emit structured logs and metrics for retry count, success rate, and terminal failures.
-- Document rollback if the retry behavior causes unexpected load or user impact.
+- Rename step-by-step: `x` -> `exchangeRate`, `d` -> `discountPercent`, `calc` -> `computeOrderTotal`.
+- Use the IDE or language tooling for rename (e.g., `gopls rename`, `ts-migrate`) to avoid missed references.
+- Run the test suite after each rename to catch any name collisions or incorrect replacements.
+- Update external documentation and API comments that reference the old names.
+- Avoid renaming public API surface—if the module exposes `calc`, deprecate it first and introduce the new name in a separate step.
 
-## Example 3: Reports Endpoint
+## Example 3: Reduce Duplication
 
-A request asks for a reports endpoint over orders and products. Good agent behavior:
+Three query methods in the repository layer have almost identical SQL with different filters. Good agent behavior:
 
-- Clarify freshness, authorization, filters, pagination, and expected volume.
-- Avoid scanning unbounded data on every request.
-- Return stable error shapes and predictable sorting.
-- Add tests for permissions, empty results, invalid filters, and large result sets.
-- Prefer a simple query first; introduce precomputation only with evidence.
+- Parameterize the query: `findOrders(status, userId, dateRange)` where each parameter is optional and combined with `WHERE 1=1` or a query builder.
+- Write characterization tests first: capture the exact output of all three original methods for the same input to prove the refactor preserves behavior.
+- Consolidate callers one by one, running tests after each change to catch regressions immediately.
+- Keep the original method signatures as thin wrappers calling the unified method to minimize diff in the first pass.
+- Delete the wrapper methods and rename the unified method only after all callers are migrated and tested.

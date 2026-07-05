@@ -1,52 +1,38 @@
 # Incident Report
 
-## Summary
+## Severity
+Critical | Major | Minor
 
-State the decision, change, incident, or task in two to four sentences.
+## Duration
+Start: <datetime>  End: <datetime>  Total: <duration>
 
-## Context
+## Detection
+How was the incident detected? Monitoring, alert, user report?
 
-Describe the business need, affected users, systems, data, constraints, and timing.
-
-## Goals
-
-- Clear measurable outcome.
-- Production behavior that must be preserved.
-
-## Non-Goals
-
-- Work intentionally excluded from this change.
-
-## Proposal
-
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
-
-## Alternatives Considered
-
-| Option | Why not chosen |
+## Timeline
+| Time | Event |
 | --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
+| HH:MM | What happened |
+| HH:MM | What was done |
 
-## Risks and Mitigations
+## Root Cause
+One paragraph describing the underlying cause.
 
-| Risk | Mitigation | Owner |
-| --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
+## Impact
+Users affected, data lost, revenue impact, SLA breach.
 
-## Testing and Evidence
+## Response
+What was done to mitigate and resolve.
 
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
+## Lessons Learned
 
-## Deployment
+### What went well
 
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
+### What went wrong
 
-## Example
+### Where we got lucky
 
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+## Action Items
+- [ ] Owner: Prevent recurrence (Specific change to prevent this root cause)
+- [ ] Owner: Improve detection (Monitoring, alert, or test that would catch this faster)
+- [ ] Owner: Improve response (Runbook, automation, or process change)

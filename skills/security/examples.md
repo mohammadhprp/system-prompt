@@ -1,31 +1,31 @@
 # Security Examples
 
-## Example 1: Orders Change
+## Example 1: Input Validation
 
-A request asks to add a new order status. Good agent behavior:
+Review an endpoint that accepts a `product_code` and passes it directly into a SQL query. Good agent behavior:
 
-- Confirm which actors can set the status and which transitions are valid.
-- Check whether reports, notifications, payments, and inventory workflows depend on existing statuses.
-- Add validation at the contract boundary and enforce state transitions near the domain logic.
-- Include tests for valid transitions, invalid transitions, and compatibility with existing orders.
-- Add operational notes if the status affects dashboards or alerts.
+- Flag the SQL injection vulnerability immediately: interpolating user input into a query string allows arbitrary SQL execution.
+- Replace with parameterized queries or an ORM that handles escaping—never trust string concatenation for SQL.
+- Add input validation: reject `product_code` values that contain non-alphanumeric characters before they reach the database layer.
+- Apply the same scrutiny to all other user-supplied fields in the same endpoint (sort, filter, page).
+- Write a regression test that sends a malicious payload (e.g., `' OR 1=1--`) and asserts a 400 error instead of returning all rows.
 
-## Example 2: Payments Risk
+## Example 2: Secret Exposure
 
-A request asks to retry failed payment processing. Good agent behavior:
+Find an AWS API key hardcoded in an example configuration file committed to git. Good agent behavior:
 
-- Require idempotency so duplicate retries do not double-charge users.
-- Store retry attempts and final outcome with enough detail for support and audit.
-- Use bounded retries and clear failure states.
-- Emit structured logs and metrics for retry count, success rate, and terminal failures.
-- Document rollback if the retry behavior causes unexpected load or user impact.
+- Flag that the key has been exposed in the git history and must be rotated immediately, not just removed from the file.
+- Move the key to a secrets manager (AWS Secrets Manager, Vault) and reference it via environment variable at runtime.
+- Add a `.gitignore` entry for config files that contain secrets and add a pre-commit hook to scan for credentials.
+- Check git history for any other secrets committed in the same or related files.
+- Document the secret rotation process in the runbook so future incidents are handled consistently.
 
-## Example 3: Reports Endpoint
+## Example 3: Authorization Flaw
 
-A request asks for a reports endpoint over orders and products. Good agent behavior:
+Review a multi-tenant endpoint where `GET /api/orders/{id}` returns order details. Good agent behavior:
 
-- Clarify freshness, authorization, filters, pagination, and expected volume.
-- Avoid scanning unbounded data on every request.
-- Return stable error shapes and predictable sorting.
-- Add tests for permissions, empty results, invalid filters, and large result sets.
-- Prefer a simple query first; introduce precomputation only with evidence.
+- Spot the flaw: the endpoint loads the order by ID without checking that the authenticated user's tenant matches the order's tenant.
+- Fix by adding a `WHERE tenant_id = ?` clause to the query or filtering in the service layer after loading.
+- Add a test that creates orders for two different tenants and verifies tenant A cannot access tenant B's orders.
+- Check all other endpoints in the same controller for the same pattern; copy the fix to every one.
+- Review the API design: prefer APIs that scope resources under the tenant (e.g., `/api/tenants/{id}/orders/{id}`) to make authorization harder to miss.

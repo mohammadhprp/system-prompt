@@ -1,52 +1,56 @@
 # API Specification
 
-## Summary
+## Endpoint
+`<METHOD> /<path>`
 
-State the decision, change, incident, or task in two to four sentences.
+## Purpose
+What does this endpoint do in business terms?
 
-## Context
+## Request
 
-Describe the business need, affected users, systems, data, constraints, and timing.
-
-## Goals
-
-- Clear measurable outcome.
-- Production behavior that must be preserved.
-
-## Non-Goals
-
-- Work intentionally excluded from this change.
-
-## Proposal
-
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
-
-## Alternatives Considered
-
-| Option | Why not chosen |
-| --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
-
-## Risks and Mitigations
-
-| Risk | Mitigation | Owner |
+### Headers
+| Header | Required | Description |
 | --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
 
-## Testing and Evidence
+### Path Parameters
+| Parameter | Type | Description |
+| --- | --- | --- |
 
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
+### Query Parameters
+| Parameter | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
 
-## Deployment
+### Body (for POST/PUT/PATCH)
+```json
+{ "example": "request body" }
+```
 
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
+### Authorization
+What auth method is required? What scopes or permissions?
 
-## Example
+## Response
 
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+### Status Codes
+| Code | Condition | Body shape |
+| --- | --- | --- |
+
+### Success Body
+```json
+{ "example": "response body" }
+```
+
+### Error Body
+```json
+{ "error": { "code": "...", "message": "...", "details": [...] } }
+```
+
+## Rate Limits
+Limit, window, retry-after header behavior.
+
+## Examples
+
+### Request
+
+### Response
+
+### Error

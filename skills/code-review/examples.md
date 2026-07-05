@@ -1,31 +1,31 @@
 # Code Review Examples
 
-## Example 1: Orders Change
+## Example 1: Missing Validation
 
-A request asks to add a new order status. Good agent behavior:
+Review a PR that adds a POST /transfer endpoint with no input validation or auth. Good agent behavior:
 
-- Confirm which actors can set the status and which transitions are valid.
-- Check whether reports, notifications, payments, and inventory workflows depend on existing statuses.
-- Add validation at the contract boundary and enforce state transitions near the domain logic.
-- Include tests for valid transitions, invalid transitions, and compatibility with existing orders.
-- Add operational notes if the status affects dashboards or alerts.
+- Point out every input field (amount, source, target) should be validated for type, range, and format before reaching business logic.
+- Flag the missing authorization check: the caller must own the source account or have delegated permission.
+- Identify injection risk if any input is interpolated into SQL or rendered to HTML.
+- Recommend standard validation middleware and a consistent error shape rather than ad-hoc checks.
+- Request tests for invalid amounts, nonexistent accounts, and unauthenticated callers.
 
-## Example 2: Payments Risk
+## Example 2: N+1 Query
 
-A request asks to retry failed payment processing. Good agent behavior:
+Review a PR that fetches orders and then loops to load line items individually. Good agent behavior:
 
-- Require idempotency so duplicate retries do not double-charge users.
-- Store retry attempts and final outcome with enough detail for support and audit.
-- Use bounded retries and clear failure states.
-- Emit structured logs and metrics for retry count, success rate, and terminal failures.
-- Document rollback if the retry behavior causes unexpected load or user impact.
+- Identify the N+1 pattern: `SELECT * FROM orders` followed by `N` queries of `SELECT * FROM line_items WHERE order_id = ?`.
+- Recommend eager loading with a single batch query: `SELECT * FROM line_items WHERE order_id IN (?)`.
+- If using an ORM, point out the specific method that enables eager loading and note the performance difference.
+- Suggest pagination on orders to bound the total query volume.
+- Verify the fix with a test that asserts exactly 2 queries run (orders + line items) regardless of page size.
 
-## Example 3: Reports Endpoint
+## Example 3: Concurrency Bug
 
-A request asks for a reports endpoint over orders and products. Good agent behavior:
+Review a PR that updates account balances without locking. Good agent behavior:
 
-- Clarify freshness, authorization, filters, pagination, and expected volume.
-- Avoid scanning unbounded data on every request.
-- Return stable error shapes and predictable sorting.
-- Add tests for permissions, empty results, invalid filters, and large result sets.
-- Prefer a simple query first; introduce precomputation only with evidence.
+- Explain the race: two concurrent requests can read the same balance, subtract different amounts, and the second write clobbers the first.
+- Recommend optimistic locking with a version column: `UPDATE accounts SET balance = ?, version = version + 1 WHERE id = ? AND version = ?`.
+- If the ORM supports it, suggest using row-level locks (`SELECT FOR UPDATE`) inside a transaction.
+- Verify the update query itself is atomic: `UPDATE accounts SET balance = balance - ? WHERE id = ? AND balance >= ?` avoids the read-then-write gap.
+- Add a concurrency test that fires 10 parallel transfers and asserts the final balance matches the expected total.

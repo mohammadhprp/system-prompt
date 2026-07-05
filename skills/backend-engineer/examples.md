@@ -1,31 +1,31 @@
 # Backend Engineer Examples
 
-## Example 1: Orders Change
+## Example 1: User Settings API
 
-A request asks to add a new order status. Good agent behavior:
+Implement an endpoint that reads and updates user notification preferences. Good agent behavior:
 
-- Confirm which actors can set the status and which transitions are valid.
-- Check whether reports, notifications, payments, and inventory workflows depend on existing statuses.
-- Add validation at the contract boundary and enforce state transitions near the domain logic.
-- Include tests for valid transitions, invalid transitions, and compatibility with existing orders.
-- Add operational notes if the status affects dashboards or alerts.
+- Identify actors (user, admin) and data ownership rules—user sees own settings, admin sees tenant-wide defaults.
+- Choose a caching strategy: cache by user_id with a short TTL; invalidate on write via cache-aside pattern.
+- Validate setting keys against an allowlist, reject unknown keys with a 422 error and a list of valid options.
+- Design the update to be partial (PATCH) so clients send only changed fields; merge with stored defaults.
+- Add a rate limit on writes to prevent abuse; reads can be higher but still bounded.
 
-## Example 2: Payments Risk
+## Example 2: Notification Service
 
-A request asks to retry failed payment processing. Good agent behavior:
+Design a service that sends email and push notifications when orders are placed. Good agent behavior:
 
-- Require idempotency so duplicate retries do not double-charge users.
-- Store retry attempts and final outcome with enough detail for support and audit.
-- Use bounded retries and clear failure states.
-- Emit structured logs and metrics for retry count, success rate, and terminal failures.
-- Document rollback if the retry behavior causes unexpected load or user impact.
+- Evaluate sync vs async delivery: accept the notification request synchronously but hand delivery off to a queue for resilience.
+- Implement a retry mechanism with exponential backoff for transient failures; dead-letter after 3 attempts.
+- Deduplicate by notification_id so the same event is not sent twice if the producer retries.
+- Template notifications server-side so copy changes don't require app releases.
+- Emit telemetry for each notification channel (sent, delivered, bounced, opened) to track provider health.
 
-## Example 3: Reports Endpoint
+## Example 3: Inventory Reservation
 
-A request asks for a reports endpoint over orders and products. Good agent behavior:
+Design inventory reservation for a checkout flow with a 15-minute payment window. Good agent behavior:
 
-- Clarify freshness, authorization, filters, pagination, and expected volume.
-- Avoid scanning unbounded data on every request.
-- Return stable error shapes and predictable sorting.
-- Add tests for permissions, empty results, invalid filters, and large result sets.
-- Prefer a simple query first; introduce precomputation only with evidence.
+- Reserve inventory atomically at checkout time; release the reservation if payment is not completed within the window.
+- Handle concurrent requests: use SELECT FOR UPDATE or optimistic locking to prevent overselling.
+- On payment failure, roll back the reservation immediately and asynchronously notify the warehouse.
+- Implement a background job that releases expired reservations every minute; log releases for audit.
+- Add metrics for reservation success, expiration, and contention rate to tune the timeout and capacity.

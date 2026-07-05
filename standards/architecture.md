@@ -6,35 +6,35 @@ Define reusable backend engineering rules for architecture decisions across proj
 
 ## Rules
 
-- Make ownership, boundaries, and invariants explicit.
-- Prefer simple, compatible changes over broad rewrites.
-- Protect correctness, security, and data integrity before optimizing convenience.
-- Require evidence for performance, reliability, and complexity claims.
-- Document operational impact when behavior changes in production.
+- Enforce strict layering: presentation depends on application depends on domain; infrastructure depends on abstractions, not concrete types.
+- Dependencies must point inward: inner layers (domain) define interfaces; outer layers (infrastructure) implement them.
+- A module must have a single reason to change; group code by business domain, not by technical role.
+- Public API surfaces must be small and explicit; hide internal details behind package/module boundaries.
+- No circular dependencies between modules, packages, or layers; enforce with build-time checks.
 
 ## Best Practices
 
-- Use clear names that describe business meaning.
-- Keep changes small enough to review and roll back.
-- Validate inputs at boundaries and enforce invariants where data changes.
-- Include tests for normal paths, edge cases, and failure paths.
-- Add logs, metrics, traces, or runbooks when operators need them.
+- Use the Ports & Adapters pattern: business logic depends on interfaces (ports), external systems plug in via adapters.
+- Communicate between bounded contexts through asynchronous messages or a published anti-corruption layer; never share internal types.
+- Keep domain logic free of framework annotations, serialization concerns, and database primitives.
+- Draw architectural decisions as C4 diagrams (Context, Container, Component, Code) and review them before building.
+- Each module should be testable in isolation by swapping real adapters with test doubles at the port boundary.
 
 ## Anti-patterns
 
-- Hidden breaking changes.
-- Premature abstraction or speculative scaling.
-- Unbounded queries, retries, payloads, or background work.
-- Authorization or validation performed only in user-interface assumptions.
-- Comments or documents that repeat code without explaining decisions.
+- Anemic domain model where business logic leaks into services and the domain layer is just getters and setters.
+- Using dependency injection to wire everything together while still calling concrete classes directly.
+- Big Ball of Mud: no clear boundaries, arbitrary cross-module references, mixed concerns in a single package.
+- Leaking infrastructure concepts (HTTP request objects, database connections, serialization formats) into domain logic.
+- Premature microservices: extracting services before understanding the bounded context, adding network overhead without cohesion benefit.
 
 ## Checklist
 
-- [ ] The decision is necessary and scoped.
-- [ ] Compatibility and migration risk are understood.
-- [ ] Failure modes are handled deliberately.
-- [ ] Tests and operational evidence are sufficient.
-- [ ] Rollback or mitigation is possible.
+- [ ] Dependency direction is verified: domain depends on nothing, infrastructure depends on domain.
+- [ ] Each module has a well-defined public API and internal package is hidden.
+- [ ] No circular dependencies exist (verified by tooling).
+- [ ] Domain code is framework-independent and testable without infrastructure.
+- [ ] Architecture decision record (ADR) exists for any significant structural choice.
 
 ## Related Skills
 

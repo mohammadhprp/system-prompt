@@ -1,52 +1,28 @@
 # Architecture Decision Record
 
-## Summary
+## Title
+Short decision title (e.g., "Use PostgreSQL for Order Storage")
 
-State the decision, change, incident, or task in two to four sentences.
+## Status
+Proposed | Accepted | Deprecated | Superseded
 
 ## Context
+What is the problem, constraint, or opportunity? What forces are at play?
 
-Describe the business need, affected users, systems, data, constraints, and timing.
+## Decision
+What was decided? Be specific about the choice.
 
-## Goals
-
-- Clear measurable outcome.
-- Production behavior that must be preserved.
-
-## Non-Goals
-
-- Work intentionally excluded from this change.
-
-## Proposal
-
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
+## Consequences
+What becomes easier or harder? What tradeoffs were accepted?
 
 ## Alternatives Considered
-
-| Option | Why not chosen |
+| Option | Why rejected |
 | --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
+| Alternative A | Fails because... |
+| Alternative B | Fails because... |
 
-## Risks and Mitigations
+## Compliance
+How will adherence to this decision be verified?
 
-| Risk | Mitigation | Owner |
-| --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
-
-## Testing and Evidence
-
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
-
-## Deployment
-
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
-
-## Example
-
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+## Notes
+References, related ADRs, date, author.

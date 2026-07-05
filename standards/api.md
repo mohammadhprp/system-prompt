@@ -1,40 +1,41 @@
-# Api Standard
+# API Standard
 
 ## Purpose
 
-Define reusable backend engineering rules for api decisions across projects. This standard is canonical guidance for related skills.
+Define reusable backend engineering rules for API decisions across projects. This standard is canonical guidance for related skills.
 
 ## Rules
 
-- Make ownership, boundaries, and invariants explicit.
-- Prefer simple, compatible changes over broad rewrites.
-- Protect correctness, security, and data integrity before optimizing convenience.
-- Require evidence for performance, reliability, and complexity claims.
-- Document operational impact when behavior changes in production.
+- Use HTTP methods by semantic meaning: GET for reads, POST for creates, PUT for full replacement, PATCH for partial update, DELETE for removal.
+- Version the API via URL prefix (`/v1/`) or accept header; never break a published version without a deprecation cycle.
+- Return standard HTTP status codes: 200 for success, 201 for created, 204 for deleted, 400 for bad request, 401 for unauthenticated, 403 for forbidden, 404 for not found, 409 for conflict, 422 for validation, 429 for rate limited, 5xx for server errors.
+- All errors use a consistent JSON envelope: `{"error": {"code": "...", "message": "...", "details": {...}}}`.
+- Paginate list endpoints using cursor-based pagination; return `next_cursor` and `has_more` in the response body.
+- Use request IDs on mutating endpoints and return them in responses for idempotency guarantees.
 
 ## Best Practices
 
-- Use clear names that describe business meaning.
-- Keep changes small enough to review and roll back.
-- Validate inputs at boundaries and enforce invariants where data changes.
-- Include tests for normal paths, edge cases, and failure paths.
-- Add logs, metrics, traces, or runbooks when operators need them.
+- Design resources around business nouns, not actions; use sub-resources for relationships (`/orders/{id}/items`).
+- Make response bodies backward-compatible: never remove fields, never change field types; add fields as optional.
+- Rate limit by client (API key or IP); return `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset` headers and 429 with `Retry-After`.
+- Validate all input at the boundary using a schema (JSON Schema, protobuf, or equivalent); reject unknown fields.
+- Use idempotency keys (`Idempotency-Key` header) for POST endpoints that create resources.
 
 ## Anti-patterns
 
-- Hidden breaking changes.
-- Premature abstraction or speculative scaling.
-- Unbounded queries, retries, payloads, or background work.
-- Authorization or validation performed only in user-interface assumptions.
-- Comments or documents that repeat code without explaining decisions.
+- Using GET for mutating operations or POST for pure reads.
+- Returning 200 with an error body instead of the appropriate 4xx status code.
+- Changing a field's meaning or type within the same API version.
+- Exposing internal IDs or database identifiers when opaque public IDs are feasible.
+- Nesting resources deeper than two levels; flatten or use query parameters.
 
 ## Checklist
 
-- [ ] The decision is necessary and scoped.
-- [ ] Compatibility and migration risk are understood.
-- [ ] Failure modes are handled deliberately.
-- [ ] Tests and operational evidence are sufficient.
-- [ ] Rollback or mitigation is possible.
+- [ ] HTTP method matches the operation's semantics.
+- [ ] Error responses follow the standard envelope with actionable messages.
+- [ ] Pagination uses cursor-based tokens, not page numbers.
+- [ ] Rate limiting headers are present on all endpoints.
+- [ ] New fields are optional or have sensible defaults; no breaking changes.
 
 ## Related Skills
 

@@ -26,15 +26,14 @@ Use this skill when the task involves preparing small pull requests, clear descr
 - Respond to review by clarifying intent or changing code, not by defending ambiguity.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Keep the change small enough to review in one sitting. Split large changes into stacked PRs.
+2. Write a clear description that explains why the change exists, not just what it does.
+3. Include testing evidence: what was tested, what was not, and what is risky.
+4. Note deployment requirements: config changes, migrations, dependency updates, feature flags.
+5. Document rollback strategy: what happens if the change is reverted at each deployment phase.
+6. Separate refactors from behavior changes. If they must be combined, call it out explicitly.
+7. Call out migrations, contract changes, permission changes, and operational impact.
+8. Respond to review feedback by clarifying intent or changing code - avoid defensive replies.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -45,33 +44,29 @@ Use this skill when the task involves preparing small pull requests, clear descr
 - Reference related standards: standards/pull-requests.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- PR description explaining problem, solution, and testing evidence.
+- Deployment and rollback notes.
+- Separated refactor and behavior change diffs where applicable.
+- Migration, contract, and permission change annotations.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Creating PRs that are too large for thorough review.
+- Writing descriptions that describe implementation steps instead of the problem being solved.
+- Combining refactoring with behavior changes in the same diff.
+- Ignoring deployment and rollback planning.
+- Pushing new commits that mix review feedback responses with unrelated changes.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- A PR is merged without adequate review because it is too large.
+- A behavior change is hidden inside a refactor, causing an undetected regression.
+- A migration is deployed without a rollback plan, causing production downtime.
+- A feature flag is left in place permanently because the cleanup was not planned.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] The PR description explains the problem, solution, and testing evidence.
+- [ ] The diff is small enough for a thorough review (aim for under 400 lines).
+- [ ] Refactors are separated from behavior changes.
+- [ ] Config, migration, dependency, and feature flag changes are called out.
+- [ ] Rollback steps are documented and tested.
+- [ ] Migrations are reversible.
+- [ ] The change has been tested in a staging-like environment.

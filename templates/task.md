@@ -1,52 +1,27 @@
 # Engineering Task
 
-## Summary
-
-State the decision, change, incident, or task in two to four sentences.
+## Goal
+What needs to be done in one sentence.
 
 ## Context
+Why is this needed? What is the user or system impact?
 
-Describe the business need, affected users, systems, data, constraints, and timing.
+## Requirements
+- Functional requirement 1
+- Functional requirement 2
+- Non-functional requirement (performance, security, observability)
 
-## Goals
+## Out of Scope
+Work that is intentionally excluded.
 
-- Clear measurable outcome.
-- Production behavior that must be preserved.
+## Technical Notes
+Relevant architecture, existing code paths, data model details.
 
-## Non-Goals
+## Verification
+How will this task be verified as complete?
+- Test criteria
+- Review criteria
+- Deployment criteria
 
-- Work intentionally excluded from this change.
-
-## Proposal
-
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
-
-## Alternatives Considered
-
-| Option | Why not chosen |
-| --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
-
-## Risks and Mitigations
-
-| Risk | Mitigation | Owner |
-| --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
-
-## Testing and Evidence
-
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
-
-## Deployment
-
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
-
-## Example
-
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+## Related
+Links to issues, PRs, docs, designs.

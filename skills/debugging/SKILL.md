@@ -25,15 +25,15 @@ Use this skill when the task involves root cause analysis, log analysis, reprodu
 - Preserve evidence during incidents; do not destroy state needed for diagnosis.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Reproduce the issue in a controlled environment before making any changes.
+2. Gather evidence: logs, metrics, traces, stack traces, error rates, request samples.
+3. Isolate variables: binary search through commits, configs, inputs, or environments.
+4. Formulate a hypothesis that explains all observed symptoms, not just some.
+5. Test the hypothesis with the smallest possible experiment.
+6. Identify the root cause: code bug, config error, race condition, data corruption, dependency failure.
+7. Fix the root cause, not the symptom. Add tests that would have caught it.
+8. Add monitoring or alerting to detect recurrence.
+9. Document the incident timeline, root cause, fix, and detection gap.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -44,33 +44,29 @@ Use this skill when the task involves root cause analysis, log analysis, reprodu
 - Reference related standards: standards/logging.md, standards/observability.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- Reproduced issue and diagnostic evidence.
+- Root cause analysis with supporting evidence.
+- Fix with regression test and detection gap analysis.
+- Monitoring or alerting additions for recurrence detection.
+- Incident timeline and documentation.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Changing code before reproducing the issue.
+- Fixing symptoms instead of finding and eliminating the root cause.
+- Stopping at the first plausible cause without ruling out alternatives.
+- Ignoring evidence that does not fit the current hypothesis.
+- Failing to preserve diagnostic evidence before restarting or rolling back.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- The fix addresses the symptom but the root cause remains latent.
+- Diagnostic evidence is lost because logs rotated or services restarted.
+- A hypothesis is confirmed without disproving alternative explanations.
+- The debugging process disturbs production traffic or state.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] The issue is reproduced in a non-production environment.
+- [ ] Logs, metrics, and traces are correlated by request ID or trace ID.
+- [ ] Variables are isolated one at a time (binary search approach).
+- [ ] The root cause is identified and distinguished from symptoms.
+- [ ] A regression test covers the fix and the detection gap.
+- [ ] Monitoring or alerting can detect recurrence.

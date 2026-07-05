@@ -25,15 +25,15 @@ Use this skill when the task involves reviewing coupling, cohesion, layering, bo
 - Scalability claims require bottleneck analysis, not generic distribution.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Understand the architecture's scope, boundaries, and stated goals.
+2. Map the system: components, data flows, ownership boundaries, external dependencies.
+3. Evaluate coupling and cohesion: can components change independently?
+4. Check layering: does infrastructure leak into domain or policy into detail?
+5. Assess reliability: timeouts, retries, circuit breakers, fallbacks, bulkheads.
+6. Assess scalability: bottleneck analysis, load distribution, data partitioning.
+7. Identify single points of failure and missing failure modes.
+8. Compare against simpler alternatives that satisfy the same requirements.
+9. Summarize key risks, tradeoffs, and recommended follow-ups.
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -44,33 +44,30 @@ Use this skill when the task involves reviewing coupling, cohesion, layering, bo
 - Reference related standards: standards/architecture.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- Architecture diagram or component map (text description).
+- Coupling and cohesion analysis per boundary.
+- Reliability and scalability assessment.
+- Concrete risks with recommended mitigations.
+- Simpler alternatives analysis.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Reviewing implementation details instead of architectural boundaries.
+- Accepting complex designs without requiring evidence that simpler alternatives fail.
+- Ignoring operational concerns like deployment, rollback, and observability.
+- Treating architecture as fixed rather than evaluating changeability.
+- Overlooking data ownership and consistency boundaries.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- The review focuses on code style and misses structural coupling issues.
+- A component becomes a deployment bottleneck because ownership boundaries are unclear.
+- The architecture passes review but cannot be operated because observability was not considered.
+- Scaling requires a rewrite because data partitioning was not considered early.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] Component boundaries align with business capabilities.
+- [ ] Dependency direction follows the stable-dependency principle.
+- [ ] Each component has a clear data ownership boundary.
+- [ ] Failure isolation (bulkheads, circuit breakers) is present where needed.
+- [ ] The architecture supports incremental deployment and rollback.
+- [ ] Observability is designed in, not added after.
+- [ ] A simpler architecture was evaluated and ruled out with evidence.

@@ -6,35 +6,35 @@ Define reusable backend engineering rules for database decisions across projects
 
 ## Rules
 
-- Make ownership, boundaries, and invariants explicit.
-- Prefer simple, compatible changes over broad rewrites.
-- Protect correctness, security, and data integrity before optimizing convenience.
-- Require evidence for performance, reliability, and complexity claims.
-- Document operational impact when behavior changes in production.
+- Every table must have a single-column, auto-incrementing or UUID primary key named `id`.
+- All columns must be `NOT NULL` unless there is an explicit business reason for nullability; model optionality through separate tables where appropriate.
+- Define foreign key constraints for all relationships; use `ON DELETE RESTRICT` by default, `ON DELETE CASCADE` only after documented reasoning.
+- Index every column that appears in a `WHERE`, `JOIN`, `ORDER BY`, or `GROUP BY` clause; use composite indexes when filtering on multiple columns.
+- All migrations must be reversible (provide `down` migration); never alter or drop a column without a zero-downtime rollout plan.
 
 ## Best Practices
 
-- Use clear names that describe business meaning.
-- Keep changes small enough to review and roll back.
-- Validate inputs at boundaries and enforce invariants where data changes.
-- Include tests for normal paths, edge cases, and failure paths.
-- Add logs, metrics, traces, or runbooks when operators need them.
+- Name tables as plural nouns (`orders`, `users`) and columns as snake_case descriptive names (`created_at`, `order_status`).
+- Use database-level CHECK constraints for business invariants (e.g., `amount > 0`, `status IN ('pending', 'paid')`).
+- Keep transactions short; never hold a transaction open across network calls or user interaction.
+- Use `EXPLAIN ANALYZE` on every new or modified query before deploying; aim for sequential scans on tables under 10k rows, index scans on larger tables.
+- Pool connections with a max of `(2 × CPU cores) + 1` per service instance; configure statement timeouts at the connection level.
 
 ## Anti-patterns
 
-- Hidden breaking changes.
-- Premature abstraction or speculative scaling.
-- Unbounded queries, retries, payloads, or background work.
-- Authorization or validation performed only in user-interface assumptions.
-- Comments or documents that repeat code without explaining decisions.
+- Using a database as a message queue (polling tables for work); use a dedicated message broker instead.
+- Storing JSON blobs that are queried or joined on; promote queryable fields to proper columns with indexes.
+- Running application logic in triggers or stored procedures; keep business logic in application code.
+- SELECT * in production code; always list explicit columns.
+- Schema changes (migrations) applied at application startup; use a separate migration tool with gated rollout.
 
 ## Checklist
 
-- [ ] The decision is necessary and scoped.
-- [ ] Compatibility and migration risk are understood.
-- [ ] Failure modes are handled deliberately.
-- [ ] Tests and operational evidence are sufficient.
-- [ ] Rollback or mitigation is possible.
+- [ ] Every table has an `id` primary key, proper indexes, and foreign keys with explicit `ON DELETE` behavior.
+- [ ] All queries are reviewed with `EXPLAIN ANALYZE`; no sequential scans on hot paths.
+- [ ] Connection pool limits and statement timeouts are configured.
+- [ ] Migrations are reversible and have been tested against production-sized data.
+- [ ] No sensitive data (passwords, tokens, PII) is stored without encryption or hashing consideration.
 
 ## Related Skills
 

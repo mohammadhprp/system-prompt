@@ -1,52 +1,39 @@
 # Design Document
 
-## Summary
+## Problem Statement
+What problem is being solved? What is the user-visible impact?
 
-State the decision, change, incident, or task in two to four sentences.
+## Scope
+In scope / out of scope.
 
-## Context
+## Proposed Solution
+High-level approach with key design decisions.
 
-Describe the business need, affected users, systems, data, constraints, and timing.
+## Detailed Design
 
-## Goals
+### Data Model
+Entities, relationships, constraints.
 
-- Clear measurable outcome.
-- Production behavior that must be preserved.
+### API / Contracts
+Interfaces this component exposes or consumes.
 
-## Non-Goals
+### Behavior
+Key algorithms, state machines, workflow steps.
 
-- Work intentionally excluded from this change.
+### Failure Handling
+What happens when each dependency fails?
 
-## Proposal
+### Observability
+Logs, metrics, traces, alerts, dashboards.
 
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
+## Migration Plan
+Steps to go from current state to target state.
 
-## Alternatives Considered
+## Rollback Plan
+How to revert at each stage.
 
-| Option | Why not chosen |
-| --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
+## Test Plan
+Unit, integration, contract, and E2E coverage.
 
-## Risks and Mitigations
-
-| Risk | Mitigation | Owner |
-| --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
-
-## Testing and Evidence
-
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
-
-## Deployment
-
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
-
-## Example
-
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+## Open Questions
+What is not yet decided?

@@ -1,31 +1,31 @@
 # Testing Examples
 
-## Example 1: Orders Change
+## Example 1: Unit Test for Discount Logic
 
-A request asks to add a new order status. Good agent behavior:
+Write deterministic unit tests for a `calculateDiscount` function. Good agent behavior:
 
-- Confirm which actors can set the status and which transitions are valid.
-- Check whether reports, notifications, payments, and inventory workflows depend on existing statuses.
-- Add validation at the contract boundary and enforce state transitions near the domain logic.
-- Include tests for valid transitions, invalid transitions, and compatibility with existing orders.
-- Add operational notes if the status affects dashboards or alerts.
+- Cover the standard case: 10% discount on orders over $100 returns the correct amount.
+- Cover edge cases: zero order amount (discount is 0), negative amounts (error or 0), maximum discount cap (e.g., $50 max).
+- Cover boundary: order exactly $100 should qualify; $99.99 should not.
+- Make tests deterministic: use fixed dates and avoid randomness; stub any time or currency conversion calls.
+- Name tests clearly: `test_zero_discount_for_small_orders`, `test_discount_capped_at_50_dollars`.
 
-## Example 2: Payments Risk
+## Example 2: Integration Test for Order Creation
 
-A request asks to retry failed payment processing. Good agent behavior:
+Write an integration test that creates an order end-to-end with a test database. Good agent behavior:
 
-- Require idempotency so duplicate retries do not double-charge users.
-- Store retry attempts and final outcome with enough detail for support and audit.
-- Use bounded retries and clear failure states.
-- Emit structured logs and metrics for retry count, success rate, and terminal failures.
-- Document rollback if the retry behavior causes unexpected load or user impact.
+- Set up the database with known inventory: insert a product with stock=5 before the test.
+- Call the create-order endpoint and verify it returns 201 with the correct order ID and total.
+- Assert inventory was deducted: query the product stock and confirm it is now 4.
+- Assert the payment event was enqueued: check the outbox table or message queue.
+- Clean up by rolling back the transaction or truncating test data so tests are repeatable.
 
-## Example 3: Reports Endpoint
+## Example 3: Contract Test for API Client
 
-A request asks for a reports endpoint over orders and products. Good agent behavior:
+Write a contract test for the integration with an external payment provider. Good agent behavior:
 
-- Clarify freshness, authorization, filters, pagination, and expected volume.
-- Avoid scanning unbounded data on every request.
-- Return stable error shapes and predictable sorting.
-- Add tests for permissions, empty results, invalid filters, and large result sets.
-- Prefer a simple query first; introduce precomputation only with evidence.
+- Stub the HTTP client with WireMock or similar: define expected request shapes (headers, body, idempotency key).
+- Define response stubs for success (200 with `payment_id` and `status: captured`) and failure (422 with validation errors, 500).
+- Verify the client parses the success response correctly and returns a typed result.
+- Verify the client surfaces provider error details when the provider returns a 422.
+- Run contract tests in CI without the real provider—fail the build if the provider API contract changes unexpectedly.

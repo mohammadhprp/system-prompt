@@ -26,15 +26,14 @@ Use this skill when the task involves unit, integration, contract, end-to-end, t
 - Mocks should model behavior and failure, not implementation trivia.
 
 # Workflow
-1. Restate the user goal in concrete backend terms.
-2. Identify actors, data, invariants, failure modes, and external dependencies.
-3. Inspect existing project conventions before proposing changes.
-4. Decide whether clarifying questions are required. Ask only questions that materially affect design or risk.
-5. Produce a small plan: contract, data changes, behavior changes, tests, observability, deployment, and rollback.
-6. Compare at least one simpler alternative when the proposed solution adds complexity.
-7. Implement incrementally, preserving existing behavior where possible.
-8. Verify with the narrowest meaningful tests first, then broader checks when risk justifies them.
-9. Summarize tradeoffs, residual risks, and follow-up work that should not block the current change.
+1. Identify what is being tested: a unit of logic, an integration boundary, a contract, or an end-to-end journey.
+2. Choose the narrowest test type that provides sufficient confidence for the risk level.
+3. Write the test starting with the expected behavior: given X, when Y, then Z.
+4. Cover normal paths, edge cases (empty, null, boundary values), and failure paths (timeouts, errors, invalid input).
+5. Keep tests deterministic: no dependence on time, random values, shared state, or external service availability.
+6. Use mocks at integration boundaries to model real behavior and realistic failures, not implementation details.
+7. Run the full test suite locally before pushing.
+8. Review test coverage: are there untested branches, error paths, or concurrent scenarios?
 
 # Rules
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
@@ -45,33 +44,30 @@ Use this skill when the task involves unit, integration, contract, end-to-end, t
 - Reference related standards: standards/testing.md.
 
 # Deliverables
-- A concise engineering plan or review summary.
-- Explicit assumptions and clarifying questions when needed.
-- Contract, data, test, observability, deployment, and rollback notes for production changes.
-- Concrete risks with mitigations.
-- A checklist showing completion evidence.
+- Test plan covering normal paths, edge cases, and failure paths.
+- Deterministic tests with given/when/then structure.
+- Mock strategy modeling boundary behavior.
+- Contract tests for public API boundaries.
+- Coverage analysis of untested branches and error paths.
 
 # Common Mistakes
-- Starting with code before understanding invariants.
-- Designing for imagined future scale while ignoring present correctness.
-- Treating validation, authorization, logging, and tests as optional polish.
-- Creating generic abstractions after seeing only one use case.
-- Optimizing without measurement or failing to define the target metric.
-- Writing documents that describe implementation but omit failure handling.
+- Writing tests that mirror implementation details, breaking when the code is refactored.
+- Testing only the happy path and ignoring error handling and edge cases.
+- Using mocks that model framework internals instead of boundary behavior.
+- Creating flaky tests that depend on timing, ordering, or shared state.
+- Writing overly broad integration tests that are slow and brittle.
 
 # Failure Modes
-- A simple request becomes a broad rewrite.
-- A change works locally but cannot be safely deployed or rolled back.
-- Data becomes inconsistent because constraints or transactions were skipped.
-- Operators cannot diagnose incidents because logs and metrics are missing.
-- Reviewers cannot evaluate risk because decisions and assumptions are implicit.
+- A test passes in CI but fails locally (or vice versa) because of environment differences.
+- A refactor breaks many tests because they were coupled to implementation instead of behavior.
+- An integration test becomes a maintenance burden because it exercises too many paths at once.
+- False-positive tests give false confidence while real bugs exist in untested paths.
 
 # Checklist
-- [ ] Goal, scope, and non-goals are clear.
-- [ ] Simpler alternatives were considered.
-- [ ] Data integrity and compatibility are protected.
-- [ ] Security and authorization impact is reviewed.
-- [ ] Tests cover important behavior and edge cases.
-- [ ] Logs, metrics, traces, or health signals are included when operationally relevant.
-- [ ] Deployment and rollback are understood.
-- [ ] The final answer explains reasoning and evidence.
+- [ ] Tests cover normal paths, edge cases, and failure paths.
+- [ ] Tests are deterministic: no flakiness from time, randomness, or shared state.
+- [ ] Mocks model boundary behavior, not implementation internals.
+- [ ] The test suite runs in CI and is fast enough for quick feedback.
+- [ ] Coverage includes error handling and concurrent scenarios where applicable.
+- [ ] Tests are readable: given/when/then structure with descriptive names.
+- [ ] Contract tests exist for public API boundaries.

@@ -1,52 +1,34 @@
 # Pull Request
 
-## Summary
+## Problem
+What does this change solve? Link to issue/ticket.
 
-State the decision, change, incident, or task in two to four sentences.
+## Solution
+High-level approach. What changed and why this approach was chosen.
 
-## Context
+## Changes
+- `path/to/file`: what changed and why
+- `path/to/file`: what changed and why
 
-Describe the business need, affected users, systems, data, constraints, and timing.
+## Testing
+- [ ] Unit tests added/updated
+- [ ] Integration tests added/updated
+- [ ] Manual testing performed
+- [ ] Test evidence attached or linked
 
-## Goals
-
-- Clear measurable outcome.
-- Production behavior that must be preserved.
-
-## Non-Goals
-
-- Work intentionally excluded from this change.
-
-## Proposal
-
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
-
-## Alternatives Considered
-
-| Option | Why not chosen |
-| --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
-
-## Risks and Mitigations
-
-| Risk | Mitigation | Owner |
-| --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
-
-## Testing and Evidence
-
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
+## Risks
+- Migration: [yes/no] - [details]
+- Config change: [yes/no] - [details]
+- Breaking change: [yes/no] - [details]
+- Rollback complexity: [simple/complex]
 
 ## Deployment
+- Feature flag: [yes/no - name]
+- Migration order: [what runs first]
+- Monitoring: [what to watch after deploy]
 
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
+## Rollback
+Steps to revert this change safely.
 
-## Example
-
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+## Reviewer Notes
+What the reviewer should focus on, what is intentionally out of scope.

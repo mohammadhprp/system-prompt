@@ -1,52 +1,48 @@
 # Runbook
 
-## Summary
+## Service / Component
+Name and brief description.
 
-State the decision, change, incident, or task in two to four sentences.
+## Prerequisites
+Access, tools, credentials needed.
 
-## Context
+## Normal Operations
 
-Describe the business need, affected users, systems, data, constraints, and timing.
+### Start / Restart
+Steps to start or restart the service.
 
-## Goals
+### Stop
+Steps to gracefully stop the service.
 
-- Clear measurable outcome.
-- Production behavior that must be preserved.
+### Health Check
+How to verify the service is healthy.
 
-## Non-Goals
+## Diagnosis
 
-- Work intentionally excluded from this change.
-
-## Proposal
-
-Describe the chosen approach. Include contracts, data changes, permissions, failure handling, and operational behavior when relevant.
-
-## Alternatives Considered
-
-| Option | Why not chosen |
-| --- | --- |
-| Simpler direct approach | Use when it fails a stated requirement. |
-| More complex approach | Use when complexity is not yet justified. |
-
-## Risks and Mitigations
-
-| Risk | Mitigation | Owner |
+### Symptoms and Likely Causes
+| Symptom | Likely cause | Check |
 | --- | --- | --- |
-| Data inconsistency | Add constraints, tests, and rollback plan. | Engineering |
+| | | |
 
-## Testing and Evidence
+### Key Metrics and Logs
+What to check, where to find it, what is normal vs abnormal.
 
-- Unit checks:
-- Integration checks:
-- Contract checks:
-- Manual or operational checks:
+### Debug Commands
+Useful commands for inspection.
 
-## Deployment
+## Incident Response
 
-- Rollout plan:
-- Monitoring plan:
-- Rollback plan:
+### Severity Levels
+What qualifies as what severity.
 
-## Example
+### Mitigation Steps
+Ordered steps to reduce impact.
 
-For an orders change, specify who can create or update an order, how inventory is reserved, how payment failures are represented, which notifications are emitted, and which metrics indicate success or failure.
+### Escalation
+Who to contact and when.
+
+## Recovery
+Steps to restore normal operation after mitigation.
+
+## Appendix
+Links to dashboards, playbooks, design docs, team contacts.
