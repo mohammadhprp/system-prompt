@@ -98,4 +98,4 @@ Use `AGENTS.md`: safety and correctness outrank speed; data integrity outranks c
 
 ## License
 
-MIT. See `LICENSE`.
+[MIT](LICENSE)
