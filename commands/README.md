@@ -8,7 +8,7 @@ Commands define repeatable workflows that agents execute on demand, triggered by
 
 | Command | Purpose | Loads |
 | --- | --- | --- |
-| [`/architecture_review`](./architecture_review.md) | Review and improve system architecture. | architecture-review skill, architecture standard |
+| [`/architecture-review`](./architecture-review.md) | Review and improve system architecture. | architecture-review skill, architecture standard |
 | [`/changelog`](./changelog.md) | Create, add, or update CHANGELOG.md entries. | — |
 | [`/commit`](./commit.md) | Create atomic git commits with conventional messages. | — |
 | [`/pr`](./pr.md) | Create a GitHub PR or GitLab MR for the current branch. | pull-request skill, pull-requests standard |
