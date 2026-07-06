@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## 0.2.0 - 2026-07-06
+
 ### Added
 
 - Added a framework-agnostic MCP catalog under `mcps/` with contribution guidance, naming conventions, and a required directory structure for future MCP entries.
