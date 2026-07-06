@@ -36,13 +36,13 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `references/templates/` | Ready-to-use workflow documents. |
 
 
-## Command Catalog
+## Command
 
 The [`commands/`](commands/) directory is a catalog of slash commands for AI coding agents. Each command defines a repeatable workflow that agents execute on demand.
 
 See the full [command catalog](commands/README.md) for available commands, their purposes, and what skills they load.
 
-## MCP Catalog
+## MCP
 
 The [`mcps/`](mcps/) directory is a curated catalog of Model Context Protocol servers for AI coding agents. Each entry explains what the MCP does, when to use it, how to install it, how to configure it across common AI clients, and how to troubleshoot it.
 
@@ -58,7 +58,7 @@ Before adding an MCP to a project, check:
 - **Client support**: confirm the target AI client supports the MCP transport and configuration format.
 - **Operational value**: install MCPs that materially improve context, safety, or verification.
 
-## Plugin Catalog
+## Plugin
 
 The [`plugins/`](plugins/) directory is a curated catalog of OpenCode plugins for AI coding agents. Each entry explains what the plugin does, when to use it, how to install it, how to configure it, and how to troubleshoot it.
 

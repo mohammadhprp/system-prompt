@@ -2,10 +2,12 @@
 
 All notable changes to this project are documented here.
 
-## Unreleased
+## 0.2.1 - 2026-07-06
 
 ### Added
 
+- Added `brand-guidelines` and `web-artifacts-builder` skills to `skills/README.md` catalog.
+- Added `commands/learn.md` command (`/learn`) for distilling reusable skills from any source (directory, URL, workflow, or pasted notes) using the skill-creator skill.
 - Added Excalidraw MCP entry (`mcps/excalidraw/`) with README, install, capabilities, troubleshooting, and OpenCode config for streaming hand-drawn Excalidraw diagrams via MCP Apps.
 - Added `commands/summarize-changes.md` command for summarizing uncommitted changes and flagging risky patterns.
 
