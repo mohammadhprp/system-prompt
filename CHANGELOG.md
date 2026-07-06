@@ -15,6 +15,7 @@ All notable changes to this project are documented here.
 - Updated the main README to present the repository as an AI coding agent framework that includes skills, standards, templates, and MCP documentation.
 - Added `skills/skills-cli/` entry with SKILL.md, examples.md, and README update for Vercel Labs `npx skills` CLI.
 - Created `skills/README.md` skill catalog with full table of 21 skills, How to Choose, and contribution guide. Replaced inline skill list in main README with brief overview + How to Choose a Skill section.
+- Created `commands/` catalog with `commands/changelog.md`, `commands/architecture_review.md`, `commands/review.md`, `commands/pr.md`, and `commands/README.md`. Added Command Catalog section to main README.
 
 ### Changed
 

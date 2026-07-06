@@ -28,11 +28,18 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `AGENTS.md` | Entry point for agents: loading rules, skill map, conflict resolution. |
 | `system-prompt.md` | Global behavior contract for backend engineering work. |
 | `skills/` | Curated skill catalog with definitions, workflows, and examples. |
+| `commands/` | Slash command catalog with repeatable agent workflows. |
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
 | `plugins/` | Curated OpenCode plugin catalog with install, capabilities, and troubleshooting documentation. |
 | `references/standards/` | Canonical engineering standards referenced by skills. |
 | `references/templates/` | Ready-to-use workflow documents. |
 
+
+## Command Catalog
+
+The [`commands/`](commands/) directory is a catalog of slash commands for AI coding agents. Each command defines a repeatable workflow that agents execute on demand.
+
+See the full [command catalog](commands/README.md) for available commands, their purposes, and what skills they load.
 
 ## MCP Catalog
 
