@@ -29,6 +29,7 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `system-prompt.md` | Global behavior contract for backend engineering work. |
 | `skills/` | Procedural skills used for specific tasks. |
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
+| `plugins/` | Curated OpenCode plugin catalog with install, capabilities, and troubleshooting documentation. |
 | `references/standards/` | Canonical engineering standards referenced by skills. |
 | `references/templates/` | Ready-to-use workflow documents. |
 
@@ -48,6 +49,21 @@ Before adding an MCP to a project, check:
 - **Permissions**: understand whether the MCP can read secrets, query databases, execute code, or modify state.
 - **Client support**: confirm the target AI client supports the MCP transport and configuration format.
 - **Operational value**: install MCPs that materially improve context, safety, or verification.
+
+## Plugin Catalog
+
+The [`plugins/`](plugins/) directory is a curated catalog of OpenCode plugins for AI coding agents. Each entry explains what the plugin does, when to use it, how to install it, how to configure it, and how to troubleshoot it.
+
+Plugins extend OpenCode with custom commands, agent tools, TUI elements, and lifecycle hooks that the base agent does not provide.
+
+### How to Choose a Plugin
+
+Before adding a plugin to a project, check:
+
+- **Compatibility**: does the plugin support your OpenCode version?
+- **Capabilities**: does it add commands, tools, or UI that improve your workflow?
+- **Permissions**: does it read or write files outside the project directory?
+- **Maintenance**: is the plugin actively maintained and documented?
 
 ## How AI Agents Should Use This Repository
 
