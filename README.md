@@ -32,6 +32,7 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `commands/` | Slash command catalog with repeatable agent workflows. |
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
 | `plugins/` | Curated OpenCode plugin catalog with install, capabilities, and troubleshooting documentation. |
+| `styles/` | Curated design system catalog from Refero Styles — colors, typography, spacing, and component references. |
 | `references/standards/` | Canonical engineering standards referenced by skills. |
 | `references/templates/` | Ready-to-use workflow documents. |
 
@@ -72,6 +73,21 @@ Before adding a plugin to a project, check:
 - **Capabilities**: does it add commands, tools, or UI that improve your workflow?
 - **Permissions**: does it read or write files outside the project directory?
 - **Maintenance**: is the plugin actively maintained and documented?
+
+## Style
+
+The [`styles/`](styles/) directory is a curated catalog of design system references from [Refero Styles](https://styles.refero.design/). Each entry provides a complete breakdown of colors, typography, spacing, components, and design tokens ready for AI coding agents.
+
+See the full [style catalog](styles/README.md) for the complete list of available styles and their descriptions.
+
+### How to Choose a Style
+
+Before using a style reference, check:
+
+- **Fit**: does the design language match the product's aesthetic and brand direction?
+- **Platform**: some styles target specific platforms (dark product UI, marketing sites, developer tools).
+- **Tokens**: each style includes CSS custom properties and Tailwind v4 theme configuration for direct use.
+- **Constraints**: pay attention to the do's and don'ts — they encode important design decisions.
 
 ## Skills
 

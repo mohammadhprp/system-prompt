@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here.
 
+## Unreleased
+
+### Added
+
+- Added `styles/` catalog with Linear and Raycast design system references from Refero Styles.
+- Created `styles/README.md` with style catalog table, usage guide, and source attribution.
+- Created `styles/linear/README.md` with full Linear design token reference, components, and CSS/Tailwind snippets.
+- Created `styles/raycast/README.md` with full Raycast design token reference, components, and CSS/Tailwind snippets.
+- Added Style section to root README with catalog link and selection guidance.
+
 ## 0.2.1 - 2026-07-06
 
 ### Added
