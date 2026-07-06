@@ -27,6 +27,7 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | --- | --- |
 | `AGENTS.md` | Entry point for agents: loading rules, skill map, conflict resolution. |
 | `system-prompt.md` | Global behavior contract for backend engineering work. |
+| `agents/` | Specialized subagents for security audits, architecture, code review, and research. |
 | `skills/` | Curated skill catalog with definitions, workflows, and examples. |
 | `commands/` | Slash command catalog with repeatable agent workflows. |
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
@@ -72,15 +73,6 @@ Before adding a plugin to a project, check:
 - **Permissions**: does it read or write files outside the project directory?
 - **Maintenance**: is the plugin actively maintained and documented?
 
-## How AI Agents Should Use This Repository
-
-1. Read `AGENTS.md` first.
-2. Load `system-prompt.md` as the global behavior baseline when supported.
-3. Select only the skills relevant to the current task.
-4. Apply standards as canonical rules, not optional advice.
-5. Use templates when producing engineering artifacts.
-6. If requirements are unclear, ask concise clarifying questions before implementation.
-
 ## Skills
 
 The [`skills/`](skills/) directory is a curated catalog of task-specific procedures for AI coding agents. Each entry has a `SKILL.md` defining triggers, workflow, and standards references, plus `examples.md` with realistic usage examples.
@@ -96,6 +88,20 @@ Before activating a skill, check:
 - **Combination**: complex tasks may need multiple skills (e.g., API Design + Security + Testing).
 - **Sequence**: some skills pair naturally (Architecture Review before Database Design).
 
+## Agent Catalog
+
+The [`agents/`](agents/) directory is a catalog of specialized subagents for AI coding agents. Each subagent handles a specific domain and returns findings to the orchestrating agent.
+
+See the full [agent catalog](agents/README.md) for available agents, their purposes, and permissions.
+
+### How to Choose an Agent
+
+Before invoking a subagent, check:
+
+- **Fit**: does the agent's domain match the current need (security audit, architecture, code review, research)?
+- **Permissions**: agents are read-only by design — they investigate and report, they do not modify files.
+- **Scope**: agents are narrow and specialized. Use them alongside skills for comprehensive coverage.
+
 ## Customization
 
 Teams can customize this repository by:
@@ -110,6 +116,15 @@ Keep additions small, explicit, and framework-agnostic unless they live in a dow
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md). Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
+
+## How AI Agents Should Use This Repository
+
+1. Read `AGENTS.md` first.
+2. Load `system-prompt.md` as the global behavior baseline when supported.
+3. Select only the skills relevant to the current task.
+4. Apply standards as canonical rules, not optional advice.
+5. Use templates when producing engineering artifacts.
+6. If requirements are unclear, ask concise clarifying questions before implementation.
 
 ## FAQ
 

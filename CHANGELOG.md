@@ -16,6 +16,9 @@ All notable changes to this project are documented here.
 - Added `skills/skills-cli/` entry with SKILL.md, examples.md, and README update for Vercel Labs `npx skills` CLI.
 - Created `skills/README.md` skill catalog with full table of 21 skills, How to Choose, and contribution guide. Replaced inline skill list in main README with brief overview + How to Choose a Skill section.
 - Created `commands/` catalog with `commands/changelog.md`, `commands/architecture_review.md`, `commands/review.md`, `commands/pr.md`, and `commands/README.md`. Added Command Catalog section to main README.
+- Added `agents/security-auditor.md` subagent for REST API security audits covering authentication, authorization, input validation, secrets, data protection, rate limiting, headers, and logging.
+- Added `agents/backend-architect.md` subagent for scalable, secure backend system design covering API design, database architecture, system architecture, security, performance, and DevOps.
+- Created `agents/README.md` agent catalog with table of 4 agents, permission conventions, and contribution guide. Added Agent Catalog section to main README with How to Choose guidance.
 
 ### Changed
 
