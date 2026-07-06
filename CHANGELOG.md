@@ -13,6 +13,8 @@ All notable changes to this project are documented here.
 - Added MCP catalog entries for Figma MCP Go (`mcps/figma-mcp-go/`), GitLab MCP (`mcps/gitlab-mcp/`), Jira MCP (`mcps/jira-mcp/`), Chrome DevTools MCP (`mcps/chrome-devtools/`), and Notion MCP (`mcps/notion-mcp/`), each with README, install, capabilities, troubleshooting, and OpenCode config.
 - Added a framework-agnostic plugin catalog under `plugins/` with the OpenCode Goal Plugin entry (`plugins/opencode-goal-plugin/`) including README, install, capabilities, and troubleshooting.
 - Updated the main README to present the repository as an AI coding agent framework that includes skills, standards, templates, and MCP documentation.
+- Added `skills/skills-cli/` entry with SKILL.md, examples.md, and README update for Vercel Labs `npx skills` CLI.
+- Created `skills/README.md` skill catalog with full table of 21 skills, How to Choose, and contribution guide. Replaced inline skill list in main README with brief overview + How to Choose a Skill section.
 
 ### Changed
 

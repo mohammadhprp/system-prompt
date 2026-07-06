@@ -27,7 +27,7 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | --- | --- |
 | `AGENTS.md` | Entry point for agents: loading rules, skill map, conflict resolution. |
 | `system-prompt.md` | Global behavior contract for backend engineering work. |
-| `skills/` | Procedural skills used for specific tasks. |
+| `skills/` | Curated skill catalog with definitions, workflows, and examples. |
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
 | `plugins/` | Curated OpenCode plugin catalog with install, capabilities, and troubleshooting documentation. |
 | `references/standards/` | Canonical engineering standards referenced by skills. |
@@ -76,26 +76,18 @@ Before adding a plugin to a project, check:
 
 ## Skills
 
-- `backend-engineer`: general problem solving, requirements analysis, risk management.
-- `api-design`: resource contracts, compatibility, validation, errors, idempotency.
-- `database-design`: modeling, constraints, transactions, indexes, migrations.
-- `architecture-review`: boundaries, coupling, cohesion, scaling, reliability.
-- `code-review`: readability, correctness, testing, maintainability, security.
-- `security`: authentication, authorization, secrets, input handling, least privilege.
-- `performance`: profiling, caching, query optimization, CPU, memory, network.
-- `testing`: unit, integration, contract, end-to-end, deterministic tests.
-- `debugging`: reproduction, isolation, root cause analysis, evidence gathering.
-- `observability`: logs, metrics, traces, health checks, alerts.
-- `refactoring`: safe behavior-preserving improvements.
-- `documentation`: ADRs, design docs, runbooks, operational docs.
-- `pull-request`: small changes, clear evidence, deployment and rollback notes.
-- `chrome-devtools`: browser automation, debugging, performance analysis, screenshots.
-- `gitlab-mcp`: merge requests, issues, pipelines, repositories, CI/CD workflow.
-- `jira-mcp`: issue management, JQL search, comments, project inspection.
-- `laravel-best-practices`: Laravel PHP patterns, Eloquent, validation, security, testing.
-- `lavish`: rich HTML artifacts, visual reviews, annotated feedback loops.
-- `notion-mcp`: pages, databases, comments, search, workspace management.
-- `skill-creator`: skill design, iteration, evaluation, and performance benchmarking.
+The [`skills/`](skills/) directory is a curated catalog of task-specific procedures for AI coding agents. Each entry has a `SKILL.md` defining triggers, workflow, and standards references, plus `examples.md` with realistic usage examples.
+
+See the full [skill catalog](skills/README.md) for the complete list of available skills, their purposes, and when to use them.
+
+### How to Choose a Skill
+
+Before activating a skill, check:
+
+- **Fit**: does the skill's purpose match the current task?
+- **Scope**: general skills (Backend Engineer) cover broad reasoning; narrow skills (Laravel Best Practices) go deep on one topic.
+- **Combination**: complex tasks may need multiple skills (e.g., API Design + Security + Testing).
+- **Sequence**: some skills pair naturally (Architecture Review before Database Design).
 
 ## Customization
 
