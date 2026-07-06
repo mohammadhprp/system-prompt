@@ -41,7 +41,7 @@ Use this skill when the task involves preparing small pull requests, clear descr
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/pull-requests.md.
+- Reference related standards: references/standards/pull-requests.md.
 
 # Deliverables
 - PR description explaining problem, solution, and testing evidence.

@@ -43,7 +43,7 @@ Use this skill when the task involves authentication, authorization, secrets, en
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/security.md.
+- Reference related standards: references/standards/security.md.
 
 # Deliverables
 - Security review of authentication, authorization, and input handling.

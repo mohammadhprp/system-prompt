@@ -29,8 +29,8 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `system-prompt.md` | Global behavior contract for backend engineering work. |
 | `skills/` | Procedural skills used for specific tasks. |
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
-| `standards/` | Canonical engineering standards referenced by skills. |
-| `templates/` | Ready-to-use workflow documents. |
+| `references/standards/` | Canonical engineering standards referenced by skills. |
+| `references/templates/` | Ready-to-use workflow documents. |
 
 
 ## MCP Catalog
@@ -48,29 +48,6 @@ Before adding an MCP to a project, check:
 - **Permissions**: understand whether the MCP can read secrets, query databases, execute code, or modify state.
 - **Client support**: confirm the target AI client supports the MCP transport and configuration format.
 - **Operational value**: install MCPs that materially improve context, safety, or verification.
-
-### How to Contribute a New MCP
-
-Every MCP must follow this structure:
-
-```text
-mcps/<mcp-slug>/
-├── README.md
-├── install.md
-├── capabilities.md
-├── troubleshooting.md
-└── configs/
-    ├── opencode.json
-```
-
-Naming conventions:
-
-- Use lowercase kebab-case for MCP directory names.
-- Use the official MCP name in Markdown page titles.
-- Use stable, lowercase MCP server names in config examples.
-- Keep all required file names exactly as shown above.
-
-When contributing, prefer official documentation over third-party sources, include practical verification steps, document limitations, and keep content concise and client-neutral except where a specific client requires unique setup.
 
 ## How AI Agents Should Use This Repository
 
@@ -96,12 +73,19 @@ When contributing, prefer official documentation over third-party sources, inclu
 - `refactoring`: safe behavior-preserving improvements.
 - `documentation`: ADRs, design docs, runbooks, operational docs.
 - `pull-request`: small changes, clear evidence, deployment and rollback notes.
+- `chrome-devtools`: browser automation, debugging, performance analysis, screenshots.
+- `gitlab-mcp`: merge requests, issues, pipelines, repositories, CI/CD workflow.
+- `jira-mcp`: issue management, JQL search, comments, project inspection.
+- `laravel-best-practices`: Laravel PHP patterns, Eloquent, validation, security, testing.
+- `lavish`: rich HTML artifacts, visual reviews, annotated feedback loops.
+- `notion-mcp`: pages, databases, comments, search, workspace management.
+- `skill-creator`: skill design, iteration, evaluation, and performance benchmarking.
 
 ## Customization
 
 Teams can customize this repository by:
 
-- Adding organization-specific standards under `standards/`.
+- Adding organization-specific standards under `references/standards/`.
 - Creating new skills under `skills/<skill-name>/SKILL.md` using the existing format.
 - Editing templates to match internal review and incident practices.
 - Adding project-specific agent instructions in a downstream `AGENTS.md`.
@@ -112,30 +96,23 @@ Keep additions small, explicit, and framework-agnostic unless they live in a dow
 
 See [CONTRIBUTING](CONTRIBUTING.md). Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
 
-## Roadmap
-
-- Add more examples for event-driven workflows and batch processing.
-- Add checklist packs for production readiness reviews.
-- Add compatibility notes for common agent directory conventions.
-- Add release validation scripts for formatting and terminology checks.
-
 ## FAQ
 
 ### Is this tied to a specific language or framework?
 
-No. Guidance is intentionally expressed as engineering decisions, workflows, and checks.
+> No. Guidance is intentionally expressed as engineering decisions, workflows, and checks.
 
 ### Is this a prompt collection?
 
-No. The skills are operational procedures that agents apply selectively.
+> No. The skills are operational procedures that agents apply selectively.
 
 ### Can humans use it?
 
-Yes. The standards and templates are useful for reviews, design discussions, and onboarding.
+> Yes. The standards and templates are useful for reviews, design discussions, and onboarding.
 
 ### How should conflicts be handled?
 
-Use `AGENTS.md`: safety and correctness outrank speed; data integrity outranks convenience; explicit user requirements outrank defaults when they do not create unacceptable risk.
+> Use [AGENTS.md](AGENTS.md): safety and correctness outrank speed; data integrity outranks convenience; explicit user requirements outrank defaults when they do not create unacceptable risk.
 
 ## License
 

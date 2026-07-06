@@ -41,7 +41,7 @@ Use this skill when the task involves root cause analysis, log analysis, reprodu
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/logging.md, standards/observability.md.
+- Reference related standards: references/standards/logging.md, references/standards/observability.md.
 
 # Deliverables
 - Reproduced issue and diagnostic evidence.

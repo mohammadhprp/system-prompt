@@ -42,7 +42,7 @@ Use this skill when the task involves ADRs, design documents, runbooks, API docu
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/documentation.md.
+- Reference related standards: references/standards/documentation.md.
 
 # Deliverables
 - Document with clear audience, purpose, and type.

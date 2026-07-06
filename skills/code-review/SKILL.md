@@ -41,7 +41,7 @@ Use this skill when the task involves reviewing readability, correctness, naming
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/naming.md, standards/testing.md.
+- Reference related standards: references/standards/naming.md, references/standards/testing.md.
 
 # Deliverables
 - Reviewed diff with per-section comments.

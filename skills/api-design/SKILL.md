@@ -43,7 +43,7 @@ Use this skill when the task involves creating or changing service contracts, re
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/api.md, standards/security.md.
+- Reference related standards: references/standards/api.md, references/standards/security.md.
 
 # Deliverables
 - Request and response contract spec.

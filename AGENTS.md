@@ -7,8 +7,8 @@ This file is the entry point for AI coding agents using this repository. Load it
 - `system-prompt.md` defines the global backend engineering behavior.
 - `skills/*/SKILL.md` files define task-specific procedures.
 - `skills/*/examples.md` files show realistic engineering decisions.
-- `standards/*.md` files are canonical rules.
-- `templates/*.md` files are reusable deliverables.
+- `references/standards/*.md` files are canonical rules.
+- `references/templates/*.md` files are reusable deliverables.
 
 ## Skill Activation
 

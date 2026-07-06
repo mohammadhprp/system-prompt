@@ -41,7 +41,7 @@ Use this skill when the task involves removing duplication, simplifying code, re
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/naming.md, standards/testing.md.
+- Reference related standards: references/standards/naming.md, references/standards/testing.md.
 
 # Deliverables
 - Improved code with one conceptual change per step.

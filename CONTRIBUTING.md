@@ -4,7 +4,7 @@
 
 - Keep guidance framework-agnostic and language-agnostic.
 - Prefer concise rules with clear reasons.
-- Put reusable rules in `standards/`; put procedures in `skills/`; put fillable artifacts in `templates/`.
+- Put reusable rules in `references/standards/`; put procedures in `skills/`; put fillable artifacts in `references/templates/`.
 - Avoid vague filler, speculative advice, and duplicated sections.
 
 ## Skill Changes

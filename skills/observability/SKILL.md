@@ -41,7 +41,7 @@ Use this skill when the task involves structured logging, metrics, distributed t
 - Do not hide breaking changes in refactors.
 - Do not weaken authorization, validation, transaction safety, or error handling to make implementation easier.
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
-- Reference related standards: standards/observability.md, standards/logging.md.
+- Reference related standards: references/standards/observability.md, references/standards/logging.md.
 
 # Deliverables
 - Structured logging schema with field names and severity levels.
