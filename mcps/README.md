@@ -9,6 +9,7 @@ This catalog is framework-agnostic: each entry documents what the server does, w
 | MCP | Purpose | Best fit |
 | --- | --- | --- |
 | [Chrome DevTools MCP](./chrome-devtools/README.md) | Control and inspect a live Chrome browser — performance traces, debugging, network analysis, screenshots, and automation. | Any project that needs browser debugging, performance analysis, or UI automation. |
+| [Excalidraw MCP](./excalidraw/README.md) | Stream hand-drawn Excalidraw diagrams with interactive fullscreen editing — architecture diagrams, flowcharts, wireframes. | Any project that benefits from visual diagrams, architecture visualization, or design sketching. |
 | [Figma MCP Go](./figma-mcp-go/README.md) | Full read/write access to Figma designs via plugin bridge — no API token or rate limits. | Any project that works with Figma designs. |
 | [GitLab MCP](./gitlab-mcp/README.md) | Comprehensive GitLab integration — projects, MRs, issues, pipelines, wiki, milestones, and more. | Any project hosted on GitLab (SaaS or self-hosted). |
 | [Graphify MCP](./graphify/README.md) | Knowledge graph of your codebase — query instead of grep, trace paths, find connections, analyze PR impact. | Any project that needs codebase understanding, architecture discovery, or onboarding. |
