@@ -1,0 +1,27 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "formatter": true,
+    "lsp": false,
+    "plugin": [
+      "@prevalentware/opencode-goal-plugin"
+    ],
+    "instructions": ["AGENTS.md"],
+    "references": {
+      "docs": {
+          "path": "references/docs",
+          "description": "Project architecture, domain, API, and development documentation."
+      }
+    },
+    "mcp": {
+      "chrome-devtools": {
+          "type": "local",
+          "command": ["bun", "x", "chrome-devtools-mcp@latest"],
+          "enabled": true
+      },
+      "notion": {
+          "type": "remote",
+          "url": "https://mcp.notion.com/mcp",
+          "enabled": true
+      }
+    }
+}
