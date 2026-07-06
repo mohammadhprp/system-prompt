@@ -20,15 +20,15 @@ All tools are available by default — there are no opt-in toolsets for this ser
 
 ## Key Workflows
 
-### Page Lifecycle (see reference/pages.md)
+### Page Lifecycle (see references/pages.md)
 
 `fetch` → `create-pages` → `update-page` / `duplicate-page` / `move-pages` → `search`
 
-### Database Schema (see reference/databases.md)
+### Database Schema (see references/databases.md)
 
 `fetch` → `create-database` → `update-data-source` → `create-view` → `update-view`
 
-### Comment Threads (see reference/comments.md)
+### Comment Threads (see references/comments.md)
 
 `fetch` (with `include_discussions`) → `create-comment` → `get-comments`
 

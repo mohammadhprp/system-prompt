@@ -16,7 +16,7 @@ Check sibling files, related controllers, models, or tests for established patte
 
 ## Quick Reference
 
-### 1. Database Performance → `rules/db-performance.md`
+### 1. Database Performance → `references/db-performance.md`
 
 - Eager load with `with()` to prevent N+1 queries
 - Enable `Model::preventLazyLoading()` in development
@@ -27,7 +27,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `cursor()` for memory-efficient read-only iteration
 - Never query in Blade templates
 
-### 2. Advanced Query Patterns → `rules/advanced-queries.md`
+### 2. Advanced Query Patterns → `references/advanced-queries.md`
 
 - `addSelect()` subqueries over eager-loading entire has-many for a single value
 - Dynamic relationships via subquery FK + `belongsTo`
@@ -38,7 +38,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - Compound indexes matching `orderBy` column order
 - Correlated subqueries in `orderBy` for has-many sorting (avoid joins)
 
-### 3. Security → `rules/security.md`
+### 3. Security → `references/security.md`
 
 - Define `$fillable` or `$guarded` on every model, authorize every action via policies or gates
 - No raw SQL with user input — use Eloquent or query builder
@@ -46,7 +46,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - Validate MIME type, extension, and size for file uploads
 - Never commit `.env`, use `config()` for secrets, `encrypted` cast for sensitive DB fields
 
-### 4. Caching → `rules/caching.md`
+### 4. Caching → `references/caching.md`
 
 - `Cache::remember()` over manual get/put
 - `Cache::flexible()` for stale-while-revalidate on high-traffic data
@@ -57,7 +57,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `Cache::lock()` / `lockForUpdate()` for race conditions
 - Failover cache stores in production
 
-### 5. Eloquent Patterns → `rules/eloquent.md`
+### 5. Eloquent Patterns → `references/eloquent.md`
 
 - Correct relationship types with return type hints
 - Local scopes for reusable query constraints
@@ -67,7 +67,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `whereBelongsTo($model)` for cleaner queries
 - Never hardcode table names — use `(new Model)->getTable()` or Eloquent queries
 
-### 6. Validation & Forms → `rules/validation.md`
+### 6. Validation & Forms → `references/validation.md`
 
 - Form Request classes, not inline validation
 - Array notation `['required', 'email']` for new code; follow existing convention
@@ -75,13 +75,13 @@ Check sibling files, related controllers, models, or tests for established patte
 - `Rule::when()` for conditional validation
 - `after()` instead of `withValidator()`
 
-### 7. Configuration → `rules/config.md`
+### 7. Configuration → `references/config.md`
 
 - `env()` only inside config files
 - `App::environment()` or `app()->isProduction()`
 - Config, lang files, and constants over hardcoded text
 
-### 8. Testing Patterns → `rules/testing.md`
+### 8. Testing Patterns → `references/testing.md`
 
 - `LazilyRefreshDatabase` over `RefreshDatabase` for speed
 - `assertModelExists()` over raw `assertDatabaseHas()`
@@ -89,7 +89,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - Use fakes (`Event::fake()`, `Exceptions::fake()`, etc.) — but always after factory setup, not before
 - `recycle()` to share relationship instances across factories
 
-### 9. Queue & Job Patterns → `rules/queue-jobs.md`
+### 9. Queue & Job Patterns → `references/queue-jobs.md`
 
 - `retry_after` must exceed job `timeout`; use exponential backoff `[1, 5, 10]`
 - `ShouldBeUnique` to prevent duplicates; `ShouldBeUniqueUntilProcessing` for early lock release
@@ -97,7 +97,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `RateLimited` middleware for external API calls; `Bus::batch()` for related jobs
 - Horizon for complex multi-queue scenarios
 
-### 10. Routing & Controllers → `rules/routing.md`
+### 10. Routing & Controllers → `references/routing.md`
 
 - Implicit route model binding
 - Scoped bindings for nested resources
@@ -105,7 +105,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - Methods under 10 lines — extract to actions/services
 - Type-hint Form Requests for auto-validation
 
-### 11. HTTP Client → `rules/http-client.md`
+### 11. HTTP Client → `references/http-client.md`
 
 - Explicit `timeout` and `connectTimeout` on every request
 - `retry()` with exponential backoff for external APIs
@@ -113,7 +113,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `Http::pool()` for concurrent independent requests
 - `Http::fake()` and `preventStrayRequests()` in tests
 
-### 12. Events, Notifications & Mail → `rules/events-notifications.md`, `rules/mail.md`
+### 12. Events, Notifications & Mail → `references/events-notifications.md`, `references/mail.md`
 
 - Event discovery over manual registration; `event:cache` in production
 - `ShouldDispatchAfterCommit` / `afterCommit()` inside transactions
@@ -123,7 +123,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `assertQueued()` not `assertSent()` for queued mailables
 - Markdown mailables for transactional emails
 
-### 13. Error Handling → `rules/error-handling.md`
+### 13. Error Handling → `references/error-handling.md`
 
 - `report()`/`render()` on exception classes or in `bootstrap/app.php` — follow existing pattern
 - `ShouldntReport` for exceptions that should never log
@@ -132,7 +132,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - Force JSON rendering for API routes
 - Structured context via `context()` on exception classes
 
-### 14. Task Scheduling → `rules/scheduling.md`
+### 14. Task Scheduling → `references/scheduling.md`
 
 - `withoutOverlapping()` on variable-duration tasks
 - `onOneServer()` on multi-server deployments
@@ -141,14 +141,14 @@ Check sibling files, related controllers, models, or tests for established patte
 - `takeUntilTimeout()` for time-bounded processing
 - Schedule groups for shared configuration
 
-### 15. Architecture → `rules/architecture.md`
+### 15. Architecture → `references/architecture.md`
 
 - Single-purpose Action classes; dependency injection over `app()` helper
 - Prefer official Laravel packages and follow conventions, don't override defaults
 - Default to `ORDER BY id DESC` or `created_at DESC`; `mb_*` for UTF-8 safety
 - `defer()` for post-response work; `Context` for request-scoped data; `Concurrency::run()` for parallel execution
 
-### 16. Migrations → `rules/migrations.md`
+### 16. Migrations → `references/migrations.md`
 
 - Generate migrations with `php artisan make:migration`
 - `constrained()` for foreign keys
@@ -158,21 +158,21 @@ Check sibling files, related controllers, models, or tests for established patte
 - Reversible `down()` by default; forward-fix migrations for intentionally irreversible changes
 - One concern per migration — never mix DDL and DML
 
-### 17. Collections → `rules/collections.md`
+### 17. Collections → `references/collections.md`
 
 - Higher-order messages for simple collection operations
 - `cursor()` vs. `lazy()` — choose based on relationship needs
 - `lazyById()` when updating records while iterating
 - `toQuery()` for bulk operations on collections
 
-### 18. Blade & Views → `rules/blade-views.md`
+### 18. Blade & Views → `references/blade-views.md`
 
 - `$attributes->merge()` in component templates
 - Blade components over `@include`; `@pushOnce` for per-component scripts
 - View Composers for shared view data
 - `@aware` for deeply nested component props
 
-### 19. Conventions & Style → `rules/style.md`
+### 19. Conventions & Style → `references/style.md`
 
 - Follow Laravel naming conventions for all entities
 - Prefer Laravel helpers (`Str`, `Arr`, `Number`, `Uri`, `Str::of()`, `$request->string()`) over raw PHP functions

@@ -32,29 +32,29 @@ Enable all: `GITLAB_TOOLSETS=all`. Use `GITLAB_TOOLS` to enable individual tools
 
 ## Key Workflows
 
-### Code Review (see reference/code-review.md)
+### Code Review (see references/code-review.md)
 
 1. `list_merge_request_changed_files` - get file paths only (no diffs)
 2. `get_merge_request_file_diff` - get diffs for 3-5 files per call (batch)
 3. `create_merge_request_thread` or `create_draft_note` - leave review comments
 4. `bulk_publish_draft_notes` - publish all drafts at once
 
-### MR Lifecycle (see reference/merge-requests.md)
+### MR Lifecycle (see references/merge-requests.md)
 
 `create_merge_request` -> review -> `approve_merge_request` -> `merge_merge_request`
 
-### Issue Management (see reference/issues.md)
+### Issue Management (see references/issues.md)
 
 `create_issue` -> `create_issue_link` -> `create_issue_note` -> `update_issue`
 
-### Work Items (see reference/work-items.md)
+### Work Items (see references/work-items.md)
 
 `list_work_items` -> `get_work_item` -> `update_work_item` -> `create_work_item_note`
 
 ### Webhooks & Search
 
-- Webhooks: see reference/webhooks.md
-- Code search: see reference/search.md
+- Webhooks: see references/webhooks.md
+- Code search: see references/search.md
 
 ### File Operations
 

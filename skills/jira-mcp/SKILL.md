@@ -23,15 +23,15 @@ All tools are available by default — there are no opt-in toolsets for this ser
 
 `search_issues` → `get_issue` → `update_issue` / `assign_issue`
 
-### Create Issue (see reference/issues.md)
+### Create Issue (see references/issues.md)
 
 `get_project` → `get_issue_types` → `create_issue`
 
-### Comment Thread (see reference/comments.md)
+### Comment Thread (see references/comments.md)
 
 `add_comment` → `get_comments`
 
-### Project Discovery (see reference/projects.md)
+### Project Discovery (see references/projects.md)
 
 `get_projects` → `get_project` → `get_issue_types`
 
