@@ -1,0 +1,13 @@
+{
+  "mcp": {
+    "jira": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "mcp-jira-server"],
+      "env": {
+        "JIRA_BASE_URL": "https://jira.your-domain.com",
+        "JIRA_PAT": "your-personal-access-token"
+      }
+    }
+  }
+}

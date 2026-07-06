@@ -8,7 +8,12 @@ This catalog is framework-agnostic: each entry documents what the server does, w
 
 | MCP | Purpose | Best fit |
 | --- | --- | --- |
+| [Chrome DevTools MCP](./chrome-devtools/README.md) | Control and inspect a live Chrome browser — performance traces, debugging, network analysis, screenshots, and automation. | Any project that needs browser debugging, performance analysis, or UI automation. |
+| [Figma MCP Go](./figma-mcp-go/README.md) | Full read/write access to Figma designs via plugin bridge — no API token or rate limits. | Any project that works with Figma designs. |
+| [GitLab MCP](./gitlab-mcp/README.md) | Comprehensive GitLab integration — projects, MRs, issues, pipelines, wiki, milestones, and more. | Any project hosted on GitLab (SaaS or self-hosted). |
+| [Jira MCP](./jira-mcp/README.md) | Interact with self-hosted Jira instances — issues, JQL search, comments, assignments, and projects. | Any project using self-hosted Jira for issue tracking. |
 | [Laravel Boost](./laravel-boost/README.md) | Gives AI agents Laravel application context, Laravel ecosystem documentation search, and safe local inspection tools. | Laravel applications. |
+| [Notion MCP](./notion-mcp/README.md) | Search, read, and write content in a Notion workspace — pages, databases, views, comments, and more via remote HTTP MCP. | Any project that uses Notion for documentation, tracking, or collaboration. |
 
 ## Why MCPs Are Useful
 
@@ -65,5 +70,5 @@ mcps/<mcp-slug>/
 ## Related Repository Areas
 
 - [`skills/`](../skills/) contains task-specific procedures for AI coding agents.
-- [`standards/`](../standards/) contains canonical engineering rules.
-- [`templates/`](../templates/) contains reusable engineering deliverables.
+- [`references/standards/`](../references/standards/) contains canonical engineering rules.
+- [`references/templates/`](../references/templates/) contains reusable engineering deliverables.
