@@ -11,6 +11,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [API Design](./api-design/SKILL.md) | Design stable resource contracts, validation, compatibility, and operational behavior. | Designing new APIs, extending existing contracts, or reviewing API compatibility. |
 | [Architecture Review](./architecture-review/SKILL.md) | Evaluate system boundaries, coupling, cohesion, complexity, reliability, and scalability. | Reviewing system design, identifying architectural debt, or planning large changes. |
 | [Backend Engineer](./backend-engineer/SKILL.md) | Analyze backend requirements, risks, and implementation plans before coding. | General problem solving, requirements analysis, and risk management. |
+| [Brand Guidelines](./brand-guidelines/SKILL.md) | Apply Anthropic's official brand colors and typography to artifacts for company look-and-feel. | Styling artifacts with brand colors, typography, or visual design standards. |
 | [Chrome DevTools](./chrome-devtools/SKILL.md) | Expert-level browser automation, debugging, and performance analysis using Chrome DevTools MCP. | Web page debugging, performance profiling, screenshot capture, and network analysis. |
 | [Code Review](./code-review/SKILL.md) | Review backend changes for correctness, readability, maintainability, tests, performance, and security. | Reviewing pull requests, evaluating code quality, or mentoring. |
 | [Database Design](./database-design/SKILL.md) | Design data models, constraints, transactions, indexes, and migrations. | Schema design, migration planning, or query optimization. |
@@ -29,6 +30,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [Skill Creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
 | [Skills CLI](./skills-cli/SKILL.md) | Discover, install, and manage agent skills using the `npx skills` CLI from Vercel Labs. | Finding new skills, installing from registry, or managing installed skills. |
 | [Testing](./testing/SKILL.md) | Design deterministic unit, integration, contract, and end-to-end testing strategies. | Writing tests, designing test strategies, or reviewing test coverage. |
+| [Web Artifacts Builder](./web-artifacts-builder/SKILL.md) | Create elaborate, multi-component HTML artifacts using React, Tailwind CSS, and shadcn/ui. | Building complex frontend artifacts requiring state management or UI component libraries. |
 
 ## How Skills Are Organized
 
@@ -36,8 +38,12 @@ Each skill entry follows this structure:
 
 ```text
 skills/<skill-name>/
-├── SKILL.md       # Full skill definition: triggers, workflow, standards references
-└── examples.md    # Realistic usage examples showing good agent behavior
+├── SKILL.md       # Full skill definition: triggers, workflow, standards references (Required)
+├── examples.md    # Example output showing expected format (Required)
+├── references/    # Docs loaded into context as needed (Optinal)
+│   └── schemas.md      
+└── scripts/      # Executable code (bash/node/python) for deterministic/repetitive tasks (Optinal)
+    └── validate.sh
 ```
 
 ## How to Choose a Skill
