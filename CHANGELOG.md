@@ -7,6 +7,7 @@ All notable changes to this project are documented here.
 ### Added
 
 - Added `styles/` catalog with Linear and Raycast design system references from Refero Styles.
+- Added new references (passport, pennant, pest-testing, pulse, scout, spatie-backup, spatie-permission, spatie-medialibrary, tailwindcss) to laravel-best-practices skill with 5 new sections (Feature Flags, Monitoring, Full-Text Search, Backup, Media Library).
 - Created `styles/README.md` with style catalog table, usage guide, and source attribution.
 - Created `styles/linear/README.md` with full Linear design token reference, components, and CSS/Tailwind snippets.
 - Created `styles/raycast/README.md` with full Raycast design token reference, components, and CSS/Tailwind snippets.

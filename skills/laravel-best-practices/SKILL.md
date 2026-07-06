@@ -1,6 +1,6 @@
 ---
 name: laravel-best-practices
-description: "Apply this skill whenever writing, reviewing, or refactoring Laravel PHP code. This includes creating or modifying controllers, models, migrations, form requests, policies, jobs, scheduled commands, service classes, and Eloquent queries. Triggers for N+1 and query performance issues, caching strategies, authorization and security patterns, validation, error handling, queue and job configuration, route definitions, and architectural decisions. Also use for Laravel code reviews and refactoring existing Laravel code to follow best practices. Covers any task involving Laravel backend PHP code patterns."
+description: "Apply this skill whenever writing, reviewing, or refactoring Laravel PHP code."
 version: 0.1.0
 ---
 
@@ -38,7 +38,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - Compound indexes matching `orderBy` column order
 - Correlated subqueries in `orderBy` for has-many sorting (avoid joins)
 
-### 3. Security → `references/security.md`
+### 3. Security → `references/security.md`, `references/passport.md`, `references/spatie-laravel-permission.md`
 
 - Define `$fillable` or `$guarded` on every model, authorize every action via policies or gates
 - No raw SQL with user input — use Eloquent or query builder
@@ -81,7 +81,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `App::environment()` or `app()->isProduction()`
 - Config, lang files, and constants over hardcoded text
 
-### 8. Testing Patterns → `references/testing.md`
+### 8. Testing Patterns → `references/testing.md`, `references/pest-testing.md`
 
 - `LazilyRefreshDatabase` over `RefreshDatabase` for speed
 - `assertModelExists()` over raw `assertDatabaseHas()`
@@ -165,7 +165,7 @@ Check sibling files, related controllers, models, or tests for established patte
 - `lazyById()` when updating records while iterating
 - `toQuery()` for bulk operations on collections
 
-### 18. Blade & Views → `references/blade-views.md`
+### 18. Blade & Views → `references/blade-views.md`, `references/tailwindcss.md`
 
 - `$attributes->merge()` in component templates
 - Blade components over `@include`; `@pushOnce` for per-component scripts
@@ -178,6 +178,47 @@ Check sibling files, related controllers, models, or tests for established patte
 - Prefer Laravel helpers (`Str`, `Arr`, `Number`, `Uri`, `Str::of()`, `$request->string()`) over raw PHP functions
 - No JS/CSS in Blade, no HTML in PHP classes
 - Code should be readable; comments only for config files
+
+### 20. Feature Flags → `references/pennant.md`
+
+- `Feature::define()` to define features with resolver callbacks
+- `Feature::active()` / `@feature` Blade directive to check features
+- Scope features to specific users/entities with `Feature::for()`
+- `Feature::activate()` / `deactivate()` for runtime control
+
+### 21. Monitoring → `references/pulse.md`
+
+- Gate-protect the dashboard with `viewPulse` gate
+- Configure built-in recorders in `config/pulse.php` (SlowQueries, SlowRequests, Exceptions, Queues, etc.)
+- Redis ingest for production performance; run `pulse:work` to drain the stream
+- Custom cards via Livewire components extending `Pulse\Card`
+- `Pulse::filter()` to exclude entries; `Pulse::resolveAuthenticatedUserId()` for multi-model apps
+- `pulse:check` daemon required for Servers card
+
+### 22. Full-Text Search → `references/scout.md`
+
+- Add `Searchable` trait to models for automatic index sync
+- Choose engine: Database, Collection, Algolia, Meilisearch, Typesense
+- `toSearchableArray()` to control indexed data; `searchableAs()` for custom index names
+- `Model::search('query')->where(...)->paginate()` for search queries
+- `scout:import` / `scout:flush` for index management; `scout:sync-index-settings` for engine config
+- `Model::withoutSyncingToSearch()` / `SCOUT_DRIVER=null` for testing
+
+### 23. Backup → `references/spatie-laravel-backup.md`
+
+- Schedule `backup:run`, `backup:clean`, `backup:monitor` in console kernel
+- Configure sources, destinations, notifications in `config/backup.php`
+- Custom cleanup strategies extending `CleanupStrategy`
+- Custom health checks extending `HealthCheck`
+- Enable encryption and Gzip compression via config
+
+### 24. Media Library → `references/spatie-medialibrary.md`
+
+- Implement `HasMedia` interface + `InteractsWithMedia` trait on models
+- `addMedia()` / `addMediaFromRequest()` for file uploads
+- Media collections to organize related files per model
+- Conversions for image processing (thumbnails, crops, etc.)
+- Responsive images via conversion `withResponsiveImages()`
 
 ## How to Apply
 
