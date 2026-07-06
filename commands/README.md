@@ -13,6 +13,7 @@ Commands define repeatable workflows that agents execute on demand, triggered by
 | [`/commit`](./commit.md) | Create atomic git commits with conventional messages. | — |
 | [`/pr`](./pr.md) | Create a GitHub PR or GitLab MR for the current branch. | pull-request skill, pull-requests standard |
 | [`/review`](./review.md) | Perform comprehensive code quality review. | code-review skill, naming/testing/security/performance standards |
+| [`/summarize-changes`](./summarize-changes.md) | Summarize uncommitted changes and flag risky patterns. | — |
 
 ## Command Entry Structure
 

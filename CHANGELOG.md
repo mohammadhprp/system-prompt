@@ -7,6 +7,7 @@ All notable changes to this project are documented here.
 ### Added
 
 - Added Excalidraw MCP entry (`mcps/excalidraw/`) with README, install, capabilities, troubleshooting, and OpenCode config for streaming hand-drawn Excalidraw diagrams via MCP Apps.
+- Added `commands/summarize-changes.md` command for summarizing uncommitted changes and flagging risky patterns.
 
 ## 0.2.0 - 2026-07-06
 
