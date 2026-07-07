@@ -54,6 +54,7 @@ export const categories = {
       { id: 'commit', name: 'Commit', description: 'Create atomic git commits with conventional messages' },
       { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },
       { id: 'pr', name: 'PR', description: 'Create a GitHub PR or GitLab MR for the current branch' },
+      { id: 'release', name: 'Release', description: 'Tag releases, update changelog, and bump versions' },
       { id: 'review', name: 'Review', description: 'Perform comprehensive code quality review' },
       { id: 'summarize-changes', name: 'Summarize Changes', description: 'Summarize uncommitted changes and flag risks' },
     ],
