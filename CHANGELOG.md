@@ -6,6 +6,8 @@ All notable changes to this project are documented here.
 
 ### Added
 
+- Created `skills/design/examples.md` with 3 realistic examples for the Design Like Damien skill (Premium SaaS Landing Page, Converting Figma to Lovable, Fixing Generic AI-Generated UI).
+- Added Design Like Damien skill entry to `skills/README.md` catalog table between Debugging and Documentation.
 - Added `styles/` catalog with Linear and Raycast design system references from Refero Styles.
 - Added new references (passport, pennant, pest-testing, pulse, scout, spatie-backup, spatie-permission, spatie-medialibrary, tailwindcss) to laravel-best-practices skill with 5 new sections (Feature Flags, Monitoring, Full-Text Search, Backup, Media Library).
 - Created `styles/README.md` with style catalog table, usage guide, and source attribution.
