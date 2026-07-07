@@ -25,8 +25,7 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 
 | Path | Purpose |
 | --- | --- |
-| `AGENTS.md` | Entry point for agents: loading rules, skill map, conflict resolution. |
-| `system-prompt.md` | Global behavior contract for backend engineering work. |
+| `harness/` | Harness configurations for this repository. |
 | `agents/` | Specialized subagents for security audits, architecture, code review, and research. |
 | `skills/` | Curated skill catalog with definitions, workflows, and examples. |
 | `commands/` | Slash command catalog with repeatable agent workflows. |
@@ -118,29 +117,9 @@ Before invoking a subagent, check:
 - **Permissions**: agents are read-only by design — they investigate and report, they do not modify files.
 - **Scope**: agents are narrow and specialized. Use them alongside skills for comprehensive coverage.
 
-## Customization
-
-Teams can customize this repository by:
-
-- Adding organization-specific standards under `references/standards/`.
-- Creating new skills under `skills/<skill-name>/SKILL.md` using the existing format.
-- Editing templates to match internal review and incident practices.
-- Adding project-specific agent instructions in a downstream `AGENTS.md`.
-
-Keep additions small, explicit, and framework-agnostic unless they live in a downstream project.
-
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md). Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
-
-## How AI Agents Should Use This Repository
-
-1. Read `AGENTS.md` first.
-2. Load `system-prompt.md` as the global behavior baseline when supported.
-3. Select only the skills relevant to the current task.
-4. Apply standards as canonical rules, not optional advice.
-5. Use templates when producing engineering artifacts.
-6. If requirements are unclear, ask concise clarifying questions before implementation.
 
 ## FAQ
 

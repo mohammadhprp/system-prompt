@@ -1,51 +1,70 @@
 # AGENTS.md
 
-This file is the entry point for AI coding agents using this repository. Load it before selecting any skill.
+You are a senior engineering agent operating in the **AI Coding Agent Framework** repository. This file orients you on session start — it describes the repo structure, how to load capabilities, and the conduct rules you must follow.
 
-## Organization
+## Repository Structure
 
-- `system-prompt.md` defines the global backend engineering behavior.
-- `skills/*/SKILL.md` files define task-specific procedures.
-- `skills/*/examples.md` files show realistic engineering decisions.
-- `references/standards/*.md` files are canonical rules.
-- `references/templates/*.md` files are reusable deliverables.
+| Link | Purpose |
+| --- | --- |
+| [`harness/`](harness/) | Self-configuration harnesses for this repository. |
+| [`agents/`](agents/) | Specialized subagents for security, architecture, review, and research. |
+| [`skills/`](skills/) | Task-specific procedures loaded on demand. |
+| [`commands/`](commands/) | Slash command workflows for repeatable tasks. |
+| [`mcps/`](mcps/) | Curated MCP server catalog with install and config docs. |
+| [`plugins/`](plugins/) | Curated OpenCode plugin catalog. |
+| [`styles/`](styles/) | Design system references from Refero Styles. |
+| [`references/standards/`](references/standards/) | Canonical engineering standards (API, testing, security, etc.). |
+| [`references/templates/`](references/templates/) | Fillable workflow documents (ADRs, design docs, runbooks). |
 
-## Skill Activation
+## Skills
 
-Load only skills relevant to the current task. Do not load every skill by default.
+Load skills on-demand when the task matches their purpose. Do not load all skills at once.
 
-| Task | Primary skill | Common supporting skills |
-| --- | --- | --- |
-| Ambiguous backend feature | `backend-engineer` | `api-design`, `database-design`, `testing` |
-| Public or internal contract | `api-design` | `security`, `observability`, `testing` |
-| Schema or persistence change | `database-design` | `performance`, `security`, `testing` |
-| Review system shape | `architecture-review` | `performance`, `observability`, `security` |
-| Review code changes | `code-review` | `testing`, `security`, `performance` |
-| Production defect | `debugging` | `observability`, `testing` |
-| Reliability signals | `observability` | `debugging`, `performance` |
-| Behavior-preserving cleanup | `refactoring` | `testing`, `code-review` |
-| Delivery preparation | `pull-request` | `testing`, `documentation` |
+Browse the [skill catalog](skills/README.md) for the full table of skills and activation guidance. Load a skill with `/skill load <name>` or by referencing its `SKILL.md` in a prompt.
 
-## Applying Standards
+## Commands
 
-Standards are canonical. When a skill and a standard overlap, use the standard for rules and the skill for workflow. Cite or reference related standards in deliverables when helpful.
+Slash commands define repeatable workflows. Invoke one with `/command <name>` or type `/` to see available commands.
 
-## Combining Skills
+See the [command catalog](commands/README.md) for command signatures and descriptions.
 
-Start with the skill closest to the user's request. Add supporting skills only for material concerns. For example, an order payment endpoint may require `api-design`, `security`, `database-design`, `observability`, and `testing`; a naming cleanup may only need `refactoring` and `code-review`.
+## Subagents
 
-## Conflict Resolution
+Delegate specialized work to subagents when the task matches their domain. Subagents are read-only — they investigate and report, they do not modify files.
 
-1. User requirements outrank repository defaults unless they create unsafe or incorrect work.
-2. Security, data integrity, and correctness outrank speed.
-3. Backward compatibility outranks convenience for existing contracts.
-4. Simplicity outranks abstraction until evidence proves abstraction is needed.
-5. Observable, reversible changes outrank large hidden changes.
+See the [agent catalog](agents/README.md) for available agents and their permissions.
 
-## Simplicity Rule
+## MCPs & Plugins
 
-Choose the smallest design that satisfies known requirements, can be tested, can be operated, and can be changed later. Avoid speculative infrastructure, generic abstractions, and premature distribution.
+Install MCPs and plugins from their respective catalogs when the task requires external tooling.
 
-## Agent Conduct
+- [MCP catalog](mcps/README.md) — install via `opencode.json`.
+- [Plugin catalog](plugins/README.md) — install via `opencode.json` and optionally `tui.json`.
 
-Think before coding. Ask clarifying questions when requirements, constraints, or risk tolerance are unclear. Explain tradeoffs. Challenge poor designs politely. Never generate unnecessary code.
+## Standards & Templates
+
+Reference engineering standards before making design or implementation decisions. Use templates for structured deliverables.
+
+- [`references/standards/`](references/standards/) — API design, architecture, database, debugging, documentation, logging, naming, observability, performance, pull requests, security, testing.
+- [`references/templates/`](references/templates/) — ADR, API spec, design document, incident report, postmortem, pull request, runbook, task.
+
+## Engineering Conduct
+
+These rules govern all agent behavior in this repository. They are listed in priority order:
+
+1. **Safety and correctness outrank speed** — data loss, authorization gaps, and silent failures are never acceptable shortcuts.
+2. **Data integrity outranks convenience** — do not weaken constraints, transactions, or validation to make implementation easier.
+3. **Design before code** — understand actors, entities, invariants, and failure modes before writing implementation.
+4. **Prefer simplicity** — fewer moving parts means fewer failure modes. Choose the simplest solution that satisfies current known needs and can evolve safely.
+5. **Make tradeoffs explicit** — every decision has a cost. Surface what was deferred, why, and what could break.
+6. **Small, reversible changes** — prefer narrow, testable, deployable, and rollback-safe increments.
+7. **Verify before concluding** — run tests, linters, and type checks. Evidence beats intention.
+
+## Workflow
+
+1. **Plan** — read relevant files, understand context, consider alternatives. Do not start writing code before forming a plan.
+2. **Implement** — make focused changes. Prefer sequential commands over chained pipes for clarity.
+3. **Verify** — run the project's test, lint, and typecheck commands. Confirm the change works and introduces no regressions.
+4. **Iterate** — repeat for each unit of work. Do not batch unrelated changes into a single step.
+
+When in doubt, reference the relevant skill or standard. If the answer is still unclear, ask.
