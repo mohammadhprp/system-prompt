@@ -1,0 +1,132 @@
+export const categories = {
+  skills: {
+    title: 'Skills',
+    description: 'Task-specific procedures for AI coding agents',
+    sourceDir: 'framework/skills',
+    items: [
+      { id: 'api-design', name: 'API Design', description: 'Design stable resource contracts, validation, compatibility' },
+      { id: 'architecture-review', name: 'Architecture Review', description: 'Evaluate system boundaries, coupling, cohesion' },
+      { id: 'backend-engineer', name: 'Backend Engineer', description: 'Analyze backend requirements, risks, and implementation plans' },
+      { id: 'brainstorming', name: 'Brainstorming', description: 'Turn ideas into fully formed designs through dialogue' },
+      { id: 'brand-guidelines', name: 'Brand Guidelines', description: 'Apply official brand colors and typography' },
+      { id: 'chrome-devtools', name: 'Chrome DevTools', description: 'Browser automation, debugging, and performance analysis' },
+      { id: 'code-review', name: 'Code Review', description: 'Review backend changes for correctness and maintainability' },
+      { id: 'database-design', name: 'Database Design', description: 'Design data models, constraints, indexes, and migrations' },
+      { id: 'debugging', name: 'Debugging', description: 'Find root causes through isolation, logs, and experiments' },
+      { id: 'design', name: 'Design Like Damien', description: 'Premium UI design philosophy and Lovable prompting' },
+      { id: 'documentation', name: 'Documentation', description: 'Create ADRs, design docs, runbooks, and API docs' },
+      { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Work with GitLab via MCP for MRs, issues, pipelines' },
+      { id: 'jira-mcp', name: 'Jira MCP', description: 'Work with Jira MCP for issue management and JQL search' },
+      { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
+      { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },
+      { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
+      { id: 'observability', name: 'Observability', description: 'Design logs, metrics, traces, and alerts' },
+      { id: 'performance', name: 'Performance', description: 'Diagnose and improve CPU, memory, and query behavior' },
+      { id: 'pull-request', name: 'Pull Request', description: 'Prepare small, reviewable changes with rollback notes' },
+      { id: 'refactoring', name: 'Refactoring', description: 'Improve code structure safely in small steps' },
+      { id: 'security', name: 'Security', description: 'Review identity, access, secrets, and data handling' },
+      { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' },
+      { id: 'skills-cli', name: 'Skills CLI', description: 'Discover and install skills via npx skills CLI' },
+      { id: 'testing', name: 'Testing', description: 'Design unit, integration, contract, and E2E strategies' },
+      { id: 'web-artifacts-builder', name: 'Web Artifacts Builder', description: 'Create HTML artifacts with React and Tailwind' },
+    ],
+  },
+
+  agents: {
+    title: 'Subagents',
+    description: 'Specialized subagents for security, architecture, review, and research',
+    sourceDir: 'framework/agents',
+    items: [
+      { id: 'backend-architect', name: 'Backend Architect', description: 'Design scalable, secure backend systems' },
+      { id: 'researcher', name: 'Researcher', description: 'Fetch and analyze web content from URLs' },
+      { id: 'reviewer', name: 'Reviewer', description: 'Review code for correctness and best practices' },
+      { id: 'security-auditor', name: 'Security Auditor', description: 'Conduct security audits for REST APIs' },
+    ],
+  },
+
+  commands: {
+    title: 'Slash Commands',
+    description: 'Slash command workflows for repeatable tasks',
+    sourceDir: 'framework/commands',
+    items: [
+      { id: 'architecture-review', name: 'Architecture Review', description: 'Review and improve system architecture' },
+      { id: 'changelog', name: 'Changelog', description: 'Create, add, or update CHANGELOG.md entries' },
+      { id: 'commit', name: 'Commit', description: 'Create atomic git commits with conventional messages' },
+      { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },
+      { id: 'pr', name: 'PR', description: 'Create a GitHub PR or GitLab MR for the current branch' },
+      { id: 'review', name: 'Review', description: 'Perform comprehensive code quality review' },
+      { id: 'summarize-changes', name: 'Summarize Changes', description: 'Summarize uncommitted changes and flag risks' },
+    ],
+  },
+
+  mcps: {
+    title: 'MCPs',
+    description: 'Model Context Protocol servers for AI coding agents',
+    sourceDir: 'framework/mcps',
+    items: [
+      { id: 'chrome-devtools', name: 'Chrome DevTools MCP', description: 'Control Chrome browser for debugging and automation' },
+      { id: 'excalidraw', name: 'Excalidraw MCP', description: 'Stream hand-drawn diagrams with interactive editing' },
+      { id: 'figma-mcp-go', name: 'Figma MCP Go', description: 'Read/write access to Figma designs via plugin bridge' },
+      { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Comprehensive GitLab integration' },
+      { id: 'graphify', name: 'Graphify MCP', description: 'Knowledge graph of your codebase' },
+      { id: 'jira-mcp', name: 'Jira MCP', description: 'Interact with self-hosted Jira instances' },
+      { id: 'laravel-boost', name: 'Laravel Boost MCP', description: 'Laravel application context and ecosystem docs' },
+      { id: 'notion-mcp', name: 'Notion MCP', description: 'Search, read, and write Notion content' },
+    ],
+  },
+
+  plugins: {
+    title: 'Plugins',
+    description: 'OpenCode plugins that extend the core agent',
+    sourceDir: 'framework/plugins',
+    items: [
+      { id: 'opencode-goal-plugin', name: 'OpenCode Goal Plugin', description: 'Goal-driven long-running tasks with persistence' },
+    ],
+  },
+
+  styles: {
+    title: 'Styles',
+    description: 'Design system references from Refero Styles',
+    sourceDir: 'framework/styles',
+    items: [
+      { id: 'linear', name: 'Linear', description: 'Midnight precision instrument design system' },
+      { id: 'raycast', name: 'Raycast', description: 'Midnight command center design system' },
+    ],
+  },
+
+  standards: {
+    title: 'Standards',
+    description: 'Canonical engineering standards',
+    sourceDir: 'framework/references/standards',
+    items: [
+      { id: 'api', name: 'API Design', description: 'REST API design standards' },
+      { id: 'architecture', name: 'Architecture', description: 'System architecture standards' },
+      { id: 'database', name: 'Database', description: 'Database design standards' },
+      { id: 'debugging', name: 'Debugging', description: 'Debugging methodology' },
+      { id: 'documentation', name: 'Documentation', description: 'Documentation standards' },
+      { id: 'logging', name: 'Logging', description: 'Logging standards' },
+      { id: 'naming', name: 'Naming', description: 'Naming conventions' },
+      { id: 'observability', name: 'Observability', description: 'Observability standards' },
+      { id: 'performance', name: 'Performance', description: 'Performance standards' },
+      { id: 'pull-requests', name: 'Pull Requests', description: 'Pull request standards' },
+      { id: 'security', name: 'Security', description: 'Security standards' },
+      { id: 'testing', name: 'Testing', description: 'Testing standards' },
+    ],
+  },
+
+  templates: {
+    title: 'Templates',
+    description: 'Fillable workflow documents',
+    sourceDir: 'framework/references/templates',
+    items: [
+      { id: 'adr', name: 'ADR', description: 'Architecture Decision Record' },
+      { id: 'api-spec', name: 'API Spec', description: 'API specification document' },
+      { id: 'design-document', name: 'Design Document', description: 'Design document template' },
+      { id: 'incident-report', name: 'Incident Report', description: 'Incident report template' },
+      { id: 'postmortem', name: 'Postmortem', description: 'Postmortem template' },
+      { id: 'pull-request', name: 'Pull Request', description: 'Pull request template' },
+      { id: 'runbook', name: 'Runbook', description: 'Runbook template' },
+      { id: 'task', name: 'Task', description: 'Task template' },
+    ],
+  },
+};
