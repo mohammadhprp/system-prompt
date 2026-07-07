@@ -4,6 +4,15 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## 0.5.1 - 2026-07-07
+
+### Added
+- Show CLI package version in the intro banner.
+- Prompt for explicitly marked new framework components during `system-prompt update`.
+
+### Fixed
+- Register the `/release` command in the CLI catalog.
+
 ## 0.5.0 - 2026-07-07
 
 ### Added
