@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here.
 
+## 0.4.1 - 2026-07-07
+
+### Added
+- system-prompt update with system-prompt--lock.json
+- GitHub Packages for @mohammadhprp/system-prompt
+
 ## 0.4.0 - 2026-07-07
 
 ### Added

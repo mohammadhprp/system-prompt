@@ -1,11 +1,23 @@
 {
-  "name": "system-prompt",
-  "version": "0.4.0",
-  "private": true,
+  "name": "@mohammadhprp/system-prompt",
+  "version": "0.4.1",
   "description": "AI Coding Agent Framework — interactive bootstrap CLI",
   "type": "module",
   "bin": {
     "system-prompt": "bin/system-prompt.js"
+  },
+  "files": [
+    "src/",
+    "bin/",
+    "framework/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammadhprp/system-prompt.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
   },
   "engines": {
     "node": ">=18"
