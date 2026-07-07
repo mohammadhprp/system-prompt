@@ -134,11 +134,3 @@ See the full [command catalog](commands/README.md) for available commands, their
 ### How AI Agents should install and config this repository?
 
 > Read `harness/README.md`
-
-## Contributing
-
-See [CONTRIBUTING](CONTRIBUTING.md). Contributions should improve clarity, correctness, and operational usefulness. Avoid duplicating guidance that belongs in standards.
-
-## License
-
-[MIT](LICENSE)
