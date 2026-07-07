@@ -8,7 +8,7 @@ import { loadMcpConfigs, generateOpenCodeConfig } from './agent-configs.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
 
-async function getPackageVersion() {
+export async function getPackageVersion() {
   try {
     const pkg = JSON.parse(await readFile(resolve(packageRoot, 'package.json'), 'utf-8'));
     return pkg.version || '0.0.0';

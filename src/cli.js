@@ -1,7 +1,7 @@
 import { intro, outro, text, confirm, select, multiselect, spinner, isCancel } from '@clack/prompts';
 
 import { categories } from './catalog.js';
-import { install } from './installer.js';
+import { getPackageVersion, install } from './installer.js';
 import { update } from './update.js';
 
 function buildSummary(selections) {
@@ -25,7 +25,8 @@ export async function main() {
     return;
   }
 
-  intro('system-prompt bootstrap CLI');
+  const version = await getPackageVersion();
+  intro(`System prompt (v${version})`);
 
   const agentType = await select({
     message: 'Which harness would you like to install?',
