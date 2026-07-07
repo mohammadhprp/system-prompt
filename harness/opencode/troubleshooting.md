@@ -48,7 +48,7 @@ The path is relative to the project root where OpenCode is started.
 
 **Cause**: The command file has not been loaded in the current session.
 
-**Fix**: Run `/command load <command-name>` or reference the command file in a prompt. Commands are defined in [`commands/`](../../commands/).
+**Fix**: Commands are defined in [`commands/`](../../commands/).
 
 ## Skill Not Loaded
 
@@ -56,7 +56,7 @@ The path is relative to the project root where OpenCode is started.
 
 **Cause**: The skill has not been loaded for the current task.
 
-**Fix**: Run `/skill load <skill-name>` or reference the skill's `SKILL.md` file in a prompt. See the skill activation table in [`AGENTS.md`](../../AGENTS.md) for guidance on which skill to load.
+**Fix**: See the skill activation table in [`AGENTS.md`](../../AGENTS.md) for guidance on which skill to load.
 
 ## Configuration Conflicts
 

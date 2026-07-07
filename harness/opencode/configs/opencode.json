@@ -5,11 +5,15 @@
     "plugin": [
       "@prevalentware/opencode-goal-plugin"
     ],
-    "instructions": ["AGENTS.md"],
+    "instructions": ["AGENTS.md", "system-prompt.md"],
     "references": {
-      "docs": {
-          "path": "references/docs",
-          "description": "Project architecture, domain, API, and development documentation."
+      "standards": {
+          "path": "references/standards",
+          "description": "Canonical engineering standards referenced by skills."
+      },
+      "templates": {
+        "path": "references/templates",
+        "description": "Ready-to-use workflow documents."
       }
     },
     "mcp": {

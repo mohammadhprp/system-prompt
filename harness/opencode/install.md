@@ -2,49 +2,19 @@
 
 ## Quick Start
 
-The `opencode.json` in this directory configures OpenCode to self-configure. Copy or link it to `<repo-root>/.opencode/opencode.json` (or merge its contents with your existing config).
-
-```json
-{
-    "$schema": "https://opencode.ai/config.json",
-    "formatter": true,
-    "lsp": false,
-    "plugin": [
-      "@prevalentware/opencode-goal-plugin"
-    ],
-    "instructions": ["AGENTS.md"],
-    "references": {
-      "docs": {
-          "path": "references/docs",
-          "description": "Project architecture, domain, API, and development documentation."
-      }
-    },
-    "mcp": {
-      "chrome-devtools": {
-          "type": "local",
-          "command": ["bun", "x", "chrome-devtools-mcp@latest"],
-          "enabled": true
-      },
-      "notion": {
-          "type": "remote",
-          "url": "https://mcp.notion.com/mcp",
-          "enabled": true
-      }
-    }
-}
-```
+The `configs/opencode.json` in this directory configures OpenCode to self-configure. Copy or link it to `<repo-root>/.opencode/opencode.json` (or merge its contents with your existing config).
 
 ## Step-by-Step
 
 ### 1. Load AGENTS.md
 
-The `instructions` field in `opencode.json` points to [`AGENTS.md`](../../AGENTS.md) at the repository root. OpenCode reads this file on session start to learn the repository structure, skill activation rules, standards, and agent conduct guidelines.
+The `instructions` field in `opencode.json` points to [`AGENTS.md`](configs/AGENTS.md) at the repository root. OpenCode reads this file on session start to learn the repository structure, skill activation rules, standards, and agent conduct guidelines.
 
 ### 2. Load Skills
 
 Skills are task-specific procedures in [`skills/`](../../skills/). The agent should load only skills relevant to the current task (see the skill activation table in `AGENTS.md` for guidance).
 
-Skills are loaded via the OpenCode skill system. Run `/skill load <skill-name>` or reference the skill's `SKILL.md` in a prompt.
+Skills are loaded via the OpenCode skill system.
 
 ### 3. Install MCPs
 
@@ -72,7 +42,7 @@ To add more plugins:
 
 Commands are registered from [`commands/`](../../commands/). Each `.md` file defines a slash command with a `description` field and a `## Process` section.
 
-Commands are loaded when the agent reads the command file or when the user invokes the slash command. Run `/command load <command-name>` to register a command for the session.
+Commands are loaded when the agent reads the command file or when the user invokes the slash command.
 
 Available commands are listed in the [command catalog](../../commands/README.md).
 
@@ -80,8 +50,8 @@ Available commands are listed in the [command catalog](../../commands/README.md)
 
 | File | Purpose |
 | --- | --- |
-| [`opencode.json`](./opencode.json) | Main OpenCode configuration — MCPs, plugins, instructions, references. |
-| [`tui.json`](./tui.json) | Terminal UI plugin configuration. |
+| [`opencode.json`](./configs/opencode.json) | Main OpenCode configuration — MCPs, plugins, instructions, references. |
+| [`tui.json`](./configs/tui.json) | Terminal UI plugin configuration. |
 
 ## Verification
 
@@ -89,5 +59,5 @@ After completing setup, verify the harness is working:
 
 1. Start a new OpenCode session in the repository root.
 2. OpenCode should load `AGENTS.md` automatically.
-3. Run `/help` to confirm plugins and commands are available.
-4. Test an MCP by asking the agent to use one (e.g., "open Chrome DevTools").
+3. Confirm plugins and commands are available.
+4. Confirm MCPs are available.

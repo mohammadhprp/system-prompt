@@ -8,7 +8,7 @@ After full installation, the OpenCode agent gains the following capabilities.
 | --- | --- |
 | Understand the repository structure, conventions, and standards. | [`AGENTS.md`](../../AGENTS.md) |
 | Select and load task-specific skills for engineering, review, testing, and more. | [`skills/`](../../skills/) catalog |
-| Access project documentation via the `references.docs` path. | [`opencode.json`](./opencode.json) |
+| Access project documentation via the `references.docs` path. | [`opencode.json`](./configs/opencode.json) |
 
 ## MCP Tools
 

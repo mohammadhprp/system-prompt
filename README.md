@@ -131,9 +131,9 @@ See the full [command catalog](commands/README.md) for available commands, their
 
 > Yes. The standards and templates are useful for reviews, design discussions, and onboarding.
 
-### How should conflicts be handled?
+### How AI Agents should install and config this repository?
 
-> Use [AGENTS.md](AGENTS.md): safety and correctness outrank speed; data integrity outranks convenience; explicit user requirements outrank defaults when they do not create unacceptable risk.
+> Read `harness/README.md`
 
 ## Contributing
 
