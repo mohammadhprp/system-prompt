@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here.
 
+## Unreleased
+
+## 0.5.0 - 2026-07-07
+
+### Added
+- `/release` command for creating releases with tagging, changelog generation, and version bumping
+- Made `AGENTS.md` and `system-prompt.md` optional in bootstrap flow
+
 ## 0.4.1 - 2026-07-07
 
 ### Added
