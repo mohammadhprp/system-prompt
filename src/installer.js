@@ -1,12 +1,21 @@
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
-import { mkdir, copyFile, writeFile, readdir, stat } from 'node:fs/promises';
+import { mkdir, copyFile, writeFile, readdir, stat, readFile } from 'node:fs/promises';
 
 import { categories } from './catalog.js';
 import { loadMcpConfigs, generateOpenCodeConfig } from './agent-configs.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
+
+async function getPackageVersion() {
+  try {
+    const pkg = JSON.parse(await readFile(resolve(packageRoot, 'package.json'), 'utf-8'));
+    return pkg.version || '0.0.0';
+  } catch {
+    return '0.0.0';
+  }
+}
 
 function resolveSource(subpath) {
   return resolve(packageRoot, subpath);
@@ -213,6 +222,18 @@ export async function install({ targetDir, agentType, selections }) {
       await writeFile(resolve(absTarget, 'opencode.json'), configJson);
     }
   }
+
+  const version = await getPackageVersion();
+  const lockData = {
+    version,
+    agentType,
+    targetDir,
+    installedAt: new Date().toISOString(),
+    selections: Object.fromEntries(
+      Object.entries(selections).map(([k, v]) => [k, [...v]])
+    ),
+  };
+  await writeFile(resolve(absTarget, 'system-prompt--lock.json'), JSON.stringify(lockData, null, 2));
 
   return absTarget;
 }

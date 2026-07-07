@@ -2,6 +2,7 @@ import { intro, outro, text, confirm, select, multiselect, spinner, isCancel } f
 
 import { categories } from './catalog.js';
 import { install } from './installer.js';
+import { update } from './update.js';
 
 function buildSummary(selections) {
   const lines = [];
@@ -19,6 +20,11 @@ function buildSummary(selections) {
 }
 
 export async function main() {
+  if (process.argv[2] === 'update') {
+    await update();
+    return;
+  }
+
   intro('system-prompt bootstrap CLI');
 
   const agentType = await select({
