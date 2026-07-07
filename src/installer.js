@@ -174,7 +174,7 @@ Design system references in \`styles/\`. Use them for UI component design and to
   return sections.join('\n');
 }
 
-export async function install({ targetDir, agentType, selections }) {
+export async function install({ targetDir, agentType, selections, includeAgentsMd = true, includeSystemPromptMd = true }) {
   const absTarget = resolve(process.cwd(), targetDir);
   await mkdir(absTarget, { recursive: true });
 
@@ -201,16 +201,20 @@ export async function install({ targetDir, agentType, selections }) {
 
   await Promise.all(tasks);
 
-  const systemPromptSrc = resolveSource('framework/harness/opencode/configs/system-prompt.md');
-  try {
-    await stat(systemPromptSrc);
-    await copyFile(systemPromptSrc, resolve(absTarget, 'system-prompt.md'));
-  } catch {
-    console.warn('  ⚠  system-prompt.md not found in harness');
+  if (includeSystemPromptMd) {
+    const systemPromptSrc = resolveSource('framework/harness/opencode/configs/system-prompt.md');
+    try {
+      await stat(systemPromptSrc);
+      await copyFile(systemPromptSrc, resolve(absTarget, 'system-prompt.md'));
+    } catch {
+      console.warn('  ⚠  system-prompt.md not found in harness');
+    }
   }
 
-  const agentsContent = generateAgentsMd({ selections });
-  await writeFile(resolve(absTarget, 'AGENTS.md'), agentsContent);
+  if (includeAgentsMd) {
+    const agentsContent = generateAgentsMd({ selections });
+    await writeFile(resolve(absTarget, 'AGENTS.md'), agentsContent);
+  }
 
   if (agentType === 'opencode') {
     let mcpEntries = {};

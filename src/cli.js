@@ -71,27 +71,65 @@ export async function main() {
   }
 
   if (!selectedCategories?.length) {
-    const agnostic = await confirm({
-      message: 'No components selected. Install the core AGENTS.md setup only?',
+    const includeAgentsMd = await confirm({
+      message: 'Generate AGENTS.md?',
       initialValue: true,
     });
-    if (isCancel(agnostic)) {
+    if (isCancel(includeAgentsMd)) {
       outro('Cancelled.');
       process.exit(0);
     }
-    if (!agnostic) {
+
+    const includeSystemPromptMd = await confirm({
+      message: 'Generate system-prompt.md?',
+      initialValue: true,
+    });
+    if (isCancel(includeSystemPromptMd)) {
+      outro('Cancelled.');
+      process.exit(0);
+    }
+
+    if (!includeAgentsMd && !includeSystemPromptMd) {
       outro('Nothing to install.');
       process.exit(0);
     }
+
     const s = spinner();
-    s.start('Writing AGENTS.md...');
-    await install({ targetDir: targetDir.trim() || '.', agentType, selections: {} });
+    s.start('Writing files...');
+    await install({
+      targetDir: targetDir.trim() || '.',
+      agentType,
+      selections: {},
+      includeAgentsMd,
+      includeSystemPromptMd,
+    });
     s.stop('Done.');
-    outro('AGENTS.md written. Open it in your project to get started.');
+    const installed = [];
+    if (includeAgentsMd) installed.push('AGENTS.md');
+    if (includeSystemPromptMd) installed.push('system-prompt.md');
+    outro(`${installed.join(' and ')} written. Open them in your project to get started.`);
     process.exit(0);
   }
 
   const selections = {};
+
+  const includeAgentsMd = await confirm({
+    message: 'Generate AGENTS.md?',
+    initialValue: true,
+  });
+  if (isCancel(includeAgentsMd)) {
+    outro('Cancelled.');
+    process.exit(0);
+  }
+
+  const includeSystemPromptMd = await confirm({
+    message: 'Generate system-prompt.md?',
+    initialValue: true,
+  });
+  if (isCancel(includeSystemPromptMd)) {
+    outro('Cancelled.');
+    process.exit(0);
+  }
 
   for (const cat of selectedCategories) {
     const catConfig = categories[cat];
@@ -127,6 +165,8 @@ export async function main() {
   }
 
   console.log('\n📦 Summary of what will be installed:\n');
+  if (includeAgentsMd) console.log('  📄 AGENTS.md');
+  if (includeSystemPromptMd) console.log('  📄 system-prompt.md');
   console.log(buildSummary(selections));
   console.log();
 
@@ -146,6 +186,8 @@ export async function main() {
     targetDir: targetDir.trim() || '.',
     agentType,
     selections,
+    includeAgentsMd,
+    includeSystemPromptMd,
   });
 
   s.stop('Installation complete!');
