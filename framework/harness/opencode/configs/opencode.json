@@ -8,11 +8,11 @@
     "instructions": ["AGENTS.md", "system-prompt.md"],
     "references": {
       "standards": {
-          "path": "references/standards",
+          "path": "framework/references/standards",
           "description": "Canonical engineering standards referenced by skills."
       },
       "templates": {
-        "path": "references/templates",
+        "path": "framework/references/templates",
         "description": "Ready-to-use workflow documents."
       }
     },
