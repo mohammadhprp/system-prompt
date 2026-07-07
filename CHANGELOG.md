@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented here.
 
+## Unreleased
+
+### Added
+
+- Interactive bootstrap CLI (`bin/system-prompt.js`, `src/`) with `@clack/prompts` prompt flow for installing skills, agents, commands, MCPs, plugins, styles, standards, and templates into any project.
+- `npm link` support — run `system-prompt` locally after linking.
+- MCP configs in generated `opencode.json` are read from `mcps/<name>/configs/opencode.json` instead of hardcoded.
+
+### Changed
+
+- Moved all framework content (`agents/`, `commands/`, `skills/`, `mcps/`, `plugins/`, `styles/`, `references/`, `harness/`) into `framework/` subdirectory.
+- Rewrote root `README.md` for project installation and development instructions.
+- Rewrote root `AGENTS.md` for development-oriented agent guidance.
+- Updated `framework/harness/opencode/configs/opencode.json` reference paths after `framework/` move.
+- Updated `.gitignore` with `node_modules/` and `*.log`.
+
 ## 0.3.0 - 2026-07-07
 
 ### Added
