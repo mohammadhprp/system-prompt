@@ -8,11 +8,28 @@ A CLI for installing the **AI Coding Agent Framework** into any project.
 
 ## Quick Start
 
+### Install
+
 ```sh
-git clone git@github.com:mohammadhprp/system-prompt.git ~/.system-prompt
-cd ~/.system-prompt
-npm install
-npm link
+npm install -g @mohammadhprp/system-prompt
+```
+
+### Authenticate (GitHub Packages)
+
+```sh
+export GITHUB_TOKEN=<your-github-personal-access-token>
+```
+
+Your `~/.npmrc` should contain:
+
+```ini
+@mohammadhprp:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+### Run
+
+```sh
 system-prompt
 ```
 
