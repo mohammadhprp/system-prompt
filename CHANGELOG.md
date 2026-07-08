@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Added Ponytail plugin catalog entry (`framework/plugins/ponytail/`) — lazy senior dev mode with YAGNI-first ladder, slash commands, bundled skills, and cross-platform install guide.
+
 ## [v0.5.2] - 2026-07-08
 
 ### Added

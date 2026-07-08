@@ -9,6 +9,7 @@ This catalog is framework-agnostic: each entry documents what the plugin does, w
 | Plugin | Purpose | Best fit |
 | --- | --- | --- |
 | [OpenCode Goal Plugin](./opencode-goal-plugin/README.md) | Adds Codex-style long-running goal mode with `/goal` slash commands, persistent goal state, completion evidence, and auto-continuation. | Any OpenCode session that needs focused, goal-driven long-running tasks. |
+| [Ponytail](./ponytail/README.md) | Lazy senior dev mode — YAGNI-first, reuse-first ladder that cuts code bloat, token usage, and cost without cutting safety. | Any coding session where agents tend to over-engineer or add unnecessary abstractions. |
 
 ## Why Plugins Are Useful
 

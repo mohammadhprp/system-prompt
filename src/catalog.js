@@ -83,6 +83,7 @@ export const categories = {
     sourceDir: 'framework/plugins',
     items: [
       { id: 'opencode-goal-plugin', name: 'OpenCode Goal Plugin', description: 'Goal-driven long-running tasks with persistence' },
+      { id: 'ponytail', name: 'Ponytail', description: 'Lazy senior dev mode — YAGNI-first, reuse-first ladder that reduces code bloat and cost' },
     ],
   },
 
