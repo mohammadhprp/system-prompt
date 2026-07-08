@@ -8,7 +8,6 @@ export const categories = {
       { id: 'backend-engineer', name: 'Backend Engineer', description: 'Analyze backend requirements, risks, and implementation plans' },
       { id: 'brainstorming', name: 'Brainstorming', description: 'Turn ideas into fully formed designs through dialogue' },
       { id: 'brand-guidelines', name: 'Brand Guidelines', description: 'Apply official brand colors and typography' },
-      { id: 'chrome-devtools', name: 'Chrome DevTools', description: 'Browser automation, debugging, and performance analysis' },
       { id: 'code-review', name: 'Code Review', description: 'Review backend changes for correctness and maintainability' },
       { id: 'design', name: 'Design Like Damien', description: 'Premium UI design philosophy and Lovable prompting' },
       { id: 'documentation', name: 'Documentation', description: 'Create ADRs, design docs, runbooks, and API docs' },
@@ -56,7 +55,6 @@ export const categories = {
     description: 'Model Context Protocol servers for AI coding agents',
     sourceDir: 'framework/mcps',
     items: [
-      { id: 'chrome-devtools', name: 'Chrome DevTools MCP', description: 'Control Chrome browser for debugging and automation' },
       { id: 'excalidraw', name: 'Excalidraw MCP', description: 'Stream hand-drawn diagrams with interactive editing' },
       { id: 'figma-mcp-go', name: 'Figma MCP Go', description: 'Read/write access to Figma designs via plugin bridge' },
       { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Comprehensive GitLab integration' },

@@ -14,7 +14,7 @@ After full installation, the OpenCode agent gains the following capabilities.
 
 | Tool | Source | Purpose |
 | --- | --- | --- |
-| Chrome DevTools MCP | [`chrome-devtools`](../../mcps/chrome-devtools/README.md) | Control Chrome – traces, debugging, screenshots, automation. |
+| Playwright MCP | [`playwright`](../../mcps/playwright/README.md) | Control Brower – traces, debugging, screenshots, automation. |
 | Notion MCP | [`notion`](../../mcps/notion-mcp/README.md) | Read and write Notion pages and databases. |
 
 ## Plugin Features

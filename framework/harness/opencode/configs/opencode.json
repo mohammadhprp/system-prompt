@@ -17,10 +17,10 @@
       }
     },
     "mcp": {
-      "chrome-devtools": {
-          "type": "local",
-          "command": ["bun", "x", "chrome-devtools-mcp@latest"],
-          "enabled": true
+      "playwright": {
+        "type": "local",
+        "enabled": true,
+        "command": ["npx", "@playwright/mcp@latest"]
       },
       "notion": {
           "type": "remote",
