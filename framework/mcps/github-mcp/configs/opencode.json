@@ -1,7 +1,8 @@
 {
   "mcp": {
     "github": {
-      "type": "http",
+      "type": "remote",
+      "enabled": true,
       "url": "https://api.githubcopilot.com/mcp/",
       "headers": {
         "Authorization": "Bearer {env:GITHUB_TOKEN}"
