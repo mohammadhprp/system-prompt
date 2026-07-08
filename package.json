@@ -1,6 +1,6 @@
 {
   "name": "@mohammadhprp/system-prompt",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "AI Coding Agent Framework — interactive bootstrap CLI",
   "type": "module",
   "bin": {

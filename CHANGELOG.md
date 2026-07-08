@@ -4,10 +4,12 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.7.0] - 2026-07-08
+
 ### Added
-- Auto-generation of `.opencode/.env` from MCP `.env.example` files when installing MCPs that declare env vars. Merge/preserve existing `.env` values on re-install. (#new)
-- New GitHub MCP framework entry (`framework/mcps/github-mcp/`) — remote HTTP MCP for browse repos, manage issues/PRs, monitor Actions workflows. Auth via `GITHUB_TOKEN` env var. (#new)
-- New Modes catalog (`framework/modes/`) and CLI category — behavior, tool, and prompt presets for different use cases. Initial entry: `audit` read-only high-scrutiny review mode. (#new)
+- Auto-generation of `.opencode/.env` from MCP `.env.example` files when installing MCPs that declare env vars. Merge/preserve existing `.env` values on re-install.
+- New GitHub MCP framework entry (`framework/mcps/github-mcp/`) — remote HTTP MCP for browse repos, manage issues/PRs, monitor Actions workflows. Auth via `GITHUB_TOKEN` env var.
+- New Modes catalog (`framework/modes/`) and CLI category — behavior, tool, and prompt presets for different use cases. Initial entry: `audit` read-only high-scrutiny review mode.
 
 ## [v0.6.0] - 2026-07-08
 

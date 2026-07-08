@@ -9,8 +9,7 @@ test('findNewItems returns new-flagged items not already installed', () => {
 
   assert.equal(values.includes('commands:release'), false, 'already installed release should be excluded');
   assert.equal(values.includes('mcps:playwright-mcp'), false, 'already installed playwright-mcp should be excluded');
-  assert.ok(values.includes('modes:audit'), 'unreleased modes:audit should be surfaced as new');
-  assert.equal(items.filter(i => i.value === 'modes:audit').length, 1, 'each new item appears once');
+  assert.equal(items.length, 0, 'no new-flagged items remain after shipping this release');
 });
 
 test('findDeprecatedItems returns deprecated items that are installed', () => {

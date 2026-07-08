@@ -15,7 +15,7 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
 - After making changes, update `CHANGELOG.md` under the `## Unreleased` section.
 - On release:
   1. Move `## Unreleased` entries into a new dated `## [vX.Y.Z]` section.
-   2. Remove `new: true` flags from released items in `src/catalog.js` — add the flag to new items from this release, remove it from items that have shipped.
+  2. Add the flag to new items from this release.
   3. Bump version in `package.json` and `package-lock.json`.
   4. Run `npm test` and fix any failures.
   5. Commit the release metadata and tag with `vX.Y.Z`.
