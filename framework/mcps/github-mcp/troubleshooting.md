@@ -24,11 +24,11 @@ The server starts but returns 401 Unauthorized on tool calls.
 
 **Cause**
 
-The `GITHUB_TOKEN` is missing, expired, or invalid.
+The `GITHUB_PERSONAL_ACCESS_TOKEN` is missing, expired, or invalid.
 
 **Solution**
 
-- Verify `GITHUB_TOKEN` is set: check your `.env` file or environment variables.
+- Verify `GITHUB_PERSONAL_ACCESS_TOKEN` is set: check your `.env` file or environment variables.
 - Confirm the token is a valid GitHub Personal Access Token with the required scopes.
 - Generate a new token in GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens**.
 - Ensure the token is not expired.
@@ -58,7 +58,7 @@ Risk of leaking the GitHub token to version control.
 **Solution**
 
 - Never hardcode the token in `opencode.json` or any config file.
-- Use `{env:GITHUB_TOKEN}` in config files and store the actual value in `.env`.
+- Use `{env:GITHUB_PERSONAL_ACCESS_TOKEN}` in config files and store the actual value in `.env`.
 - Add `.env` to `.gitignore`.
 - Restrict `.env` file permissions: `chmod 600 .opencode/.env`.
 
