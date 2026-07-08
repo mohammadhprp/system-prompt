@@ -185,7 +185,9 @@ Design system references in \`styles/\`. Use them for UI component design and to
   return sections.join('\n');
 }
 
-export async function install({ targetDir, agentType, selections, includeAgentsMd = true, includeSystemPromptMd = true }) {
+export async function install({ targetDir, agentType, selections, includeAgentsMd = true, includeSystemPromptMd = true, writeAgentsMd, writeSystemPromptMd }) {
+  writeAgentsMd = writeAgentsMd ?? includeAgentsMd;
+  writeSystemPromptMd = writeSystemPromptMd ?? includeSystemPromptMd;
   const absTarget = resolve(process.cwd(), targetDir);
   await mkdir(absTarget, { recursive: true });
 
@@ -212,7 +214,7 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
 
   await Promise.all(tasks);
 
-  if (includeSystemPromptMd) {
+  if (writeSystemPromptMd) {
     const systemPromptSrc = resolveSource('framework/harness/opencode/configs/system-prompt.md');
     try {
       await stat(systemPromptSrc);
@@ -222,7 +224,7 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     }
   }
 
-  if (includeAgentsMd) {
+  if (writeAgentsMd) {
     const agentsContent = generateAgentsMd({ selections });
     await writeFile(resolve(absTarget, 'AGENTS.md'), agentsContent);
   }
@@ -232,7 +234,12 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     if (selections.mcps?.length) {
       mcpEntries = await loadMcpConfigs(selections.mcps);
     }
-    const configJson = generateOpenCodeConfig({ selections, mcpEntries, includeAgentsMd, includeSystemPromptMd });
+    const configJson = generateOpenCodeConfig({
+      selections,
+      mcpEntries,
+      includeAgentsMd: includeAgentsMd,
+      includeSystemPromptMd: includeSystemPromptMd,
+    });
     if (configJson) {
       await writeFile(resolve(absTarget, 'opencode.json'), configJson);
     }
@@ -247,6 +254,8 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     selections: Object.fromEntries(
       Object.entries(selections).map(([k, v]) => [k, [...v]])
     ),
+    includeAgentsMd,
+    includeSystemPromptMd,
   };
   await writeFile(resolve(absTarget, 'system-prompt--lock.json'), JSON.stringify(lockData, null, 2));
 

@@ -125,7 +125,7 @@ export async function update() {
     process.exit(1);
   }
 
-  const { agentType, targetDir, selections } = lock.data;
+  const { agentType, targetDir, selections, includeAgentsMd, includeSystemPromptMd } = lock.data;
   const newItems = findNewItems(selections || {});
   let nextSelections = selections || {};
 
@@ -161,6 +161,9 @@ export async function update() {
     targetDir: targetDir || '.opencode',
     agentType: agentType || 'opencode',
     selections: nextSelections,
+    includeAgentsMd: includeAgentsMd !== false,
+    includeSystemPromptMd: includeSystemPromptMd !== false,
+    writeAgentsMd: false,
   });
 
   const fileCount = Object.values(nextSelections).reduce((sum, arr) => sum + (arr?.length || 0), 0);
