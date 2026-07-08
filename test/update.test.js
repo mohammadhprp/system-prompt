@@ -9,7 +9,7 @@ test('findNewItems returns new-flagged items not already installed', () => {
 
   assert.equal(values.includes('commands:release'), false, 'already installed release should be excluded');
   assert.equal(values.includes('mcps:playwright-mcp'), false, 'already installed playwright-mcp should be excluded');
-  assert.equal(values.includes('plugins:ponytail'), true, 'uninstalled ponytail should be included');
+  assert.equal(items.length, 0, 'no new-flagged items remain after shipping this release');
 });
 
 test('findDeprecatedItems returns deprecated items that are installed', () => {

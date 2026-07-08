@@ -4,8 +4,19 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.6.0] - 2026-07-08
+
 ### Added
 - Added Ponytail plugin catalog entry (`framework/plugins/ponytail/`) — lazy senior dev mode with YAGNI-first ladder, slash commands, bundled skills, and cross-platform install guide.
+- Replaced `new-framework-items.json` with `new`/`deprecated`/`removed` lifecycle flags on catalog items; update shows new items, warns on deprecated, auto-cleans removed.
+
+### Changed
+- Derived CLI category options dynamically from the catalog instead of hardcoding them.
+
+### Fixed
+- Stopped copying plugin source directories to output; plugins install via npm package names only.
+- Made `opencode.json` `instructions` respect user's AGENTS.md/system-prompt.md choices.
+- Preserved AGENTS.md during `system-prompt update` (no longer overwrites).
 
 ## [v0.5.2] - 2026-07-08
 
