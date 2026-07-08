@@ -4,11 +4,21 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.7.1] - 2026-07-08
+
 ### Added
 - New consolidated `backend-best-practices` skill with 9 domain reference files (api-design, architecture-review, database-design, debugging, observability, performance, refactoring, security, testing).
 
-### Removed
-- Removed 9 individual backend skill directories (`api-design`, `architecture-review`, `database-design`, `debugging`, `observability`, `performance`, `refactoring`, `security`, `testing`) — consolidated into `backend-best-practices`.
+### Changed
+- Consolidated 9 backend skills into `backend-best-practices`.
+
+### Fixed
+- Removed unused `update` option from the CLI.
+- Renamed test folder to be parallel.
+- Removed unused `skills-cli` skill.
+- Removed unused `web-artifacts-builder` skill.
+- Removed Chrome DevTools MCP and skill.
+- Removed unused `architecture-review` command.
 
 ## [v0.7.0] - 2026-07-08
 
