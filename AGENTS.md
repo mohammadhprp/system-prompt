@@ -9,12 +9,16 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
 - `framework/` — All framework content that the CLI installs (agents, skills, commands, MCPs, plugins, styles, references, harnesses).
 - `package.json` — Package metadata with `"private": true`. Only `src/`, `bin/`, and `framework/` are published.
 
+## Actions
+- After adding new items to `framework/` you should add it to the  `src/catalog.js`.
+- On Changes you should update `CHANGELOG.md` as `## Unreleased` changes.
+- On relase you should add new items from previus release to `src/new-framework-items.json` and delete old one.
+- On release you should update the `package.json` and `package-lock.json` version too.
+
 ## Build & Test
 
 - No build step. Plain Node.js ESM.
-- Syntax check: `node --check src/<file>.js`
-- Integration test: `node -e "import { install } from './src/installer.js'; ..."` to verify file output.
-- Full flow: `npm link && system-prompt` in a temp directory.
+- Write test for you changes.
 
 ## Engineering Conduct
 

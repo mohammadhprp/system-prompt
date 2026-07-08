@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Added dependency-free Node test coverage for catalog integrity, config generation, installer output, and update selection helpers.
+
 ## 0.5.1 - 2026-07-07
 
 ### Added

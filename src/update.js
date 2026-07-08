@@ -24,7 +24,7 @@ async function findLockFile() {
   return null;
 }
 
-function findNewItems(selections) {
+export function findNewItems(selections) {
   const items = [];
 
   for (const entry of newFrameworkItems) {
@@ -51,7 +51,7 @@ function findNewItems(selections) {
   return items;
 }
 
-function mergeNewSelections(selections, newItems, selectedValues) {
+export function mergeNewSelections(selections, newItems, selectedValues) {
   const next = Object.fromEntries(
     Object.entries(selections || {}).map(([cat, ids]) => [cat, [...(ids || [])]])
   );

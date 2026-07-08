@@ -6,6 +6,9 @@
   "bin": {
     "system-prompt": "bin/system-prompt.js"
   },
+  "scripts": {
+    "test": "node --test"
+  },
   "files": [
     "src/",
     "bin/",
