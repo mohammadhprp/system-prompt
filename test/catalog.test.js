@@ -18,7 +18,7 @@ test('catalog entries point to framework content', async () => {
       assert.ok(item.name, `${category}:${item.id} has a name`);
       assert.ok(item.description, `${category}:${item.id} has a description`);
 
-      const suffix = ['agents', 'commands', 'standards', 'templates'].includes(category) ? `${item.id}.md` : item.id;
+      const suffix = ['agents', 'commands', 'standards', 'templates', 'modes'].includes(category) ? `${item.id}.md` : item.id;
       await access(resolve(packageRoot, config.sourceDir, suffix));
     }
   }

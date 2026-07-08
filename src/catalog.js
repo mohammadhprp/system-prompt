@@ -98,6 +98,15 @@ export const categories = {
     ],
   },
 
+  modes: {
+    title: 'Modes',
+    description: 'Behavior, tool, and prompt presets for different use cases',
+    sourceDir: 'framework/modes',
+    items: [
+      { id: 'audit', name: 'Audit', description: 'Read-only high-scrutiny review mode for evaluating artifacts', new: true },
+    ],
+  },
+
   standards: {
     title: 'Standards',
     description: 'Canonical engineering standards',

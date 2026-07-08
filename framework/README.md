@@ -32,6 +32,7 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
 | `plugins/` | Curated OpenCode plugin catalog with install, capabilities, and troubleshooting documentation. |
 | `styles/` | Curated design system catalog from Refero Styles — colors, typography, spacing, and component references. |
+| `modes/` | Behavior, tool, and prompt presets that customize the agent for different use cases. |
 | `references/standards/` | Canonical engineering standards referenced by skills. |
 | `references/templates/` | Ready-to-use workflow documents. |
 
@@ -116,6 +117,21 @@ Before using a style reference, check:
 The [`commands/`](commands/) directory is a catalog of slash commands for AI coding agents. Each command defines a repeatable workflow that agents execute on demand.
 
 See the full [command catalog](commands/README.md) for available commands, their purposes, and what skills they load.
+
+## Modes
+
+The [`modes/`](modes/) directory is a catalog of behavior, tool, and prompt presets for AI coding agents. Each mode customizes how the agent behaves for a given use case — setting the temperature, restricting or granting tools, and defining the response style, workflow, and output format.
+
+See the full [mode catalog](modes/README.md) for available modes, their purposes, and their tool restrictions.
+
+### How to Choose a Mode
+
+Before activating a mode, check:
+
+- **Fit**: does the mode's posture match the current task (e.g., read-only scrutiny vs. open building)?
+- **Tools**: confirm the mode's tool restrictions are appropriate — review modes typically disable `write`, `edit`, and `bash`.
+- **Activation**: read the mode file to adopt its behavior; modes are switched explicitly, not stacked.
+
 
 ## FAQ
 

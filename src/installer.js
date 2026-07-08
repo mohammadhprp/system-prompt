@@ -224,6 +224,20 @@ Design system references in \`styles/\`. Use them for UI component design and to
 `);
   }
 
+  if (selections.modes?.length) {
+    sections.push(`## Modes
+
+Available behavior, tool, and prompt presets in \`modes/\`. Read a mode file to adopt its operating posture for the current task.
+
+| Mode | Purpose |
+| --- | --- |`);
+    for (const id of selections.modes) {
+      const item = categories.modes.items.find(i => i.id === id);
+      if (item) sections.push(`| ${item.name} | ${item.description} |`);
+    }
+    sections.push('');
+  }
+
   if (selections.standards?.length || selections.templates?.length) {
     sections.push(`## References`);
     if (selections.standards?.length) {
@@ -268,6 +282,9 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
   }
   if (selections.styles?.length) {
     tasks.push(copySelectedDirs(absTarget, 'styles', selections.styles));
+  }
+  if (selections.modes?.length) {
+    tasks.push(copySelectedFiles(absTarget, 'modes', selections.modes));
   }
   if (selections.standards?.length) {
     tasks.push(copySelectedFiles(absTarget, 'standards', selections.standards));
