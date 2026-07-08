@@ -22,17 +22,24 @@ export async function loadMcpConfigs(selectedIds) {
   return entries;
 }
 
-export function generateOpenCodeConfig({ selections, mcpEntries }) {
+export function generateOpenCodeConfig({ selections, mcpEntries, includeAgentsMd, includeSystemPromptMd }) {
   const plugins = [];
   if (selections.plugins?.includes('opencode-goal-plugin')) {
     plugins.push('@prevalentware/opencode-goal-plugin');
   }
+  if (selections.plugins?.includes('ponytail')) {
+    plugins.push('@dietrichgebert/ponytail');
+  }
+
+  const instructions = [];
+  if (includeAgentsMd) instructions.push('AGENTS.md');
+  if (includeSystemPromptMd) instructions.push('system-prompt.md');
 
   const config = {
     $schema: 'https://opencode.ai/config.json',
     formatter: true,
     lsp: false,
-    instructions: ['AGENTS.md', 'system-prompt.md'],
+    instructions,
   };
 
   if (plugins.length > 0) {

@@ -221,7 +221,7 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     if (selections.mcps?.length) {
       mcpEntries = await loadMcpConfigs(selections.mcps);
     }
-    const configJson = generateOpenCodeConfig({ selections, mcpEntries });
+    const configJson = generateOpenCodeConfig({ selections, mcpEntries, includeAgentsMd, includeSystemPromptMd });
     if (configJson) {
       await writeFile(resolve(absTarget, 'opencode.json'), configJson);
     }
