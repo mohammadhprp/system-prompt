@@ -20,18 +20,6 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
   4. Run `npm test` and fix any failures.
   5. Commit the release metadata and tag with `vX.Y.Z`.
 
-## Item Lifecycle Flags
-
-Items in `src/catalog.js` support three lifecycle flags:
-
-| Flag | Effect |
-|---|---|
-| `new: true` | Included in the update prompt so users can discover and add it |
-| `deprecated: true` | Shows a deprecation warning during update; item still works |
-| `removed: true` | Automatically cleaned from the lock file during update; hidden from CLI selection; not copied during install |
-
-Use `deprecated` for items that still exist but should be migrated away from. Use `removed` for items whose framework files have been deleted — keep the catalog entry as a tombstone for one release cycle, then delete it entirely.
-
 ## Build & Test
 
 - No build step. Plain Node.js ESM.
