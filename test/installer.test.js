@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -62,6 +62,76 @@ test('install writes selected framework files and generated config', async () =>
     assert.equal(lock.targetDir, '.opencode');
     assert.deepEqual(lock.selections.skills, ['testing']);
     assert.match(lock.installedAt, /^\d{4}-\d{2}-\d{2}T/);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('install creates merged .env from selected MCP .env.example files', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    const absTarget = await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {
+        mcps: ['gitlab-mcp', 'jira-mcp'],
+      },
+      includeAgentsMd: false,
+      includeSystemPromptMd: false,
+    });
+
+    const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
+    assert.match(envContent, /^GITLAB_API_URL=$/m);
+    assert.match(envContent, /^GITLAB_PERSONAL_ACCESS_TOKEN=$/m);
+    assert.match(envContent, /^JIRA_BASE_URL=$/m);
+    assert.match(envContent, /^JIRA_PAT=$/m);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('install merges .env preserving existing values on re-install', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    const absTarget = await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {
+        mcps: ['gitlab-mcp', 'jira-mcp'],
+      },
+      includeAgentsMd: false,
+      includeSystemPromptMd: false,
+    });
+
+    const seeded = 'GITLAB_API_URL=https://gitlab.example.com\nEXTRA_VAR=keep-me\n';
+    await writeFile(join(absTarget, '.env'), seeded);
+
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {
+        mcps: ['gitlab-mcp', 'jira-mcp'],
+      },
+      includeAgentsMd: false,
+      includeSystemPromptMd: false,
+    });
+
+    const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
+    assert.match(envContent, /^GITLAB_API_URL=https:\/\/gitlab\.example\.com$/m);
+    assert.match(envContent, /^EXTRA_VAR=keep-me$/m);
+    assert.match(envContent, /^GITLAB_PERSONAL_ACCESS_TOKEN=$/m);
+    assert.match(envContent, /^JIRA_BASE_URL=$/m);
+    assert.match(envContent, /^JIRA_PAT=$/m);
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });

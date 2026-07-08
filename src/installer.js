@@ -94,6 +94,70 @@ async function copySelectedFiles(targetDir, category, selectedIds) {
   }
 }
 
+function parseEnv(content) {
+  const vars = new Map();
+  for (const line of content.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIndex = trimmed.indexOf('=');
+    if (eqIndex === -1) {
+      vars.set(trimmed, '');
+    } else {
+      const key = trimmed.slice(0, eqIndex).trim();
+      const value = trimmed.slice(eqIndex + 1).trim();
+      if (key) vars.set(key, value);
+    }
+  }
+  return vars;
+}
+
+async function collectMcpEnvExamples(mcpIds) {
+  const combined = new Map();
+  for (const id of mcpIds) {
+    try {
+      const examplePath = resolveSource(`framework/mcps/${id}/configs/.env.example`);
+      const content = await readFile(examplePath, 'utf-8');
+      const parsed = parseEnv(content);
+      for (const [key, value] of parsed) {
+        if (!combined.has(key)) combined.set(key, value);
+      }
+    } catch {
+      // Silently skip MCPs without .env.example
+    }
+  }
+  return combined;
+}
+
+async function writeMergedEnv(absTarget, examples) {
+  if (examples.size === 0) return;
+
+  const envPath = resolve(absTarget, '.env');
+  const existing = new Map();
+
+  try {
+    const existingContent = await readFile(envPath, 'utf-8');
+    const parsed = parseEnv(existingContent);
+    for (const [key, value] of parsed) existing.set(key, value);
+  } catch {
+    // File doesn't exist yet
+  }
+
+  const merged = new Map(existing);
+  for (const [key, value] of examples) {
+    if (!merged.has(key)) merged.set(key, value);
+  }
+
+  if (merged.size === 0) return;
+
+  const lines = [];
+  for (const [key, value] of merged) {
+    lines.push(`${key}=${value}`);
+  }
+  lines.push('');
+
+  await writeFile(envPath, lines.join('\n'));
+}
+
 function generateAgentsMd({ selections }) {
   const sections = [];
 
@@ -243,6 +307,11 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     if (configJson) {
       await writeFile(resolve(absTarget, 'opencode.json'), configJson);
     }
+  }
+
+  if (selections.mcps?.length) {
+    const envExamples = await collectMcpEnvExamples(selections.mcps);
+    await writeMergedEnv(absTarget, envExamples);
   }
 
   const version = await getPackageVersion();

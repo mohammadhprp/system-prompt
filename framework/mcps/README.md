@@ -51,6 +51,7 @@ mcps/<mcp-slug>/
 ├── troubleshooting.md
 └── configs/
     ├── opencode.json
+    └── .env.example
 ```
 
 ## Naming Conventions

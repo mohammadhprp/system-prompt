@@ -5,8 +5,8 @@
       "enabled": true,
       "command": ["zereight-mcp-gitlab"],
       "env": {
-        "GITLAB_PERSONAL_ACCESS_TOKEN": "glpat-your-token-here",
-        "GITLAB_API_URL": "https://gitlab.com/api/v4"
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "{env:GITLAB_PERSONAL_ACCESS_TOKEN}",
+        "GITLAB_API_URL": "{env:GITLAB_API_URL}"
       }
     }
   }
