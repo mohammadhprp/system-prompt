@@ -57,7 +57,6 @@ export const categories = {
       { id: 'figma-mcp-go', name: 'Figma MCP Go', description: 'Read/write access to Figma designs via plugin bridge' },
       { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Comprehensive GitLab integration' },
       { id: 'github-mcp', name: 'GitHub MCP', description: 'Browse repos, manage issues/PRs, monitor Actions' },
-      { id: 'graphify', name: 'Graphify MCP', description: 'Knowledge graph of your codebase' },
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Interact with self-hosted Jira instances' },
       { id: 'laravel-boost', name: 'Laravel Boost MCP', description: 'Laravel application context and ecosystem docs' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Search, read, and write Notion content' },

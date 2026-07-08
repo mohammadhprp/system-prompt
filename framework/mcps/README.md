@@ -12,7 +12,6 @@ This catalog is framework-agnostic: each entry documents what the server does, w
 | [Figma MCP Go](./figma-mcp-go/README.md) | Full read/write access to Figma designs via plugin bridge — no API token or rate limits. | Any project that works with Figma designs. |
 | [GitLab MCP](./gitlab-mcp/README.md) | Comprehensive GitLab integration — projects, MRs, issues, pipelines, wiki, milestones, and more. | Any project hosted on GitLab (SaaS or self-hosted). |
 | [GitHub MCP](./github-mcp/README.md) | Connect AI tools to GitHub — browse repos, manage issues and PRs, monitor Actions workflows. | Any project hosted on GitHub. |
-| [Graphify MCP](./graphify/README.md) | Knowledge graph of your codebase — query instead of grep, trace paths, find connections, analyze PR impact. | Any project that needs codebase understanding, architecture discovery, or onboarding. |
 | [Jira MCP](./jira-mcp/README.md) | Interact with self-hosted Jira instances — issues, JQL search, comments, assignments, and projects. | Any project using self-hosted Jira for issue tracking. |
 | [Laravel Boost](./laravel-boost/README.md) | Gives AI agents Laravel application context, Laravel ecosystem documentation search, and safe local inspection tools. | Laravel applications. |
 | [Notion MCP](./notion-mcp/README.md) | Search, read, and write content in a Notion workspace — pages, databases, views, comments, and more via remote HTTP MCP. | Any project that uses Notion for documentation, tracking, or collaboration. |
