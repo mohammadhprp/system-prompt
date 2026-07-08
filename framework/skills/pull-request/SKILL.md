@@ -1,5 +1,5 @@
 ---
-name: Pull Request
+name: pull-request
 description: Prepare small, reviewable changes with clear evidence, risk, deployment, and rollback notes.
 version: 0.1.0
 ---

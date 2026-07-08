@@ -40,4 +40,4 @@ Define reusable backend engineering rules for security decisions across projects
 
 - `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
-- `skills/security/SKILL.md`
+- `skills/backend-best-practices/references/security.md`

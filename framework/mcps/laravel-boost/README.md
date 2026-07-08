@@ -50,8 +50,4 @@ Avoid using it as a generic MCP outside Laravel projects.
 Relevant skills in this repository:
 
 - [`backend-engineer`](../../skills/backend-engineer/SKILL.md): feature work in Laravel applications.
-- [`api-design`](../../skills/api-design/SKILL.md): Laravel HTTP APIs and contracts.
-- [`database-design`](../../skills/database-design/SKILL.md): migrations, schema, and query work.
-- [`debugging`](../../skills/debugging/SKILL.md): diagnosing failures with logs and runtime context.
-- [`testing`](../../skills/testing/SKILL.md): PHPUnit, Pest, integration, and regression testing.
-- [`security`](../../skills/security/SKILL.md): authorization, secrets, and safe tool use.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for API design, database design, debugging, testing, and security.

@@ -40,4 +40,4 @@ Define reusable backend engineering rules for architecture decisions across proj
 
 - `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
-- `skills/architecture-review/SKILL.md`
+- `skills/backend-best-practices/references/architecture-review.md`

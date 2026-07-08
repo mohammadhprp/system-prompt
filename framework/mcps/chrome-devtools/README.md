@@ -49,7 +49,4 @@ Avoid using it when no browser interaction is needed.
 
 Relevant skills in this repository:
 
-- [`debugging`](../../skills/debugging/SKILL.md): diagnosing runtime errors, console messages, and network issues.
-- [`performance`](../../skills/performance/SKILL.md): analyzing performance traces and Lighthouse results.
-- [`testing`](../../skills/testing/SKILL.md): browser automation and visual regression checks.
-- [`security`](../../skills/security/SKILL.md): inspecting network requests and console warnings.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for debugging, performance analysis, testing, and security.

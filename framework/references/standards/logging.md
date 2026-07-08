@@ -40,4 +40,4 @@ Define reusable backend engineering rules for logging decisions across projects.
 
 - `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
-- `skills/observability/SKILL.md`
+- `skills/backend-best-practices/references/observability.md`

@@ -4,6 +4,12 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- New consolidated `backend-best-practices` skill with 9 domain reference files (api-design, architecture-review, database-design, debugging, observability, performance, refactoring, security, testing).
+
+### Removed
+- Removed 9 individual backend skill directories (`api-design`, `architecture-review`, `database-design`, `debugging`, `observability`, `performance`, `refactoring`, `security`, `testing`) — consolidated into `backend-best-practices`.
+
 ## [v0.7.0] - 2026-07-08
 
 ### Added

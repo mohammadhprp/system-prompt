@@ -44,4 +44,4 @@ Relevant skills in this repository:
 
 - [`backend-engineer`](../../skills/backend-engineer/SKILL.md): understanding architecture during feature work.
 - [`code-review`](../../skills/code-review/SKILL.md): PR impact analysis with graph context.
-- [`debugging`](../../skills/debugging/SKILL.md): tracing code paths across modules.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for debugging and architecture analysis.

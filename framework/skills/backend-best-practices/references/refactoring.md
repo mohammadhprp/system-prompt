@@ -1,15 +1,13 @@
----
-name: Refactoring
-description: Improve code structure safely while preserving behavior through small verified steps.
-version: 0.1.0
----
-# Purpose
-Improve code structure safely while preserving behavior through small verified steps. This skill guides an AI agent to act with senior backend judgment: clarify the outcome, identify constraints, choose the least complex safe path, and make production impact visible.
+# Refactoring Reference
 
-# When to Activate
-Use this skill when the task involves removing duplication, simplifying code, reducing complexity, improving naming, preserving behavior, or making small incremental changes. It is also useful when a request is vague, risky, touches production behavior, changes contracts, changes data, or needs a reviewable engineering plan. Do not activate it for trivial text edits unless the edit changes engineering guidance.
+Improve code structure safely while preserving behavior through small verified steps.
 
-# Principles
+## When to Use
+
+Use this when the task involves removing duplication, simplifying code, reducing complexity, improving naming, preserving behavior, or making small incremental changes. It is also useful when a request is vague, risky, touches production behavior, changes contracts, changes data, or needs a reviewable engineering plan. Do not use it for trivial text edits unless the edit changes engineering guidance.
+
+## Principles
+
 - Correctness and data integrity come before speed of implementation.
 - Simplicity is a feature: fewer moving parts means fewer failure modes.
 - Existing contracts must remain compatible unless a breaking change is approved.
@@ -25,7 +23,8 @@ Use this skill when the task involves removing duplication, simplifying code, re
 - Characterization tests are useful before touching risky legacy behavior.
 - Stop refactoring when the code is simpler enough for the current goal.
 
-# Workflow
+## Workflow
+
 1. Identify the improvement goal: reduce duplication, simplify logic, improve naming, extract module.
 2. Verify existing test coverage. If coverage is weak, add characterization tests first.
 3. Make one conceptual change at a time. Commit or stage after each safe step.
@@ -35,7 +34,8 @@ Use this skill when the task involves removing duplication, simplifying code, re
 7. Remove dead code, commented code, and unused dependencies found during the refactor.
 8. Stop when the code is clear enough for the current maintenance needs - avoid over-refactoring.
 
-# Rules
+## Rules
+
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
 - Do not introduce new infrastructure unless the current requirement cannot be met safely without it.
 - Do not hide breaking changes in refactors.
@@ -43,27 +43,31 @@ Use this skill when the task involves removing duplication, simplifying code, re
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
 - Reference related standards: references/standards/naming.md, references/standards/testing.md.
 
-# Deliverables
+## Deliverables
+
 - Improved code with one conceptual change per step.
 - Passing test suite before and after each step.
 - Characterization tests for legacy code with weak coverage.
 - Before/after comparison confirming behavior preservation.
 - Removed dead code, commented code, and unused dependencies.
 
-# Common Mistakes
+## Common Mistakes
+
 - Refactoring and changing behavior in the same step.
 - Removing tests or code that seems unused but is actually relied upon implicitly.
 - Over-abstracting: creating interfaces, base classes, or indirection before a clear need exists.
 - Refactoring for performance without measuring the baseline.
 - Leaving the code in a half-refactored state.
 
-# Failure Modes
+## Failure Modes
+
 - A refactor introduces a subtle behavior change that tests do not catch.
 - Over-refactoring produces a more complex design than the original.
 - A rename misses a reference, causing a production issue.
 - A shared abstraction created during refactoring becomes a coupling point that is hard to undo.
 
-# Checklist
+## Checklist
+
 - [ ] Existing tests pass before and after each refactoring step.
 - [ ] One conceptual change is made at a time.
 - [ ] External behavior is preserved (same inputs, outputs, errors, side effects).

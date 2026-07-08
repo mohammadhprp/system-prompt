@@ -47,6 +47,4 @@ Avoid using it when no browser interaction is needed or when you need pixel-leve
 
 Relevant skills in this repository:
 
-- [`testing`](../../skills/testing/SKILL.md): E2E test strategies and browser automation.
-- [`debugging`](../../skills/debugging/SKILL.md): diagnosing runtime errors in web pages.
-- [`performance`](../../skills/performance/SKILL.md): performance analysis of web applications.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for testing, debugging, and performance analysis.

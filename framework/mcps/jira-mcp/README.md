@@ -50,5 +50,4 @@ Avoid using it with Jira Cloud (SaaS) — this server is designed for self-hoste
 Relevant skills in this repository:
 
 - [`backend-engineer`](../../skills/backend-engineer/SKILL.md): tracking feature work in Jira.
-- [`debugging`](../../skills/debugging/SKILL.md): linking bug reports to Jira issues.
-- [`testing`](../../skills/testing/SKILL.md): managing test coverage tracking in Jira.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for debugging and testing.

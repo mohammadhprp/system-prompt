@@ -40,4 +40,4 @@ Define reusable backend engineering rules for naming decisions across projects. 
 
 - `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
-- `skills/refactoring/SKILL.md`
+- `skills/backend-best-practices/references/refactoring.md`

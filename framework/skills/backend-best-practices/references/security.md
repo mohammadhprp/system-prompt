@@ -1,15 +1,13 @@
----
-name: Security
-description: Apply practical security review across identity, access, secrets, data handling, and abuse resistance.
-version: 0.1.0
----
-# Purpose
-Apply practical security review across identity, access, secrets, data handling, and abuse resistance. This skill guides an AI agent to act with senior backend judgment: clarify the outcome, identify constraints, choose the least complex safe path, and make production impact visible.
+# Security Reference
 
-# When to Activate
-Use this skill when the task involves authentication, authorization, secrets, encryption, OWASP-style risks, injection, input validation, output encoding, rate limiting, abuse prevention, or least privilege. It is also useful when a request is vague, risky, touches production behavior, changes contracts, changes data, or needs a reviewable engineering plan. Do not activate it for trivial text edits unless the edit changes engineering guidance.
+Apply practical security review across identity, access, secrets, data handling, and abuse resistance.
 
-# Principles
+## When to Use
+
+Use this when the task involves authentication, authorization, secrets, encryption, OWASP-style risks, injection, input validation, output encoding, rate limiting, abuse prevention, or least privilege. It is also useful when a request is vague, risky, touches production behavior, changes contracts, changes data, or needs a reviewable engineering plan. Do not use it for trivial text edits unless the edit changes engineering guidance.
+
+## Principles
+
 - Correctness and data integrity come before speed of implementation.
 - Simplicity is a feature: fewer moving parts means fewer failure modes.
 - Existing contracts must remain compatible unless a breaking change is approved.
@@ -26,7 +24,8 @@ Use this skill when the task involves authentication, authorization, secrets, en
 - Output encoding and safe error responses prevent data disclosure.
 - Abuse controls such as rate limits should protect expensive and sensitive actions.
 
-# Workflow
+## Workflow
+
 1. Identify data assets, entry points, and trust boundaries in the system.
 2. Review authentication: is identity verified at every entry point?
 3. Review authorization: is access checked against the resource, not assumed from the caller?
@@ -37,7 +36,8 @@ Use this skill when the task involves authentication, authorization, secrets, en
 8. Test security boundaries: attempt injection, forced browsing, privilege escalation.
 9. Document residual risks and recommended mitigations.
 
-# Rules
+## Rules
+
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
 - Do not introduce new infrastructure unless the current requirement cannot be met safely without it.
 - Do not hide breaking changes in refactors.
@@ -45,27 +45,31 @@ Use this skill when the task involves authentication, authorization, secrets, en
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
 - Reference related standards: references/standards/security.md.
 
-# Deliverables
+## Deliverables
+
 - Security review of authentication, authorization, and input handling.
 - Secrets exposure analysis.
 - Data protection review (in transit and at rest).
 - Abuse control assessment.
 - Residual risks and recommended mitigations.
 
-# Common Mistakes
+## Common Mistakes
+
 - Performing authorization checks only in the UI or frontend and not at the API boundary.
 - Storing secrets in source code, environment files committed to git, or inline configs.
 - Trusting input from internal services, background jobs, or message queues without validation.
 - Using weak or outdated cryptographic algorithms.
 - Ignoring rate limiting on authentication endpoints, allowing brute force.
 
-# Failure Modes
+## Failure Modes
+
 - A vulnerability is introduced because input validation is missing on a new endpoint.
 - A secret is exposed in logs or error responses, causing a credential leak.
 - Authorization is checked on the first request but not re-verified for subsequent operations in a workflow.
 - A security review misses an issue because it focused on code and ignored infrastructure config.
 
-# Checklist
+## Checklist
+
 - [ ] Authentication is enforced at every external entry point.
 - [ ] Authorization checks happen at the resource boundary, not just in the UI.
 - [ ] All inputs are validated, sanitized, or parameterized.

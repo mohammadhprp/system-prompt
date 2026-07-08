@@ -47,7 +47,5 @@ Avoid using it outside of GitHub-related workflows.
 Relevant skills in this repository:
 
 - [`code-review`](../../skills/code-review/SKILL.md): reviewing pull request diffs.
-- [`testing`](../../skills/testing/SKILL.md): verifying CI workflow results.
-- [`debugging`](../../skills/debugging/SKILL.md): diagnosing failures with Actions logs.
-- [`security`](../../skills/security/SKILL.md): reviewing security-sensitive PRs and alerts.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for testing, debugging, and security review.
 - [`pull-request`](../../skills/pull-request/SKILL.md): preparing and submitting pull requests.

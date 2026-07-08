@@ -42,6 +42,4 @@ Avoid using it for simple one-shot prompts that do not need goal tracking.
 Relevant skills in this repository:
 
 - [`backend-engineer`](../../skills/backend-engineer/SKILL.md): long-running feature work with goal tracking.
-- [`refactoring`](../../skills/refactoring/SKILL.md): behavior-preserving cleanup tracked as a goal.
-- [`debugging`](../../skills/debugging/SKILL.md): sustained debugging sessions with a clear objective.
-- [`testing`](../../skills/testing/SKILL.md): fixing a test suite tracked as a goal.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for refactoring, debugging, and testing.

@@ -1,5 +1,5 @@
 ---
-name: Documentation
+name: documentation
 description: Create ADRs, design docs, runbooks, API docs, and operational knowledge that stays useful.
 version: 0.1.0
 ---

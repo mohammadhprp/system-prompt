@@ -1,5 +1,5 @@
 ---
-name: Code Review
+name: code-review
 description: Review backend changes for correctness, readability, maintainability, tests, performance, and security.
 version: 0.1.0
 ---

@@ -9,7 +9,7 @@ Review and improve system architecture.
 
 ## Process
 
-1. **Review conversation and architecture** - Read conversation history, project structure, key source files. Identify the system boundaries, components, data flows, and external dependencies. Load [`skills/architecture-review/SKILL.md`](../skills/architecture-review/SKILL.md) and [`references/standards/architecture.md`](../references/standards/architecture.md).
+1. **Review conversation and architecture** - Read conversation history, project structure, key source files. Identify the system boundaries, components, data flows, and external dependencies. Load [`skills/backend-best-practices/references/architecture-review.md`](../skills/backend-best-practices/references/architecture-review.md) and [`references/standards/architecture.md`](../references/standards/architecture.md).
 
 2. **Analyze coupling and cohesion** - Check if components can change independently. Evaluate dependency direction (domain depends on nothing, infrastructure depends on domain). Identify circular dependencies, boundary leaks, and ownership gaps.
 

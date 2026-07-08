@@ -50,9 +50,5 @@ Avoid using it outside of GitLab-related workflows.
 Relevant skills in this repository:
 
 - [`backend-engineer`](../../skills/backend-engineer/SKILL.md): feature work in projects hosted on GitLab.
-- [`api-design`](../../skills/api-design/SKILL.md): designing APIs and reviewing MRs.
+- [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for API design, testing, debugging, performance, and security.
 - [`code-review`](../../skills/code-review/SKILL.md): reviewing merge request diffs.
-- [`testing`](../../skills/testing/SKILL.md): verifying CI pipeline results.
-- [`debugging`](../../skills/debugging/SKILL.md): diagnosing failures with pipeline logs and job output.
-- [`performance`](../../skills/performance/SKILL.md): reviewing performance-sensitive MRs.
-- [`security`](../../skills/security/SKILL.md): reviewing security-sensitive MRs and secret exposure.

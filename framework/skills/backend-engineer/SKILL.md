@@ -1,5 +1,5 @@
 ---
-name: Backend Engineer
+name: backend-engineer
 description: Analyze backend requirements, risks, and implementation plans before coding.
 version: 0.1.0
 ---

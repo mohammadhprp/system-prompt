@@ -75,7 +75,7 @@ Focus on REST API security across these areas:
 Identify: entry points (all routes), data assets (what each endpoint handles), trust boundaries, authentication mechanisms, third-party integrations.
 
 ### Step 2: Review Code and Config
-- Load [`skills/security/SKILL.md`](../skills/security/SKILL.md) and [`references/standards/security.md`](../references/standards/security.md).
+- Load [`skills/backend-best-practices/references/security.md`](../skills/backend-best-practices/references/security.md) and [`references/standards/security.md`](../references/standards/security.md).
 - Read route definitions, middleware, auth guards, service-layer authorization, input validation logic.
 - Read config files for CORS, rate limiting, TLS settings, secrets.
 

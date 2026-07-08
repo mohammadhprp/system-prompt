@@ -17,7 +17,7 @@ test('install writes selected framework files and generated config', async () =>
       targetDir: '.opencode',
       agentType: 'opencode',
       selections: {
-        skills: ['testing'],
+        skills: ['backend-best-practices'],
         agents: ['reviewer'],
         commands: ['review'],
         standards: ['security'],
@@ -31,8 +31,8 @@ test('install writes selected framework files and generated config', async () =>
 
     assert.equal(absTarget, resolve(process.cwd(), '.opencode'));
 
-    const skill = await readFile(join(absTarget, 'skills/testing/SKILL.md'), 'utf-8');
-    assert.match(skill, /Testing/);
+    const skill = await readFile(join(absTarget, 'skills/backend-best-practices/SKILL.md'), 'utf-8');
+    assert.match(skill, /Backend Best Practices/);
 
     const agent = await readFile(join(absTarget, 'agents/reviewer.md'), 'utf-8');
     assert.match(agent, /review code changes/i);
@@ -60,7 +60,7 @@ test('install writes selected framework files and generated config', async () =>
     const lock = JSON.parse(await readFile(join(absTarget, 'system-prompt--lock.json'), 'utf-8'));
     assert.equal(lock.agentType, 'opencode');
     assert.equal(lock.targetDir, '.opencode');
-    assert.deepEqual(lock.selections.skills, ['testing']);
+    assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
     assert.match(lock.installedAt, /^\d{4}-\d{2}-\d{2}T/);
   } finally {
     process.chdir(previousCwd);

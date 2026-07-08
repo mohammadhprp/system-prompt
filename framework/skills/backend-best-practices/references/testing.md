@@ -1,15 +1,13 @@
----
-name: Testing
-description: Design deterministic unit, integration, contract, and end-to-end testing strategies.
-version: 0.1.0
----
-# Purpose
-Design deterministic unit, integration, contract, and end-to-end testing strategies. This skill guides an AI agent to act with senior backend judgment: clarify the outcome, identify constraints, choose the least complex safe path, and make production impact visible.
+# Testing Reference
 
-# When to Activate
-Use this skill when the task involves unit, integration, contract, end-to-end, testability, mocking, deterministic behavior, or release confidence. It is also useful when a request is vague, risky, touches production behavior, changes contracts, changes data, or needs a reviewable engineering plan. Do not activate it for trivial text edits unless the edit changes engineering guidance.
+Design deterministic unit, integration, contract, and end-to-end testing strategies.
 
-# Principles
+## When to Use
+
+Use this when the task involves unit, integration, contract, end-to-end, testability, mocking, deterministic behavior, or release confidence. It is also useful when a request is vague, risky, touches production behavior, changes contracts, changes data, or needs a reviewable engineering plan. Do not use it for trivial text edits unless the edit changes engineering guidance.
+
+## Principles
+
 - Correctness and data integrity come before speed of implementation.
 - Simplicity is a feature: fewer moving parts means fewer failure modes.
 - Existing contracts must remain compatible unless a breaking change is approved.
@@ -25,7 +23,8 @@ Use this skill when the task involves unit, integration, contract, end-to-end, t
 - Deterministic tests avoid time, order, randomness, and shared-state flakiness.
 - Mocks should model behavior and failure, not implementation trivia.
 
-# Workflow
+## Workflow
+
 1. Identify what is being tested: a unit of logic, an integration boundary, a contract, or an end-to-end journey.
 2. Choose the narrowest test type that provides sufficient confidence for the risk level.
 3. Write the test starting with the expected behavior: given X, when Y, then Z.
@@ -35,7 +34,8 @@ Use this skill when the task involves unit, integration, contract, end-to-end, t
 7. Run the full test suite locally before pushing.
 8. Review test coverage: are there untested branches, error paths, or concurrent scenarios?
 
-# Rules
+## Rules
+
 - Never assume hidden requirements, traffic scale, compliance needs, or data retention rules.
 - Do not introduce new infrastructure unless the current requirement cannot be met safely without it.
 - Do not hide breaking changes in refactors.
@@ -43,27 +43,31 @@ Use this skill when the task involves unit, integration, contract, end-to-end, t
 - Keep public contracts, migrations, and operational changes explicit in the deliverable.
 - Reference related standards: references/standards/testing.md.
 
-# Deliverables
+## Deliverables
+
 - Test plan covering normal paths, edge cases, and failure paths.
 - Deterministic tests with given/when/then structure.
 - Mock strategy modeling boundary behavior.
 - Contract tests for public API boundaries.
 - Coverage analysis of untested branches and error paths.
 
-# Common Mistakes
+## Common Mistakes
+
 - Writing tests that mirror implementation details, breaking when the code is refactored.
 - Testing only the happy path and ignoring error handling and edge cases.
 - Using mocks that model framework internals instead of boundary behavior.
 - Creating flaky tests that depend on timing, ordering, or shared state.
 - Writing overly broad integration tests that are slow and brittle.
 
-# Failure Modes
+## Failure Modes
+
 - A test passes in CI but fails locally (or vice versa) because of environment differences.
 - A refactor breaks many tests because they were coupled to implementation instead of behavior.
 - An integration test becomes a maintenance burden because it exercises too many paths at once.
 - False-positive tests give false confidence while real bugs exist in untested paths.
 
-# Checklist
+## Checklist
+
 - [ ] Tests cover normal paths, edge cases, and failure paths.
 - [ ] Tests are deterministic: no flakiness from time, randomness, or shared state.
 - [ ] Mocks model boundary behavior, not implementation internals.
