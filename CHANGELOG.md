@@ -4,7 +4,10 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.5.2] - 2026-07-08
+
 ### Added
+- Added Playwright MCP framework documentation and OpenCode config.
 - Added dependency-free Node test coverage for catalog integrity, config generation, installer output, and update selection helpers.
 
 ## 0.5.1 - 2026-07-07
