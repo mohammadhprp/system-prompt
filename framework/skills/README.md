@@ -23,7 +23,6 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [pull-request](./pull-request/SKILL.md) | Prepare small, reviewable changes with clear evidence, risk, deployment, and rollback notes. | Preparing PRs, writing descriptions, or planning safe deployments. |
 | [skill-creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
 | [skills-cli](./skills-cli/SKILL.md) | Discover, install, and manage agent skills using the `npx skills` CLI from Vercel Labs. | Finding new skills, installing from registry, or managing installed skills. |
-| [web-artifacts-builder](./web-artifacts-builder/SKILL.md) | Create elaborate, multi-component HTML artifacts using React, Tailwind CSS, and shadcn/ui. | Building complex frontend artifacts requiring state management or UI component libraries. |
 
 ## How Skills Are Organized
 

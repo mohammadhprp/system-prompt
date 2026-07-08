@@ -18,8 +18,7 @@ export const categories = {
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
       { id: 'pull-request', name: 'Pull Request', description: 'Prepare small, reviewable changes with rollback notes' },
       { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' },
-      { id: 'skills-cli', name: 'Skills CLI', description: 'Discover and install skills via npx skills CLI' },
-      { id: 'web-artifacts-builder', name: 'Web Artifacts Builder', description: 'Create HTML artifacts with React and Tailwind' },
+      { id: 'skills-cli', name: 'Skills CLI', description: 'Discover and install skills via npx skills CLI' }
     ],
   },
 
