@@ -73,6 +73,7 @@ export const categories = {
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Interact with self-hosted Jira instances' },
       { id: 'laravel-boost', name: 'Laravel Boost MCP', description: 'Laravel application context and ecosystem docs' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Search, read, and write Notion content' },
+      { id: 'playwright-mcp', name: 'Playwright MCP', description: 'Cross-browser automation with accessibility snapshots' },
     ],
   },
 

@@ -16,6 +16,7 @@ This catalog is framework-agnostic: each entry documents what the server does, w
 | [Jira MCP](./jira-mcp/README.md) | Interact with self-hosted Jira instances — issues, JQL search, comments, assignments, and projects. | Any project using self-hosted Jira for issue tracking. |
 | [Laravel Boost](./laravel-boost/README.md) | Gives AI agents Laravel application context, Laravel ecosystem documentation search, and safe local inspection tools. | Laravel applications. |
 | [Notion MCP](./notion-mcp/README.md) | Search, read, and write content in a Notion workspace — pages, databases, views, comments, and more via remote HTTP MCP. | Any project that uses Notion for documentation, tracking, or collaboration. |
+| [Playwright MCP](./playwright-mcp/README.md) | Cross-browser automation via accessibility snapshots — navigate, click, type, screenshot, evaluate, network control, storage management. | Any project needing browser automation or end-to-end testing. |
 
 ## Why MCPs Are Useful
 
