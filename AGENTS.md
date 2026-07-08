@@ -11,6 +11,7 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
 
 ## Actions
 - When adding new items to `framework/`, add a corresponding entry in `src/catalog.js`.
+- - After making changes, add or update `tests/`.
 - After making changes, update `CHANGELOG.md` under the `## Unreleased` section.
 - On release:
   1. Move `## Unreleased` entries into a new dated `## [vX.Y.Z]` section.
