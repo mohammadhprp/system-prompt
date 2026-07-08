@@ -10,10 +10,14 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
 - `package.json` — Package metadata with `"private": true`. Only `src/`, `bin/`, and `framework/` are published.
 
 ## Actions
-- After adding new items to `framework/` you should add it to the  `src/catalog.js`.
-- On Changes you should update `CHANGELOG.md` as `## Unreleased` changes.
-- On relase you should add new items from previus release to `src/new-framework-items.json` and delete old one.
-- On release you should update the `package.json` and `package-lock.json` version too.
+- When adding new items to `framework/`, add a corresponding entry in `src/catalog.js`.
+- After making changes, update `CHANGELOG.md` under the `## Unreleased` section.
+- On release:
+  1. Move `## Unreleased` entries into a new dated `## [vX.Y.Z]` section.
+  2. Update `src/new-framework-items.json` — add items from this release, remove stale ones.
+  3. Bump version in `package.json` and `package-lock.json`.
+  4. Run `npm test` and fix any failures.
+  5. Commit the release metadata and tag with `vX.Y.Z`.
 
 ## Build & Test
 
