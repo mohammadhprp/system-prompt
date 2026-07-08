@@ -8,7 +8,6 @@ Commands define repeatable workflows that agents execute on demand, triggered by
 
 | Command | Purpose | Loads |
 | --- | --- | --- |
-| [`/architecture-review`](./architecture-review.md) | Review and improve system architecture. | architecture-review skill, architecture standard |
 | [`/changelog`](./changelog.md) | Create, add, or update CHANGELOG.md entries. | — |
 | [`/commit`](./commit.md) | Create atomic git commits with conventional messages. | — |
 | [`/learn`](./learn.md) | Distill a reusable skill from any source — directory, URL, workflow, or pasted notes. | skill-creator skill |

@@ -41,7 +41,6 @@ export const categories = {
     description: 'Slash command workflows for repeatable tasks',
     sourceDir: 'framework/commands',
     items: [
-      { id: 'architecture-review', name: 'Architecture Review', description: 'Review and improve system architecture' },
       { id: 'changelog', name: 'Changelog', description: 'Create, add, or update CHANGELOG.md entries' },
       { id: 'commit', name: 'Commit', description: 'Create atomic git commits with conventional messages' },
       { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },

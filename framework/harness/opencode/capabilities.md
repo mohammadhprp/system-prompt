@@ -29,7 +29,6 @@ After full installation, the OpenCode agent gains the following capabilities.
 
 | Command | Purpose |
 | --- | --- |
-| `/architecture-review` | Review and improve system architecture. |
 | `/changelog` | Create, add, or update CHANGELOG.md. |
 | `/commit` | Create atomic commits with conventional messages. |
 | `/learn` | Distill a reusable skill from any source. |
