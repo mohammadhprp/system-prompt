@@ -22,7 +22,6 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [notion-mcp](./notion-mcp/SKILL.md) | Work with the Notion MCP server tools for pages, databases, comments, search, and workspace management. | Any project that uses Notion for documentation, tracking, or collaboration. |
 | [pull-request](./pull-request/SKILL.md) | Prepare small, reviewable changes with clear evidence, risk, deployment, and rollback notes. | Preparing PRs, writing descriptions, or planning safe deployments. |
 | [skill-creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
-| [skills-cli](./skills-cli/SKILL.md) | Discover, install, and manage agent skills using the `npx skills` CLI from Vercel Labs. | Finding new skills, installing from registry, or managing installed skills. |
 
 ## How Skills Are Organized
 

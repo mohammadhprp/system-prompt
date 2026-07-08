@@ -17,8 +17,7 @@ export const categories = {
       { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
       { id: 'pull-request', name: 'Pull Request', description: 'Prepare small, reviewable changes with rollback notes' },
-      { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' },
-      { id: 'skills-cli', name: 'Skills CLI', description: 'Discover and install skills via npx skills CLI' }
+      { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' }
     ],
   },
 
