@@ -50,16 +50,11 @@ export async function main() {
     process.exit(0);
   }
 
-  const categoryOptions = [
-    { value: 'skills', label: 'Skills', hint: '25 task-specific procedures' },
-    { value: 'agents', label: 'Subagents', hint: '4 specialized agents' },
-    { value: 'commands', label: 'Slash Commands', hint: '7 repeatable workflows' },
-    { value: 'mcps', label: 'MCPs', hint: '8 MCP servers' },
-    { value: 'plugins', label: 'Plugins', hint: '1 OpenCode plugin' },
-    { value: 'styles', label: 'Styles', hint: '2 design systems' },
-    { value: 'standards', label: 'Standards', hint: '12 engineering standards' },
-    { value: 'templates', label: 'Templates', hint: '8 workflow documents' },
-  ];
+  const categoryOptions = Object.entries(categories).map(([key, cat]) => ({
+    value: key,
+    label: cat.title,
+    hint: `${cat.items.length} ${key === 'mcps' ? 'MCPs' : cat.title.toLowerCase()}`,
+  }));
 
   const selectedCategories = await multiselect({
     message: 'What would you like to install?',
