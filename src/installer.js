@@ -43,6 +43,13 @@ async function copyDir(src, dest) {
   }
 }
 
+async function isRemoved(category, id) {
+  const catConfig = categories[category];
+  if (!catConfig) return false;
+  const item = catConfig.items.find(i => i.id === id);
+  return item?.removed === true;
+}
+
 async function copySelectedDirs(targetDir, category, selectedIds) {
   const catConfig = categories[category];
   if (!catConfig || !selectedIds?.length) return;
@@ -51,6 +58,8 @@ async function copySelectedDirs(targetDir, category, selectedIds) {
   const destParent = resolve(targetDir, relativeDir);
 
   for (const id of selectedIds) {
+    if (await isRemoved(category, id)) continue;
+
     const srcPath = resolveSource(`${catConfig.sourceDir}/${id}`);
     const destPath = resolve(destParent, id);
 
@@ -72,6 +81,8 @@ async function copySelectedFiles(targetDir, category, selectedIds) {
   await mkdir(destParent, { recursive: true });
 
   for (const id of selectedIds) {
+    if (await isRemoved(category, id)) continue;
+
     const srcFile = resolveSource(`${catConfig.sourceDir}/${id}.md`);
     const destFile = resolve(destParent, `${id}.md`);
     try {

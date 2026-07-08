@@ -54,7 +54,7 @@ export const categories = {
       { id: 'commit', name: 'Commit', description: 'Create atomic git commits with conventional messages' },
       { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },
       { id: 'pr', name: 'PR', description: 'Create a GitHub PR or GitLab MR for the current branch' },
-      { id: 'release', name: 'Release', description: 'Tag releases, update changelog, and bump versions' },
+      { id: 'release', name: 'Release', description: 'Tag releases, update changelog, and bump versions', new: true },
       { id: 'review', name: 'Review', description: 'Perform comprehensive code quality review' },
       { id: 'summarize-changes', name: 'Summarize Changes', description: 'Summarize uncommitted changes and flag risks' },
     ],
@@ -73,7 +73,7 @@ export const categories = {
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Interact with self-hosted Jira instances' },
       { id: 'laravel-boost', name: 'Laravel Boost MCP', description: 'Laravel application context and ecosystem docs' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Search, read, and write Notion content' },
-      { id: 'playwright-mcp', name: 'Playwright MCP', description: 'Cross-browser automation with accessibility snapshots' },
+      { id: 'playwright-mcp', name: 'Playwright MCP', description: 'Cross-browser automation with accessibility snapshots', new: true },
     ],
   },
 
@@ -83,7 +83,7 @@ export const categories = {
     sourceDir: 'framework/plugins',
     items: [
       { id: 'opencode-goal-plugin', name: 'OpenCode Goal Plugin', description: 'Goal-driven long-running tasks with persistence' },
-      { id: 'ponytail', name: 'Ponytail', description: 'Lazy senior dev mode — YAGNI-first, reuse-first ladder that reduces code bloat and cost' },
+      { id: 'ponytail', name: 'Ponytail', description: 'Lazy senior dev mode — YAGNI-first, reuse-first ladder that reduces code bloat and cost', new: true },
     ],
   },
 

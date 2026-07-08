@@ -4,7 +4,6 @@ import { multiselect, isCancel, outro } from '@clack/prompts';
 
 import { categories } from './catalog.js';
 import { install } from './installer.js';
-import newFrameworkItems from './new-framework-items.json' with { type: 'json' };
 
 const LOCK_FILENAME = 'system-prompt--lock.json';
 
@@ -27,25 +26,55 @@ async function findLockFile() {
 export function findNewItems(selections) {
   const items = [];
 
-  for (const entry of newFrameworkItems) {
-    const cat = entry.category;
-    const id = entry.id;
-    const config = categories[cat];
-    if (!config || !id) continue;
+  for (const [cat, config] of Object.entries(categories)) {
+    for (const item of config.items) {
+      if (!item.new) continue;
 
-    const installed = new Set(selections?.[cat] || []);
-    if (installed.has(id)) continue;
+      const installed = new Set(selections?.[cat] || []);
+      if (installed.has(item.id)) continue;
 
-    const item = config.items.find(candidate => candidate.id === id);
-    if (!item) continue;
+      items.push({
+        value: `${cat}:${item.id}`,
+        label: `${config.title}: ${item.name}`,
+        hint: item.description,
+        cat,
+        id: item.id,
+      });
+    }
+  }
 
-    items.push({
-      value: `${cat}:${id}`,
-      label: `${config.title}: ${item.name}`,
-      hint: item.description,
-      cat,
-      id,
-    });
+  return items;
+}
+
+export function findDeprecatedItems(selections) {
+  const items = [];
+
+  for (const [cat, config] of Object.entries(categories)) {
+    for (const item of config.items) {
+      if (!item.deprecated) continue;
+
+      const installed = new Set(selections?.[cat] || []);
+      if (!installed.has(item.id)) continue;
+
+      items.push({ cat, id: item.id, name: item.name, title: config.title });
+    }
+  }
+
+  return items;
+}
+
+export function findRemovedItems(selections) {
+  const items = [];
+
+  for (const [cat, config] of Object.entries(categories)) {
+    for (const item of config.items) {
+      if (!item.removed) continue;
+
+      const installed = new Set(selections?.[cat] || []);
+      if (!installed.has(item.id)) continue;
+
+      items.push({ cat, id: item.id, name: item.name, title: config.title });
+    }
   }
 
   return items;
@@ -62,6 +91,28 @@ export function mergeNewSelections(selections, newItems, selectedValues) {
     if (!item) continue;
     next[item.cat] = next[item.cat] || [];
     if (!next[item.cat].includes(item.id)) next[item.cat].push(item.id);
+  }
+
+  return next;
+}
+
+export function stripRemoved(selections) {
+  const removed = findRemovedItems(selections);
+  if (!removed.length) return selections;
+
+  const removedByCat = {};
+  for (const r of removed) {
+    (removedByCat[r.cat] = removedByCat[r.cat] || new Set()).add(r.id);
+  }
+
+  const next = {};
+  for (const [cat, ids] of Object.entries(selections || {})) {
+    const set = removedByCat[cat];
+    if (!set) {
+      next[cat] = [...ids];
+    } else {
+      next[cat] = ids.filter(id => !set.has(id));
+    }
   }
 
   return next;
@@ -90,6 +141,21 @@ export async function update() {
     }
     nextSelections = mergeNewSelections(nextSelections, newItems, picked);
   }
+
+  const deprecated = findDeprecatedItems(nextSelections);
+  for (const d of deprecated) {
+    console.log(`  ⚠  ${d.title}: ${d.name} is deprecated. Consider migrating to an alternative.`);
+  }
+
+  const removed = findRemovedItems(nextSelections);
+  if (removed.length) {
+    for (const r of removed) {
+      console.log(`  ✗  ${r.title}: ${r.name} has been removed. Cleaning up from lock file.`);
+    }
+    nextSelections = stripRemoved(nextSelections);
+  }
+
+  if (deprecated.length || removed.length) console.log();
 
   const absTarget = await install({
     targetDir: targetDir || '.opencode',

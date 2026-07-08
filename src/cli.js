@@ -50,11 +50,14 @@ export async function main() {
     process.exit(0);
   }
 
-  const categoryOptions = Object.entries(categories).map(([key, cat]) => ({
-    value: key,
-    label: cat.title,
-    hint: `${cat.items.length} ${key === 'mcps' ? 'MCPs' : cat.title.toLowerCase()}`,
-  }));
+  const categoryOptions = Object.entries(categories).map(([key, cat]) => {
+    const visible = cat.items.filter(i => !i.removed);
+    return {
+      value: key,
+      label: cat.title,
+      hint: `${visible.length} ${key === 'mcps' ? 'MCPs' : cat.title.toLowerCase()}`,
+    };
+  });
 
   const selectedCategories = await multiselect({
     message: 'What would you like to install?',
@@ -131,27 +134,29 @@ export async function main() {
     const catConfig = categories[cat];
     const allIds = catConfig.items.map(i => i.id);
 
-    const all = await confirm({
-      message: `Install all ${catConfig.title.toLowerCase()}?`,
-      initialValue: allIds.length <= 12,
-    });
-    if (isCancel(all)) {
-      outro('Cancelled.');
-      process.exit(0);
-    }
+      const visibleItems = catConfig.items.filter(i => !i.removed);
 
-    if (all) {
-      selections[cat] = allIds;
-    } else {
-      const picked = await multiselect({
-        message: `Which ${catConfig.title.toLowerCase()} do you want?`,
-        options: catConfig.items.map(item => ({
-          value: item.id,
-          label: item.name,
-          hint: item.description,
-        })),
-        required: true,
+      const all = await confirm({
+        message: `Install all ${catConfig.title.toLowerCase()}?`,
+        initialValue: visibleItems.length <= 12,
       });
+      if (isCancel(all)) {
+        outro('Cancelled.');
+        process.exit(0);
+      }
+
+      if (all) {
+        selections[cat] = visibleItems.map(i => i.id);
+      } else {
+        const picked = await multiselect({
+          message: `Which ${catConfig.title.toLowerCase()} do you want?`,
+          options: visibleItems.map(item => ({
+            value: item.id,
+            label: item.deprecated ? `${item.name} (deprecated)` : item.name,
+            hint: item.deprecated ? '⚠  Deprecated — consider alternatives' : item.description,
+          })),
+          required: true,
+        });
       if (isCancel(picked)) {
         outro('Cancelled.');
         process.exit(0);
