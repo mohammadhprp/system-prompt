@@ -4,8 +4,15 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.8.0] - 2026-07-09
+
 ### Added
 - Re-install diff detection: when running the CLI in a directory with an existing config, shows what items will be added, removed, or unchanged before confirming. Removed items are deleted from disk on re-install.
+
+### Fixed
+- Updated GitHub token variable name.
+- Removed graphify MCP from default installs.
+- Updated GitHub MCP config path references.
 
 ## [v0.7.1] - 2026-07-08
 
