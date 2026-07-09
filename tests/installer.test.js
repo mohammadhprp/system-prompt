@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile, access } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
-import { install } from '../src/installer.js';
+import { install, loadLockFile } from '../src/installer.js';
 
 test('install writes selected framework files and generated config', async () => {
   const previousCwd = process.cwd();
@@ -132,6 +132,101 @@ test('install merges .env preserving existing values on re-install', async () =>
     assert.match(envContent, /^GITLAB_PERSONAL_ACCESS_TOKEN=$/m);
     assert.match(envContent, /^JIRA_BASE_URL=$/m);
     assert.match(envContent, /^JIRA_PAT=$/m);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('loadLockFile reads the lock file written by install', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {
+        skills: ['backend-best-practices'],
+        agents: ['reviewer'],
+      },
+      includeAgentsMd: true,
+      includeSystemPromptMd: true,
+    });
+
+    const absTarget = resolve(workspace, '.opencode');
+    const lock = await loadLockFile(absTarget);
+    assert.ok(lock);
+    assert.equal(lock.agentType, 'opencode');
+    assert.equal(lock.targetDir, '.opencode');
+    assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
+    assert.deepEqual(lock.selections.agents, ['reviewer']);
+    assert.equal(lock.includeAgentsMd, true);
+    assert.equal(lock.includeSystemPromptMd, true);
+    assert.match(lock.installedAt, /^\d{4}-\d{2}-\d{2}T/);
+
+    const noLock = await loadLockFile(resolve(workspace, 'nonexistent'));
+    assert.equal(noLock, null);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('install removes files for items dropped on re-install', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    const absTarget = await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {
+        skills: ['backend-best-practices'],
+        agents: ['reviewer'],
+        commands: ['review'],
+      },
+      includeAgentsMd: false,
+      includeSystemPromptMd: false,
+    });
+
+    await access(join(absTarget, 'skills/backend-best-practices/SKILL.md'));
+    await access(join(absTarget, 'agents/reviewer.md'));
+    await access(join(absTarget, 'commands/review.md'));
+
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {
+        skills: ['backend-best-practices'],
+        commands: ['review'],
+      },
+      oldSelections: {
+        skills: ['backend-best-practices'],
+        agents: ['reviewer'],
+        commands: ['review'],
+      },
+      includeAgentsMd: false,
+      includeSystemPromptMd: false,
+    });
+
+    await assert.rejects(
+      access(join(absTarget, 'agents/reviewer.md')),
+      { code: 'ENOENT' }
+    );
+
+    await access(join(absTarget, 'skills/backend-best-practices/SKILL.md'));
+    await access(join(absTarget, 'commands/review.md'));
+
+    const lock = await loadLockFile(absTarget);
+    assert.ok(lock);
+    assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
+    assert.deepEqual(lock.selections.commands, ['review']);
+    assert.equal(lock.selections.agents, undefined);
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });

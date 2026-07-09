@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Re-install diff detection: when running the CLI in a directory with an existing config, shows what items will be added, removed, or unchanged before confirming. Removed items are deleted from disk on re-install.
+
 ## [v0.7.1] - 2026-07-08
 
 ### Added

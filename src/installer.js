@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
-import { mkdir, copyFile, writeFile, readdir, stat, readFile } from 'node:fs/promises';
+import { mkdir, copyFile, writeFile, readdir, stat, readFile, rm } from 'node:fs/promises';
 
 import { categories } from './catalog.js';
 import { loadMcpConfigs, generateOpenCodeConfig } from './agent-configs.js';
@@ -14,6 +14,15 @@ export async function getPackageVersion() {
     return pkg.version || '0.0.0';
   } catch {
     return '0.0.0';
+  }
+}
+
+export async function loadLockFile(absTarget) {
+  try {
+    const content = await readFile(resolve(absTarget, 'system-prompt--lock.json'), 'utf-8');
+    return JSON.parse(content);
+  } catch {
+    return null;
   }
 }
 
@@ -126,6 +135,28 @@ async function collectMcpEnvExamples(mcpIds) {
     }
   }
   return combined;
+}
+
+async function deleteSelectedItems(absTarget, category, ids) {
+  const catConfig = categories[category];
+  if (!catConfig || !ids?.length) return;
+
+  const FILE_BASED = new Set(['agents', 'commands', 'modes', 'standards', 'templates']);
+  if (!FILE_BASED.has(category) && category !== 'skills' && category !== 'styles') return;
+
+  const relativeDir = targetSubdir(catConfig.sourceDir);
+  const destParent = resolve(absTarget, relativeDir);
+
+  for (const id of ids) {
+    const destPath = FILE_BASED.has(category)
+      ? resolve(destParent, `${id}.md`)
+      : resolve(destParent, id);
+    try {
+      await rm(destPath, { recursive: true, force: true });
+    } catch {
+      // File may not exist — ignore
+    }
+  }
 }
 
 async function writeMergedEnv(absTarget, examples) {
@@ -263,11 +294,23 @@ Available behavior, tool, and prompt presets in \`modes/\`. Read a mode file to 
   return sections.join('\n');
 }
 
-export async function install({ targetDir, agentType, selections, includeAgentsMd = true, includeSystemPromptMd = true, writeAgentsMd, writeSystemPromptMd }) {
+export async function install({ targetDir, agentType, selections, includeAgentsMd = true, includeSystemPromptMd = true, writeAgentsMd, writeSystemPromptMd, oldSelections }) {
   writeAgentsMd = writeAgentsMd ?? includeAgentsMd;
   writeSystemPromptMd = writeSystemPromptMd ?? includeSystemPromptMd;
   const absTarget = resolve(process.cwd(), targetDir);
   await mkdir(absTarget, { recursive: true });
+
+  // Delete items that are no longer selected
+  if (oldSelections) {
+    for (const cat of Object.keys(oldSelections)) {
+      const oldIds = new Set(oldSelections[cat] || []);
+      const newIds = new Set(selections[cat] || []);
+      const removedIds = [...oldIds].filter(id => !newIds.has(id));
+      if (removedIds.length > 0) {
+        await deleteSelectedItems(absTarget, cat, removedIds);
+      }
+    }
+  }
 
   const tasks = [];
 
