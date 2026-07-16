@@ -4,7 +4,7 @@
       "type": "local",
       "enabled": true,
       "command": ["npx", "-y", "mcp-jira-server"],
-      "env": {
+      "environment": {
         "JIRA_BASE_URL": "{env:JIRA_BASE_URL}",
         "JIRA_PAT": "{env:JIRA_PAT}"
       }

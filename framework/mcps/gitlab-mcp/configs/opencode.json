@@ -1,13 +1,13 @@
 {
   "mcp": {
     "gitlab": {
-      "type": "local",
-      "enabled": true,
-      "command": ["zereight-mcp-gitlab"],
-      "env": {
-        "GITLAB_PERSONAL_ACCESS_TOKEN": "{env:GITLAB_PERSONAL_ACCESS_TOKEN}",
-        "GITLAB_API_URL": "{env:GITLAB_API_URL}"
-      }
+        "type": "local",
+        "enabled": true,
+        "command": ["bun", "x", "@zereight/mcp-gitlab"],
+        "environment": {
+            "GITLAB_PERSONAL_ACCESS_TOKEN": "{env:GITLAB_PERSONAL_ACCESS_TOKEN}",
+            "GITLAB_API_URL": "{env:GITLAB_API_URL}"
+        }
     }
   }
 }
