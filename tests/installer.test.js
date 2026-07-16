@@ -23,6 +23,7 @@ test('install writes selected framework files and generated config', async () =>
         standards: ['security'],
         templates: ['adr'],
         plugins: ['opencode-goal-plugin'],
+        memory: ['codebase-insights', 'user-preferences'],
         mcps: ['notion-mcp'],
       },
       includeAgentsMd: true,
@@ -53,7 +54,13 @@ test('install writes selected framework files and generated config', async () =>
     const systemPrompt = await readFile(join(absTarget, 'system-prompt.md'), 'utf-8');
     assert.match(systemPrompt, /Senior Backend Engineer/);
 
+    const memoryFile1 = await readFile(join(absTarget, 'memory/codebase-insights.md'), 'utf-8');
+    assert.match(memoryFile1, /Codebase Insights/);
+    const memoryFile2 = await readFile(join(absTarget, 'memory/user-preferences.md'), 'utf-8');
+    assert.match(memoryFile2, /User Preferences/);
+
     const opencode = JSON.parse(await readFile(join(absTarget, 'opencode.json'), 'utf-8'));
+    assert.ok(opencode.instructions.includes('.opencode/memory/*.md'));
     assert.deepEqual(opencode.plugin, ['@prevalentware/opencode-goal-plugin']);
     assert.ok(opencode.mcp);
 

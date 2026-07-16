@@ -247,6 +247,7 @@ export async function main() {
     if (includeSystemPromptMd) genFiles.push('system-prompt.md');
     genFiles.push('opencode.json');
     if (selections.mcps?.length) genFiles.push('.env');
+    if (selections.memory?.length) genFiles.push('memory/');
 
     if (genFiles.length) {
       console.log('  Generated files:');

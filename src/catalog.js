@@ -93,6 +93,16 @@ export const categories = {
     ],
   },
 
+  memory: {
+    title: 'Memory',
+    description: 'Persistent agent memory files for cross-session context',
+    sourceDir: 'framework/memory',
+    items: [
+      { id: 'codebase-insights', name: 'Codebase Insights', description: 'Non-obvious facts, gotchas, past decisions, and architecture quirks' },
+      { id: 'user-preferences', name: 'User Preferences', description: 'Coding style, naming conventions, and architectural preferences' },
+    ],
+  },
+
   standards: {
     title: 'Standards',
     description: 'Canonical engineering standards',

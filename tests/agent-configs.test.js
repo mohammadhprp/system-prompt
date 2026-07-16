@@ -22,6 +22,20 @@ test('generateOpenCodeConfig includes selected plugins, references, and MCPs', (
   assert.deepEqual(config.mcp.example, { type: 'local', command: ['node', 'server.js'] });
 });
 
+test('generateOpenCodeConfig includes memory glob in instructions when memory selected', () => {
+  const config1 = JSON.parse(generateOpenCodeConfig({
+    selections: { memory: ['codebase-insights'] },
+    mcpEntries: {},
+  }));
+  assert.ok(config1.instructions.includes('.opencode/memory/*.md'));
+
+  const config2 = JSON.parse(generateOpenCodeConfig({
+    selections: {},
+    mcpEntries: {},
+  }));
+  assert.equal(config2.instructions.includes('.opencode/memory/*.md'), false);
+});
+
 test('loadMcpConfigs reads framework MCP opencode configs', async () => {
   const configs = await loadMcpConfigs(['notion-mcp']);
 

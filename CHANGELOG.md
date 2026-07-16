@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Memory catalog: persistent agent memory files (codebase-insights, user-preferences) installed to `.opencode/memory/` with glob auto-included in opencode.json `instructions` array.
+
 ## [v0.8.0] - 2026-07-09
 
 ### Added

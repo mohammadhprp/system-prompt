@@ -81,7 +81,7 @@ async function copySelectedDirs(targetDir, category, selectedIds) {
   }
 }
 
-async function copySelectedFiles(targetDir, category, selectedIds) {
+async function copySelectedFiles(targetDir, category, selectedIds, skipIfExists = false) {
   const catConfig = categories[category];
   if (!catConfig || !selectedIds?.length) return;
 
@@ -96,6 +96,14 @@ async function copySelectedFiles(targetDir, category, selectedIds) {
     const destFile = resolve(destParent, `${id}.md`);
     try {
       await stat(srcFile);
+      if (skipIfExists) {
+        try {
+          await stat(destFile);
+          continue;
+        } catch {
+          // dest doesn't exist — proceed to copy
+        }
+      }
       await copyFile(srcFile, destFile);
     } catch {
       console.warn(`  ⚠  Source not found: ${catConfig.sourceDir}/${id}.md`);
@@ -141,7 +149,7 @@ async function deleteSelectedItems(absTarget, category, ids) {
   const catConfig = categories[category];
   if (!catConfig || !ids?.length) return;
 
-  const FILE_BASED = new Set(['agents', 'commands', 'modes', 'standards', 'templates']);
+  const FILE_BASED = new Set(['agents', 'commands', 'memory', 'modes', 'standards', 'templates']);
   if (!FILE_BASED.has(category) && category !== 'skills' && category !== 'styles') return;
 
   const relativeDir = targetSubdir(catConfig.sourceDir);
@@ -328,6 +336,9 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
   }
   if (selections.modes?.length) {
     tasks.push(copySelectedFiles(absTarget, 'modes', selections.modes));
+  }
+  if (selections.memory?.length) {
+    tasks.push(copySelectedFiles(absTarget, 'memory', selections.memory, true));
   }
   if (selections.standards?.length) {
     tasks.push(copySelectedFiles(absTarget, 'standards', selections.standards));

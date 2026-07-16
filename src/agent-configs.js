@@ -34,6 +34,7 @@ export function generateOpenCodeConfig({ selections, mcpEntries, includeAgentsMd
   const instructions = [];
   if (includeAgentsMd) instructions.push('AGENTS.md');
   if (includeSystemPromptMd) instructions.push('system-prompt.md');
+  if (selections.memory?.length) instructions.push('.opencode/memory/*.md');
 
   const config = {
     $schema: 'https://opencode.ai/config.json',

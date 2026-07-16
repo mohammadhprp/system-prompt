@@ -32,6 +32,7 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 | `mcps/` | Curated MCP catalog with install, configuration, capability, and troubleshooting documentation. |
 | `plugins/` | Curated OpenCode plugin catalog with install, capabilities, and troubleshooting documentation. |
 | `styles/` | Curated design system catalog from Refero Styles — colors, typography, spacing, and component references. |
+| `memory/` | Persistent agent memory files for cross-session context. Automatically included in agent instructions. |
 | `modes/` | Behavior, tool, and prompt presets that customize the agent for different use cases. |
 | `references/standards/` | Canonical engineering standards referenced by skills. |
 | `references/templates/` | Ready-to-use workflow documents. |
@@ -131,6 +132,17 @@ Before activating a mode, check:
 - **Fit**: does the mode's posture match the current task (e.g., read-only scrutiny vs. open building)?
 - **Tools**: confirm the mode's tool restrictions are appropriate — review modes typically disable `write`, `edit`, and `bash`.
 - **Activation**: read the mode file to adopt its behavior; modes are switched explicitly, not stacked.
+
+## Memory
+
+The [`memory/`](memory/) directory contains persistent agent memory files that maintain context across sessions. Unlike other catalog items, memory files are **only written on first install** — re-running the installer will not overwrite them, preserving any edits made by the user or agent.
+
+Memory files are automatically included in the agent's instructions via the glob pattern `.opencode/memory/*.md`, ensuring the agent always has access to accumulated context.
+
+| File | Purpose |
+| --- | --- |
+| `codebase-insights.md` | Non-obvious facts, gotchas, past decisions, and architecture quirks |
+| `user-preferences.md` | Coding style, naming conventions, and architectural preferences |
 
 
 ## FAQ
