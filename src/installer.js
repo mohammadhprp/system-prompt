@@ -19,7 +19,7 @@ export async function getPackageVersion() {
 
 export async function loadLockFile(absTarget) {
   try {
-    const content = await readFile(resolve(absTarget, 'system-prompt--lock.json'), 'utf-8');
+    const content = await readFile(resolve(absTarget, 'system-prompt-lock.json'), 'utf-8');
     return JSON.parse(content);
   } catch {
     return null;
@@ -386,7 +386,7 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     includeAgentsMd,
     includeSystemPromptMd,
   };
-  await writeFile(resolve(absTarget, 'system-prompt--lock.json'), JSON.stringify(lockData, null, 2));
+  await writeFile(resolve(absTarget, 'system-prompt-lock.json'), JSON.stringify(lockData, null, 2));
 
   return absTarget;
 }

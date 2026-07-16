@@ -16,7 +16,6 @@ export const categories = {
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
       { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
-      { id: 'pull-request', name: 'Pull Request', description: 'Prepare small, reviewable changes with rollback notes' },
       { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' }
     ],
   },
@@ -41,7 +40,8 @@ export const categories = {
       { id: 'changelog', name: 'Changelog', description: 'Create, add, or update CHANGELOG.md entries' },
       { id: 'commit', name: 'Commit', description: 'Create atomic git commits with conventional messages' },
       { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },
-      { id: 'pr', name: 'PR', description: 'Create a GitHub PR or GitLab MR for the current branch' },
+      { id: 'pr', name: 'PR', description: 'Create a GitHub PR for the current branch' },
+      { id: 'mr', name: 'MR', description: 'Create a GitLab MR for the current branch' },
       { id: 'release', name: 'Release', description: 'Tag releases, update changelog, and bump versions' },
       { id: 'review', name: 'Review', description: 'Perform comprehensive code quality review' },
       { id: 'summarize-changes', name: 'Summarize Changes', description: 'Summarize uncommitted changes and flag risks' },

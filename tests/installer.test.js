@@ -57,7 +57,7 @@ test('install writes selected framework files and generated config', async () =>
     assert.deepEqual(opencode.plugin, ['@prevalentware/opencode-goal-plugin']);
     assert.ok(opencode.mcp);
 
-    const lock = JSON.parse(await readFile(join(absTarget, 'system-prompt--lock.json'), 'utf-8'));
+    const lock = JSON.parse(await readFile(join(absTarget, 'system-prompt-lock.json'), 'utf-8'));
     assert.equal(lock.agentType, 'opencode');
     assert.equal(lock.targetDir, '.opencode');
     assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
