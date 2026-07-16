@@ -4,8 +4,17 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.9.0] - 2026-07-16
+
 ### Added
 - Memory catalog: persistent agent memory files (codebase-insights, user-preferences) installed to `.opencode/memory/` with glob auto-included in opencode.json `instructions` array.
+- Separate `mr` and `pr` slash commands for GitLab and GitHub respectively.
+
+### Fixed
+- GitLab, Jira, and Notion MCP config updates.
+
+### Removed
+- Unused pull-request skill.
 
 ## [v0.8.0] - 2026-07-09
 
