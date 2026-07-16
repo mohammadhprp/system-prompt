@@ -1,19 +1,18 @@
 ---
-description: Create a GitHub PR for the current branch
-agent: build
+description: Create a merge request from the current branch
 ---
 
-PR $ARGUMENTS
+Create $ARGUMENTS merge request
 
-Create or update a pull request for the current branch using `gh` cli.
+Create a merge request for the current branch.
 
 ## Process
 
 1. **Collect information**
    - Get current branch name: `git branch --show-current`
-   - Read PR template from `.github/pull_request_template.md` of exsits
+   - Read MR template from `.gitlab/merge_request_templates/default.md` of exsits
 
-2. **Format PR title**
+2. **Format MR title**
    - Take the branch name, replace all `-` with spaces, capitalize first character
 
 3. **Collect commits and build summary**
@@ -31,9 +30,17 @@ Create or update a pull request for the current branch using `gh` cli.
    - Target branch: `develop`
    - Title
    - Filled description
-   - Ask: "Shall I create this PR?"
+   - Ask: "Shall I create this MR?"
    - Push the changes if user says Yes
 
-6. **Create upon confirmation** - Use `gh` cli:
-   - `gh pr create --title "<title>" --body "<body>" --base <target>`
-   - Show the resulting URL.
+6. **Create upon confirmation** - Use `gitlab_create_merge_request`:
+   - `project_id`: `group/repo`
+   - `title`: Prepend "Draft: " to the formatted branch name
+   - `source_branch`: Current branch
+   - `target_branch`: `develop`
+   - `description`: Filled template content
+   - `assignee_ids`: `[1]`
+   - `squash`: `true`
+   - `remove_source_branch`: `true`
+
+7. **Show the resulting URL.**
