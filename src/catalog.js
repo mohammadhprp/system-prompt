@@ -61,6 +61,7 @@ export const categories = {
       { id: 'laravel-boost', name: 'Laravel Boost MCP', description: 'Laravel application context and ecosystem docs' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Search, read, and write Notion content' },
       { id: 'playwright-mcp', name: 'Playwright MCP', description: 'Cross-browser automation with accessibility snapshots' },
+      { id: 'supabase-mcp', name: 'Supabase MCP', description: 'Manage Supabase projects, SQL, Edge Functions, Auth, Storage, and Realtime' },
     ],
   },
 

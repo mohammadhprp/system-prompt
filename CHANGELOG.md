@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Supabase MCP: remote MCP server for Supabase project and data management.
+
 ## [v0.9.0] - 2026-07-16
 
 ### Added
