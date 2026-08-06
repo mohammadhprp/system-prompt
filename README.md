@@ -1,6 +1,10 @@
-# System prompt 
+<h1 align="center">
+  System prompt 
+</h1>
 
-A CLI for installing the **AI Coding Agent Framework** into any project.
+<p align="center">
+  <img src=".github/assets/overview.png" alt="One CLI, a configurable coding-agent framework" />
+</p>
 
 ## Prerequisites
 
