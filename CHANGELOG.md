@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.10.0] - 2026-08-06
+
 ### Added
 - Supabase MCP: remote MCP server for Supabase project and data management.
 - Diagram Design skill: create technical and product diagrams as standalone HTML files with inline SVG.
