@@ -2,3 +2,5 @@
 node_modules/
 *.log
 .opencode
+.agents
+skills-lock.json
