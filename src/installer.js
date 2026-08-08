@@ -3,10 +3,22 @@ import { dirname, resolve } from 'node:path';
 import { mkdir, copyFile, writeFile, readdir, stat, readFile, rm } from 'node:fs/promises';
 
 import { categories } from './catalog.js';
-import { loadMcpConfigs, generateOpenCodeConfig } from './agent-configs.js';
+import { loadMcpConfigs, generateOpenCodeConfig, generateTuiConfig } from './agent-configs.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
+
+const AGENTS_MD = `# AGENTS.md
+
+> Fill this base on project use /init command
+`;
+
+const OPENCODE_GITIGNORE = `.env*
+node_modules
+package.json
+package-lock.json
+bun.lock
+`;
 
 export async function getPackageVersion() {
   try {
@@ -198,113 +210,11 @@ async function writeMergedEnv(absTarget, examples) {
 }
 
 function generateAgentsMd({ selections }) {
-  const sections = [];
-
-  sections.push(`# AGENTS.md
-
-You are a senior engineering agent. This file describes the tools and knowledge available in this project.
-`);
-
-  if (selections.skills?.length) {
-    sections.push(`## Skills
-
-Load skills on-demand when the task matches their purpose.
-
-Browse the skill catalog at \`skills/\` and load a skill by referencing its \`SKILL.md\` in a prompt.
-`);
-  }
-
-  if (selections.commands?.length) {
-    sections.push(`## Commands
-
-Available slash commands:
-
-| Command | Purpose |
-| --- | --- |`);
-    for (const id of selections.commands) {
-      const item = categories.commands.items.find(i => i.id === id);
-      if (item) sections.push(`| \`/${id}\` | ${item.description} |`);
-    }
-    sections.push('');
-  }
-
-  if (selections.agents?.length) {
-    sections.push(`## Subagents
-
-Available subagents and their permissions:
-
-| Agent | Permissions |
-| --- | --- |`);
-    for (const id of selections.agents) {
-      const item = categories.agents.items.find(i => i.id === id);
-      if (item) sections.push(`| ${item.name} | read, grep, glob (no edit/write) |`);
-    }
-    sections.push('');
-  }
-
-  if (selections.mcps?.length) {
-    sections.push(`## MCPs
-
-Available MCP servers documented in \`mcps/\`. Configured via \`opencode.json\`.
-`);
-  }
-
-  if (selections.plugins?.length) {
-    sections.push(`## Plugins
-
-Available OpenCode plugins. Configured via \`opencode.json\`.
-`);
-  }
-
-  if (selections.styles?.length) {
-    sections.push(`## Styles
-
-Design system references in \`styles/\`. Use them for UI component design and tokens.
-`);
-  }
-
-  if (selections.modes?.length) {
-    sections.push(`## Modes
-
-Available behavior, tool, and prompt presets in \`modes/\`. Read a mode file to adopt its operating posture for the current task.
-
-| Mode | Purpose |
-| --- | --- |`);
-    for (const id of selections.modes) {
-      const item = categories.modes.items.find(i => i.id === id);
-      if (item) sections.push(`| ${item.name} | ${item.description} |`);
-    }
-    sections.push('');
-  }
-
-  if (selections.standards?.length || selections.templates?.length) {
-    sections.push(`## References`);
-    if (selections.standards?.length) {
-      sections.push(`- **Standards** — \`references/standards/\` — canonical engineering rules.`);
-    }
-    if (selections.templates?.length) {
-      sections.push(`- **Templates** — \`references/templates/\` — fillable workflow documents.`);
-    }
-    sections.push('');
-  }
-
-  sections.push(`## Engineering Conduct
-
-1. **Safety and correctness outrank speed** — data loss, authorization gaps, and silent failures are never acceptable shortcuts.
-2. **Data integrity outranks convenience** — do not weaken constraints or validation.
-3. **Design before code** — understand actors, entities, invariants, and failure modes.
-4. **Prefer simplicity** — fewer moving parts means fewer failure modes.
-5. **Make tradeoffs explicit** — surface what was deferred, why, and what could break.
-6. **Small, reversible changes** — prefer narrow, testable, rollback-safe increments.
-7. **Verify before concluding** — run tests, linters, and type checks.
-`);
-
-  return sections.join('\n');
+  return AGENTS_MD;
 }
 
-export async function install({ targetDir, agentType, selections, includeAgentsMd = true, includeSystemPromptMd = true, writeAgentsMd, writeSystemPromptMd, oldSelections }) {
+export async function install({ targetDir, agentType, selections, includeAgentsMd = true, writeAgentsMd, oldSelections }) {
   writeAgentsMd = writeAgentsMd ?? includeAgentsMd;
-  writeSystemPromptMd = writeSystemPromptMd ?? includeSystemPromptMd;
   const absTarget = resolve(process.cwd(), targetDir);
   await mkdir(absTarget, { recursive: true });
 
@@ -349,16 +259,6 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
 
   await Promise.all(tasks);
 
-  if (writeSystemPromptMd) {
-    const systemPromptSrc = resolveSource('framework/harness/opencode/configs/system-prompt.md');
-    try {
-      await stat(systemPromptSrc);
-      await copyFile(systemPromptSrc, resolve(absTarget, 'system-prompt.md'));
-    } catch {
-      console.warn('  ⚠  system-prompt.md not found in harness');
-    }
-  }
-
   if (writeAgentsMd) {
     const agentsContent = generateAgentsMd({ selections });
     await writeFile(resolve(absTarget, 'AGENTS.md'), agentsContent);
@@ -373,11 +273,12 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
       selections,
       mcpEntries,
       includeAgentsMd: includeAgentsMd,
-      includeSystemPromptMd: includeSystemPromptMd,
     });
     if (configJson) {
       await writeFile(resolve(absTarget, 'opencode.json'), configJson);
     }
+    await writeFile(resolve(absTarget, 'tui.json'), generateTuiConfig({ selections }));
+    await writeFile(resolve(absTarget, '.gitignore'), OPENCODE_GITIGNORE);
   }
 
   if (selections.mcps?.length) {
@@ -395,7 +296,6 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
       Object.entries(selections).map(([k, v]) => [k, [...v]])
     ),
     includeAgentsMd,
-    includeSystemPromptMd,
   };
   await writeFile(resolve(absTarget, 'system-prompt-lock.json'), JSON.stringify(lockData, null, 2));
 

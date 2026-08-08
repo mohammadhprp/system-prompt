@@ -1,4 +1,4 @@
-import { intro, outro, text, confirm, select, multiselect, spinner, isCancel } from '@clack/prompts';
+import { intro, outro, confirm, multiselect, spinner, isCancel } from '@clack/prompts';
 import { resolve } from 'node:path';
 
 import { categories } from './catalog.js';
@@ -90,27 +90,8 @@ export async function main() {
   const version = await getPackageVersion();
   intro(`System prompt (v${version})`);
 
-  const agentType = await select({
-    message: 'Which harness would you like to install?',
-    options: [
-      { value: 'opencode', label: 'OpenCode', hint: 'Recommended' },
-    ],
-  });
-  if (isCancel(agentType)) {
-    outro('Cancelled.');
-    process.exit(0);
-  }
-
-  const targetDir = await text({
-    message: 'Project directory to install into?',
-    placeholder: './.opencode',
-    defaultValue: '.opencode',
-    validate: (val) => val.trim() ? undefined : 'Path is required',
-  });
-  if (isCancel(targetDir)) {
-    outro('Cancelled.');
-    process.exit(0);
-  }
+  const agentType = 'opencode';
+  const targetDir = '.opencode';
 
   const categoryOptions = Object.entries(categories).map(([key, cat]) => {
     const visible = cat.items.filter(i => !i.removed);
@@ -141,33 +122,17 @@ export async function main() {
       process.exit(0);
     }
 
-    const includeSystemPromptMd = await confirm({
-      message: 'Generate system-prompt.md?',
-      initialValue: true,
-    });
-    if (isCancel(includeSystemPromptMd)) {
-      outro('Cancelled.');
-      process.exit(0);
-    }
-
-    if (!includeAgentsMd && !includeSystemPromptMd) {
-      outro('Nothing to install.');
-      process.exit(0);
-    }
-
     const s = spinner();
     s.start('Writing files...');
     await install({
-      targetDir: targetDir.trim() || '.',
+       targetDir,
       agentType,
       selections: {},
       includeAgentsMd,
-      includeSystemPromptMd,
     });
     s.stop('Done.');
     const installed = [];
     if (includeAgentsMd) installed.push('AGENTS.md');
-    if (includeSystemPromptMd) installed.push('system-prompt.md');
     outro(`${installed.join(' and ')} written. Open them in your project to get started.`);
     process.exit(0);
   }
@@ -179,15 +144,6 @@ export async function main() {
     initialValue: true,
   });
   if (isCancel(includeAgentsMd)) {
-    outro('Cancelled.');
-    process.exit(0);
-  }
-
-  const includeSystemPromptMd = await confirm({
-    message: 'Generate system-prompt.md?',
-    initialValue: true,
-  });
-  if (isCancel(includeSystemPromptMd)) {
     outro('Cancelled.');
     process.exit(0);
   }
@@ -227,7 +183,7 @@ export async function main() {
     }
   }
 
-  const absTarget = resolve(process.cwd(), targetDir.trim() || '.');
+  const absTarget = resolve(process.cwd(), targetDir);
   const oldLock = await loadLockFile(absTarget);
 
   if (oldLock) {
@@ -244,8 +200,7 @@ export async function main() {
 
     const genFiles = [];
     if (includeAgentsMd) genFiles.push('AGENTS.md');
-    if (includeSystemPromptMd) genFiles.push('system-prompt.md');
-    genFiles.push('opencode.json');
+    genFiles.push('opencode.json', 'tui.json', '.gitignore');
     if (selections.mcps?.length) genFiles.push('.env');
     if (selections.memory?.length) genFiles.push('memory/');
 
@@ -259,7 +214,9 @@ export async function main() {
   } else {
     console.log('\n📦 Summary of what will be installed:\n');
     if (includeAgentsMd) console.log('  📄 AGENTS.md');
-    if (includeSystemPromptMd) console.log('  📄 system-prompt.md');
+    console.log('  📄 opencode.json');
+    console.log('  📄 tui.json');
+    console.log('  📄 .gitignore');
     console.log(buildSummary(selections));
     console.log();
   }
@@ -277,11 +234,10 @@ export async function main() {
   s.start(oldLock ? 'Updating files...' : 'Installing files...');
 
   const finalTarget = await install({
-    targetDir: targetDir.trim() || '.',
+    targetDir,
     agentType,
     selections,
     includeAgentsMd,
-    includeSystemPromptMd,
     oldSelections: oldLock?.selections,
   });
 

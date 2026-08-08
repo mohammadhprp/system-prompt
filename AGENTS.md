@@ -6,7 +6,7 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
 
 - `bin/system-prompt.js` — CLI entry point. Keep it slim; delegate logic to `src/`.
 - `src/` — CLI source code (catalog, installer, prompts, config generation).
-- `framework/` — All framework content that the CLI installs (agents, skills, commands, MCPs, plugins, styles, references, harnesses).
+- `framework/` — All framework content that the CLI installs (agents, skills, commands, MCPs, plugins, styles, and references).
 - `package.json` — Package metadata with `"private": true`. Only `src/`, `bin/`, and `framework/` are published.
 
 ## Actions
@@ -35,5 +35,4 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
 
 ## Related
 
-- `framework/harness/` — Self-configuration harnesses for AI coding agents.
 - `framework/references/standards/` — Engineering standards used in generated configs.

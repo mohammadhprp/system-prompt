@@ -27,7 +27,6 @@ test('install writes selected framework files and generated config', async () =>
         mcps: ['notion-mcp'],
       },
       includeAgentsMd: true,
-      includeSystemPromptMd: true,
     });
 
     assert.equal(absTarget, resolve(process.cwd(), '.opencode'));
@@ -48,11 +47,12 @@ test('install writes selected framework files and generated config', async () =>
     assert.match(template, /ADR|Architecture Decision Record/);
 
     const agentsMd = await readFile(join(absTarget, 'AGENTS.md'), 'utf-8');
-    assert.match(agentsMd, /## Skills/);
-    assert.match(agentsMd, /\/review/);
+    assert.equal(agentsMd, '# AGENTS.md\n\n> Fill this base on project use /init command\n');
 
-    const systemPrompt = await readFile(join(absTarget, 'system-prompt.md'), 'utf-8');
-    assert.match(systemPrompt, /Senior Backend Engineer/);
+    await assert.rejects(
+      access(join(absTarget, 'system-prompt.md')),
+      { code: 'ENOENT' }
+    );
 
     const memoryFile1 = await readFile(join(absTarget, 'memory/codebase-insights.md'), 'utf-8');
     assert.match(memoryFile1, /Codebase Insights/);
@@ -63,6 +63,12 @@ test('install writes selected framework files and generated config', async () =>
     assert.ok(opencode.instructions.includes('.opencode/memory/*.md'));
     assert.deepEqual(opencode.plugin, ['@prevalentware/opencode-goal-plugin']);
     assert.ok(opencode.mcp);
+
+    const tui = JSON.parse(await readFile(join(absTarget, 'tui.json'), 'utf-8'));
+    assert.deepEqual(tui.plugin, ['@prevalentware/opencode-goal-plugin']);
+
+    const gitignore = await readFile(join(absTarget, '.gitignore'), 'utf-8');
+    assert.match(gitignore, /^\.env\*$/m);
 
     const lock = JSON.parse(await readFile(join(absTarget, 'system-prompt-lock.json'), 'utf-8'));
     assert.equal(lock.agentType, 'opencode');
@@ -89,7 +95,6 @@ test('install creates merged .env from selected MCP .env.example files', async (
         mcps: ['gitlab-mcp', 'jira-mcp'],
       },
       includeAgentsMd: false,
-      includeSystemPromptMd: false,
     });
 
     const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
@@ -117,7 +122,6 @@ test('install merges .env preserving existing values on re-install', async () =>
         mcps: ['gitlab-mcp', 'jira-mcp'],
       },
       includeAgentsMd: false,
-      includeSystemPromptMd: false,
     });
 
     const seeded = 'GITLAB_API_URL=https://gitlab.example.com\nEXTRA_VAR=keep-me\n';
@@ -130,7 +134,6 @@ test('install merges .env preserving existing values on re-install', async () =>
         mcps: ['gitlab-mcp', 'jira-mcp'],
       },
       includeAgentsMd: false,
-      includeSystemPromptMd: false,
     });
 
     const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
@@ -160,7 +163,6 @@ test('loadLockFile reads the lock file written by install', async () => {
         agents: ['reviewer'],
       },
       includeAgentsMd: true,
-      includeSystemPromptMd: true,
     });
 
     const absTarget = resolve(workspace, '.opencode');
@@ -171,7 +173,6 @@ test('loadLockFile reads the lock file written by install', async () => {
     assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
     assert.deepEqual(lock.selections.agents, ['reviewer']);
     assert.equal(lock.includeAgentsMd, true);
-    assert.equal(lock.includeSystemPromptMd, true);
     assert.match(lock.installedAt, /^\d{4}-\d{2}-\d{2}T/);
 
     const noLock = await loadLockFile(resolve(workspace, 'nonexistent'));
@@ -198,7 +199,6 @@ test('install removes files for items dropped on re-install', async () => {
         commands: ['review'],
       },
       includeAgentsMd: false,
-      includeSystemPromptMd: false,
     });
 
     await access(join(absTarget, 'skills/backend-best-practices/SKILL.md'));
@@ -218,7 +218,6 @@ test('install removes files for items dropped on re-install', async () => {
         commands: ['review'],
       },
       includeAgentsMd: false,
-      includeSystemPromptMd: false,
     });
 
     await assert.rejects(

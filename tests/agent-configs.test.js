@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { generateOpenCodeConfig, loadMcpConfigs } from '../src/agent-configs.js';
+import { generateOpenCodeConfig, generateTuiConfig, loadMcpConfigs } from '../src/agent-configs.js';
 
 test('generateOpenCodeConfig includes selected plugins, references, and MCPs', () => {
   const config = JSON.parse(generateOpenCodeConfig({
@@ -34,6 +34,15 @@ test('generateOpenCodeConfig includes memory glob in instructions when memory se
     mcpEntries: {},
   }));
   assert.equal(config2.instructions.includes('.opencode/memory/*.md'), false);
+});
+
+test('generateTuiConfig includes the goal plugin when selected', () => {
+  const config = JSON.parse(generateTuiConfig({
+    selections: { plugins: ['opencode-goal-plugin'] },
+  }));
+
+  assert.equal(config.$schema, 'https://opencode.ai/tui.json');
+  assert.deepEqual(config.plugin, ['@prevalentware/opencode-goal-plugin']);
 });
 
 test('loadMcpConfigs reads framework MCP opencode configs', async () => {

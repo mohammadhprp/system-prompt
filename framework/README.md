@@ -25,7 +25,6 @@ Backend work is mostly judgment: choosing simple boundaries, protecting data int
 
 | Path | Purpose |
 | --- | --- |
-| `harness/` | Harness configurations for this repository. |
 | `agents/` | Specialized subagents for security audits, architecture, code review, and research. |
 | `skills/` | Curated skill catalog with definitions, workflows, and examples. |
 | `commands/` | Slash command catalog with repeatable agent workflows. |
@@ -159,6 +158,6 @@ Memory files are automatically included in the agent's instructions via the glob
 
 > Yes. The standards and templates are useful for reviews, design discussions, and onboarding.
 
-### How AI Agents should install and config this repository?
+### How AI Agents should install and configure this repository?
 
-> Read `harness/README.md`
+> Run the `system-prompt` command from the project root and open the generated `.opencode/` configuration in OpenCode.
