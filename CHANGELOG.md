@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Find Skills skill for discovering, evaluating, and installing agent skills from the open skills ecosystem.
+
 ## [v0.10.0] - 2026-08-06
 
 ### Added
