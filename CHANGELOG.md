@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Changed
+- Switched package publication from GitHub Packages to the public npm registry.
+
 ## [v0.10.1] - 2026-08-08
 
 ### Added
