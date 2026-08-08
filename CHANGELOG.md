@@ -4,8 +4,18 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.10.1] - 2026-08-08
+
 ### Added
+- Agent Browser skill for browser and Electron automation, exploratory testing, QA, screenshots, and data extraction.
 - Find Skills skill for discovering, evaluating, and installing agent skills from the open skills ecosystem.
+- Generated OpenCode `tui.json` and `.gitignore` files from the installer.
+
+### Changed
+- OpenCode installation now always targets `./.opencode`, configures the goal plugin in both OpenCode config files, and generates a minimal `/init`-ready `AGENTS.md`.
+
+### Removed
+- The obsolete `framework/harness/` directory and harness selection prompt.
 
 ## [v0.10.0] - 2026-08-06
 
