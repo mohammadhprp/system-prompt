@@ -8,6 +8,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 
 | Skill | Purpose | Best fit |
 | --- | --- | --- |
+| [agent-browser](./agent-browser/SKILL.md) | Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction. | Website interaction, browser automation, exploratory testing, QA, and Electron desktop app workflows. |
 | [backend-best-practices](./backend-best-practices/SKILL.md) | Consolidated backend engineering practices for API design, architecture, data, security, testing, observability, performance, debugging, and refactoring. | Any backend task that benefits from structured domain guidance across multiple backend disciplines. |
 | [backend-engineer](./backend-engineer/SKILL.md) | Analyze backend requirements, risks, and implementation plans before coding. | General problem solving, requirements analysis, and risk management. |
 | [brainstorming](./brainstorming/SKILL.md) | Turn ideas into fully formed designs and specs through collaborative dialogue before any implementation. | Starting a new feature, component, or project; any work that benefits from design before code. |

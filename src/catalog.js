@@ -4,6 +4,7 @@ export const categories = {
     description: 'Task-specific procedures for AI coding agents',
     sourceDir: 'framework/skills',
     items: [
+      { id: 'agent-browser', name: 'Agent Browser', description: 'Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction' },
       { id: 'backend-best-practices', name: 'Backend Best Practices', description: 'Consolidated backend engineering practices across API, data, security, testing, and operations' },
       { id: 'backend-engineer', name: 'Backend Engineer', description: 'Analyze backend requirements, risks, and implementation plans' },
       { id: 'brainstorming', name: 'Brainstorming', description: 'Turn ideas into fully formed designs through dialogue' },
