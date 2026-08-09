@@ -4,6 +4,11 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.11.0] - 2026-08-09
+
+### Added
+- Added package keywords for npm discovery.
+
 ### Changed
 - Switched package publication from GitHub Packages to the public npm registry.
 
