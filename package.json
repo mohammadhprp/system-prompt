@@ -2,6 +2,14 @@
   "name": "@mohammadhprp/system-prompt",
   "version": "0.10.1",
   "description": "AI Coding Agent Framework — interactive bootstrap CLI",
+  "keywords": [
+    "ai",
+    "coding-agent",
+    "developer-tools",
+    "cli",
+    "agent-framework",
+    "opencode"
+  ],
   "type": "module",
   "bin": {
     "system-prompt": "bin/system-prompt.js"
