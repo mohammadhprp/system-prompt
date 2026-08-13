@@ -14,6 +14,7 @@ export const categories = {
       { id: 'diagram-design', name: 'Diagram Design', description: 'Create technical and product diagrams as standalone HTML with inline SVG' },
       { id: 'documentation', name: 'Documentation', description: 'Create ADRs, design docs, runbooks, and API docs' },
       { id: 'find-skills', name: 'Find Skills', description: 'Discover, evaluate, and install agent skills for specialized tasks' },
+      { id: 'frontend-design', name: 'Frontend Design', description: 'Distinctive, intentional visual design for new UI or reshaping existing UI' },
       { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Work with GitLab via MCP for MRs, issues, pipelines' },
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Work with Jira MCP for issue management and JQL search' },
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
