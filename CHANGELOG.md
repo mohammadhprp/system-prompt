@@ -4,6 +4,11 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.11.1] - 2026-08-13
+
+### Changed
+- Split generic agent guidance from project-specific context instructions.
+
 ## [v0.11.0] - 2026-08-09
 
 ### Added

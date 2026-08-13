@@ -47,7 +47,8 @@ test('install writes selected framework files and generated config', async () =>
     assert.match(template, /ADR|Architecture Decision Record/);
 
     const agentsMd = await readFile(join(absTarget, 'AGENTS.md'), 'utf-8');
-    assert.equal(agentsMd, '# AGENTS.md\n\n> Fill this base on project use /init command\n');
+    assert.match(agentsMd, /Behavioral guidelines to reduce common LLM coding mistakes/);
+    assert.match(agentsMd, /Read CONTEXT\.md for repository-specific setup/);
 
     await assert.rejects(
       access(join(absTarget, 'system-prompt.md')),
