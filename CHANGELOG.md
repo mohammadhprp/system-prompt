@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Show Me skill for explaining the current topic visually with diagrams, code-shape sketches, and focused HTML artifacts.
+
 ## [v0.11.1] - 2026-08-13
 
 ### Changed

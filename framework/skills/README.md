@@ -23,6 +23,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [laravel-best-practices](./laravel-best-practices/SKILL.md) | Apply Laravel PHP patterns for Eloquent, validation, security, testing, caching, and architecture. | Writing, reviewing, or refactoring Laravel PHP code. |
 | [lavish](./lavish/SKILL.md) | Turn complex or visual agent responses into rich, reviewable HTML artifacts the user can annotate and send feedback on. | Plans, comparisons, diagrams, tables, code diffs, or any output easier to grasp visually than as prose. |
 | [notion-mcp](./notion-mcp/SKILL.md) | Work with the Notion MCP server tools for pages, databases, comments, search, and workspace management. | Any project that uses Notion for documentation, tracking, or collaboration. |
+| [show-me](./show-me/SKILL.md) | Help the user understand the current topic visually with concise diagrams, code-shape sketches, and focused HTML artifacts. | Explaining logic, control flow, UI structure, file responsibility, or data flow with the smallest useful visual. |
 | [pull-request](./pull-request/SKILL.md) | Prepare small, reviewable changes with clear evidence, risk, deployment, and rollback notes. | Preparing PRs, writing descriptions, or planning safe deployments. |
 | [skill-creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
 
