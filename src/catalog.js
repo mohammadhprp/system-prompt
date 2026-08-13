@@ -16,6 +16,7 @@ export const categories = {
       { id: 'find-skills', name: 'Find Skills', description: 'Discover, evaluate, and install agent skills for specialized tasks' },
       { id: 'frontend-design', name: 'Frontend Design', description: 'Distinctive, intentional visual design for new UI or reshaping existing UI' },
       { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Work with GitLab via MCP for MRs, issues, pipelines' },
+      { id: 'humanizer', name: 'Humanizer', description: 'Remove signs of AI-generated writing to make text sound more natural and human' },
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Work with Jira MCP for issue management and JQL search' },
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
       { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },

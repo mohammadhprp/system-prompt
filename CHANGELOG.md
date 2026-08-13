@@ -7,6 +7,7 @@ All notable changes to this project are documented here.
 ### Added
 - Show Me skill for explaining the current topic visually with diagrams, code-shape sketches, and focused HTML artifacts.
 - Frontend Design skill for distinctive, intentional visual design that doesn't read as templated defaults.
+- Humanizer skill for removing signs of AI-generated writing from text.
 
 ## [v0.11.1] - 2026-08-13
 
