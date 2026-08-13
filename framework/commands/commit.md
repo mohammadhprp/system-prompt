@@ -26,6 +26,3 @@ Use conventional commit format: `type: description`
 - `test:` - Adding or updating tests
 - `perf:` - Performance improvement
 - `ci:` - CI/CD changes
-
-**Note:** During release generation, `chore:`, `docs:`, and `ci:` commits are filtered from changelog. Only user-facing changes (`fix:`, `feat:`, etc.) are included.
-
