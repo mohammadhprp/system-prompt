@@ -10,7 +10,6 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | --- | --- | --- |
 | [agent-browser](./agent-browser/SKILL.md) | Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction. | Website interaction, browser automation, exploratory testing, QA, and Electron desktop app workflows. |
 | [backend-best-practices](./backend-best-practices/SKILL.md) | Consolidated backend engineering practices for API design, architecture, data, security, testing, observability, performance, debugging, and refactoring. | Any backend task that benefits from structured domain guidance across multiple backend disciplines. |
-| [backend-engineer](./backend-engineer/SKILL.md) | Analyze backend requirements, risks, and implementation plans before coding. | General problem solving, requirements analysis, and risk management. |
 | [brainstorming](./brainstorming/SKILL.md) | Turn ideas into fully formed designs and specs through collaborative dialogue before any implementation. | Starting a new feature, component, or project; any work that benefits from design before code. |
 | [brand-guidelines](./brand-guidelines/SKILL.md) | Apply Anthropic's official brand colors and typography to artifacts for company look-and-feel. | Styling artifacts with brand colors, typography, or visual design standards. |
 | [code-review](./code-review/SKILL.md) | Review backend changes for correctness, readability, maintainability, tests, performance, and security. | Reviewing pull requests, evaluating code quality, or mentoring. |
@@ -19,7 +18,6 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [design-like-damien](./design/SKILL.md) | Apply premium, editorial-quality UI design philosophy and Lovable prompting system to produce interfaces that never look &ldquo;AI-generated.&rdquo; | Building apps, landing pages, or dashboards in Lovable; UI/UX design for premium SaaS, dark mode, typography, and scroll animations. |
 | [diagram-design](./diagram-design/SKILL.md) | Create technical and product diagrams as standalone HTML files with inline SVG and an opinionated editorial design system. | Architecture, data, process, and other diagrams that communicate more clearly than prose or tables. |
 | [docs-writer](./docs-writer/SKILL.md) | Write, review, and edit documentation files with consistent structure, tone, and technical accuracy. | Creating docs, reviewing markdown files, writing READMEs, or updating `/docs` directories. |
-| [documentation](./documentation/SKILL.md) | Create ADRs, design docs, runbooks, API docs, and operational knowledge that stays useful. | Writing documentation, post-incident reviews, or onboarding guides. |
 | [find-skills](./find-skills/SKILL.md) | Discover, evaluate, and install skills from the open agent skills ecosystem. | Finding an installable skill for a specialized task or extending an agent's capabilities. |
 | [frontend-design](./frontend-design/SKILL.md) | Distinctive, intentional visual design for new UI or reshaping existing UI — aesthetic direction, typography, and choices that don't read as templated defaults. | Building new interfaces, reshaping existing UI, or escaping generic AI-generated design looks. |
 | [gitlab-mcp](./gitlab-mcp/SKILL.md) | Work with the GitLab MCP server tools for merge requests, issues, repositories, pipelines, and CI/CD workflows. | Any project hosted on GitLab (SaaS or self-hosted). |
@@ -30,6 +28,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [lavish](./lavish/SKILL.md) | Turn complex or visual agent responses into rich, reviewable HTML artifacts the user can annotate and send feedback on. | Plans, comparisons, diagrams, tables, code diffs, or any output easier to grasp visually than as prose. |
 | [notion-mcp](./notion-mcp/SKILL.md) | Work with the Notion MCP server tools for pages, databases, comments, search, and workspace management. | Any project that uses Notion for documentation, tracking, or collaboration. |
 | [perf-web-optimization](./perf-web-optimization/SKILL.md) | Optimize web performance: bundle size, images, caching, lazy loading, and overall page speed. | A slow site, large bundles, layout shifts, poor Time to Interactive, or low Lighthouse scores. |
+| [security-best-practices](./security-best-practices/SKILL.md) | Perform language- and framework-specific security best-practice reviews and suggest improvements, with support for Python, JavaScript/TypeScript, and Go. | Explicit security reviews or reports, secure-by-default coding, or auditing existing code for major vulnerabilities. |
 | [show-me](./show-me/SKILL.md) | Help the user understand the current topic visually with concise diagrams, code-shape sketches, and focused HTML artifacts. | Explaining logic, control flow, UI structure, file responsibility, or data flow with the smallest useful visual. |
 | [pull-request](./pull-request/SKILL.md) | Prepare small, reviewable changes with clear evidence, risk, deployment, and rollback notes. | Preparing PRs, writing descriptions, or planning safe deployments. |
 | [skill-creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
@@ -56,7 +55,7 @@ Use the skill table above to find the entry closest to the task at hand. Skills 
 Before activating a skill, check:
 
 - **Fit**: does the skill's purpose match the current task?
-- **Scope**: some skills are general (Backend Engineer), others are narrow (Laravel Best Practices).
+- **Scope**: some skills are general (CodeNavi), others are narrow (Laravel Best Practices).
 - **Combination**: complex tasks may need multiple skills (e.g., API Design + Security + Testing).
 - **Sequence**: some skills are best used in order (e.g., Architecture Review before Database Design).
 

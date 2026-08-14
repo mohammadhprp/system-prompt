@@ -14,6 +14,10 @@ All notable changes to this project are documented here.
 - Docs Writer skill for writing, reviewing, and editing documentation with consistent structure and tone.
 - Learning Opportunities skill for deliberate skill development through short, interactive exercises.
 - Web Performance Optimization skill for bundle size, images, caching, lazy loading, and page speed.
+- Security Best Practices skill for language- and framework-specific security reviews and secure-by-default coding.
+
+### Removed
+- Backend Engineer skill and Documentation skill.
 
 ## [v0.11.1] - 2026-08-13
 

@@ -24,6 +24,7 @@ export const categories = {
       { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
       { id: 'perf-web-optimization', name: 'Web Performance Optimization', description: 'Optimize web performance: bundle size, images, caching, lazy loading, and overall page speed' },
+      { id: 'security-best-practices', name: 'Security Best Practices', description: 'Language and framework specific security best-practice reviews and secure-by-default coding help' },
       { id: 'show-me', name: 'Show Me', description: 'Explain the current topic visually with diagrams, code-shape sketches, and focused HTML artifacts' },
       { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' },
       { id: 'technical-design-doc-creator', name: 'Technical Design Doc Creator', description: 'Create comprehensive Technical Design Documents with mandatory and optional sections through interactive discovery' }
