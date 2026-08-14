@@ -11,6 +11,7 @@ export const categories = {
       { id: 'brand-guidelines', name: 'Brand Guidelines', description: 'Apply official brand colors and typography' },
       { id: 'code-review', name: 'Code Review', description: 'Review backend changes for correctness and maintainability' },
       { id: 'codenavi', name: 'CodeNavi', description: 'Navigate unknown codebases with precision, a persistent .notebook knowledge base, and surgical implementation' },
+      { id: 'create-adr', name: 'Create ADR', description: 'Create Architecture Decision Records documenting significant architectural choices and rationale' },
       { id: 'design', name: 'Design Like Damien', description: 'Premium UI design philosophy and Lovable prompting' },
       { id: 'diagram-design', name: 'Diagram Design', description: 'Create technical and product diagrams as standalone HTML with inline SVG' },
       { id: 'documentation', name: 'Documentation', description: 'Create ADRs, design docs, runbooks, and API docs' },
