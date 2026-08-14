@@ -13,6 +13,7 @@ All notable changes to this project are documented here.
 - Technical Design Doc Creator skill for creating comprehensive technical design documents through interactive discovery.
 - Docs Writer skill for writing, reviewing, and editing documentation with consistent structure and tone.
 - Learning Opportunities skill for deliberate skill development through short, interactive exercises.
+- Web Performance Optimization skill for bundle size, images, caching, lazy loading, and page speed.
 
 ## [v0.11.1] - 2026-08-13
 

@@ -6,7 +6,6 @@ export const categories = {
     items: [
       { id: 'agent-browser', name: 'Agent Browser', description: 'Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction' },
       { id: 'backend-best-practices', name: 'Backend Best Practices', description: 'Consolidated backend engineering practices across API, data, security, testing, and operations' },
-      { id: 'backend-engineer', name: 'Backend Engineer', description: 'Analyze backend requirements, risks, and implementation plans' },
       { id: 'brainstorming', name: 'Brainstorming', description: 'Turn ideas into fully formed designs through dialogue' },
       { id: 'brand-guidelines', name: 'Brand Guidelines', description: 'Apply official brand colors and typography' },
       { id: 'code-review', name: 'Code Review', description: 'Review backend changes for correctness and maintainability' },
@@ -15,7 +14,6 @@ export const categories = {
       { id: 'design', name: 'Design Like Damien', description: 'Premium UI design philosophy and Lovable prompting' },
       { id: 'diagram-design', name: 'Diagram Design', description: 'Create technical and product diagrams as standalone HTML with inline SVG' },
       { id: 'docs-writer', name: 'Docs Writer', description: 'Write, review, and edit documentation files with consistent structure, tone, and technical accuracy' },
-      { id: 'documentation', name: 'Documentation', description: 'Create ADRs, design docs, runbooks, and API docs' },
       { id: 'find-skills', name: 'Find Skills', description: 'Discover, evaluate, and install agent skills for specialized tasks' },
       { id: 'frontend-design', name: 'Frontend Design', description: 'Distinctive, intentional visual design for new UI or reshaping existing UI' },
       { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Work with GitLab via MCP for MRs, issues, pipelines' },
@@ -25,6 +23,7 @@ export const categories = {
       { id: 'learning-opportunities', name: 'Learning Opportunities', description: 'Facilitate deliberate skill development during AI-assisted coding with short, interactive exercises' },
       { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
+      { id: 'perf-web-optimization', name: 'Web Performance Optimization', description: 'Optimize web performance: bundle size, images, caching, lazy loading, and overall page speed' },
       { id: 'show-me', name: 'Show Me', description: 'Explain the current topic visually with diagrams, code-shape sketches, and focused HTML artifacts' },
       { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' },
       { id: 'technical-design-doc-creator', name: 'Technical Design Doc Creator', description: 'Create comprehensive Technical Design Documents with mandatory and optional sections through interactive discovery' }
