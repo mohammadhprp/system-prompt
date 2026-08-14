@@ -18,7 +18,7 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
   2. Add the flag to new items from this release.
   3. Bump version in `package.json` and `package-lock.json`.
   4. Run `npm test` and fix any failures.
-  5. Commit the release metadata and tag with `vX.Y.Z`.
+  5. Commit the release metadata with `chore: release vX.Y.Z` and tag with `git tag -a vX.Y.Z -m "Release version X.Y.Z"`.
 
 ## Build & Test
 

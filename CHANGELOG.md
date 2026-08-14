@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.11.2] - 2026-08-14
+
 ### Added
 - Show Me skill for explaining the current topic visually with diagrams, code-shape sketches, and focused HTML artifacts.
 - Frontend Design skill for distinctive, intentional visual design that doesn't read as templated defaults.
