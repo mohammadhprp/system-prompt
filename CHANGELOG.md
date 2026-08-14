@@ -11,6 +11,7 @@ All notable changes to this project are documented here.
 - CodeNavi skill for navigating unknown codebases with a persistent `.notebook/` knowledge base.
 - Create ADR skill for documenting significant architectural choices and their rationale.
 - Technical Design Doc Creator skill for creating comprehensive technical design documents through interactive discovery.
+- Docs Writer skill for writing, reviewing, and editing documentation with consistent structure and tone.
 
 ## [v0.11.1] - 2026-08-13
 

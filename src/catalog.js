@@ -14,6 +14,7 @@ export const categories = {
       { id: 'create-adr', name: 'Create ADR', description: 'Create Architecture Decision Records documenting significant architectural choices and rationale' },
       { id: 'design', name: 'Design Like Damien', description: 'Premium UI design philosophy and Lovable prompting' },
       { id: 'diagram-design', name: 'Diagram Design', description: 'Create technical and product diagrams as standalone HTML with inline SVG' },
+      { id: 'docs-writer', name: 'Docs Writer', description: 'Write, review, and edit documentation files with consistent structure, tone, and technical accuracy' },
       { id: 'documentation', name: 'Documentation', description: 'Create ADRs, design docs, runbooks, and API docs' },
       { id: 'find-skills', name: 'Find Skills', description: 'Discover, evaluate, and install agent skills for specialized tasks' },
       { id: 'frontend-design', name: 'Frontend Design', description: 'Distinctive, intentional visual design for new UI or reshaping existing UI' },
