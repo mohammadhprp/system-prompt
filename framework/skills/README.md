@@ -30,6 +30,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [show-me](./show-me/SKILL.md) | Help the user understand the current topic visually with concise diagrams, code-shape sketches, and focused HTML artifacts. | Explaining logic, control flow, UI structure, file responsibility, or data flow with the smallest useful visual. |
 | [pull-request](./pull-request/SKILL.md) | Prepare small, reviewable changes with clear evidence, risk, deployment, and rollback notes. | Preparing PRs, writing descriptions, or planning safe deployments. |
 | [skill-creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
+| [technical-design-doc-creator](./technical-design-doc-creator/SKILL.md) | Create comprehensive Technical Design Documents (TDDs) with mandatory and optional sections through interactive discovery, in the user's language. | Writing a design doc, TDD, technical spec, or architecture document before implementing a significant change. |
 
 ## How Skills Are Organized
 

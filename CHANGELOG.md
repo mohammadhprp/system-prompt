@@ -10,6 +10,7 @@ All notable changes to this project are documented here.
 - Humanizer skill for removing signs of AI-generated writing from text.
 - CodeNavi skill for navigating unknown codebases with a persistent `.notebook/` knowledge base.
 - Create ADR skill for documenting significant architectural choices and their rationale.
+- Technical Design Doc Creator skill for creating comprehensive technical design documents through interactive discovery.
 
 ## [v0.11.1] - 2026-08-13
 
