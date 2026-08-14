@@ -15,6 +15,7 @@ All notable changes to this project are documented here.
 - Learning Opportunities skill for deliberate skill development through short, interactive exercises.
 - Web Performance Optimization skill for bundle size, images, caching, lazy loading, and page speed.
 - Security Best Practices skill for language- and framework-specific security reviews and secure-by-default coding.
+- Sentry skill for inspecting Sentry issues, summarizing production errors, and pulling health data.
 
 ### Removed
 - Backend Engineer skill and Documentation skill.
