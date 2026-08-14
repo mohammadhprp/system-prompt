@@ -10,6 +10,7 @@ export const categories = {
       { id: 'brainstorming', name: 'Brainstorming', description: 'Turn ideas into fully formed designs through dialogue' },
       { id: 'brand-guidelines', name: 'Brand Guidelines', description: 'Apply official brand colors and typography' },
       { id: 'code-review', name: 'Code Review', description: 'Review backend changes for correctness and maintainability' },
+      { id: 'codenavi', name: 'CodeNavi', description: 'Navigate unknown codebases with precision, a persistent .notebook knowledge base, and surgical implementation' },
       { id: 'design', name: 'Design Like Damien', description: 'Premium UI design philosophy and Lovable prompting' },
       { id: 'diagram-design', name: 'Diagram Design', description: 'Create technical and product diagrams as standalone HTML with inline SVG' },
       { id: 'documentation', name: 'Documentation', description: 'Create ADRs, design docs, runbooks, and API docs' },
