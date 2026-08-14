@@ -12,6 +12,7 @@ All notable changes to this project are documented here.
 - Create ADR skill for documenting significant architectural choices and their rationale.
 - Technical Design Doc Creator skill for creating comprehensive technical design documents through interactive discovery.
 - Docs Writer skill for writing, reviewing, and editing documentation with consistent structure and tone.
+- Learning Opportunities skill for deliberate skill development through short, interactive exercises.
 
 ## [v0.11.1] - 2026-08-13
 

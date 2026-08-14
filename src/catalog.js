@@ -22,6 +22,7 @@ export const categories = {
       { id: 'humanizer', name: 'Humanizer', description: 'Remove signs of AI-generated writing to make text sound more natural and human' },
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Work with Jira MCP for issue management and JQL search' },
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
+      { id: 'learning-opportunities', name: 'Learning Opportunities', description: 'Facilitate deliberate skill development during AI-assisted coding with short, interactive exercises' },
       { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
       { id: 'show-me', name: 'Show Me', description: 'Explain the current topic visually with diagrams, code-shape sketches, and focused HTML artifacts' },
