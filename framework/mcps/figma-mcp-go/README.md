@@ -47,5 +47,4 @@ Avoid using it as a generic MCP outside Figma-related workflows.
 
 Relevant skills in this repository:
 
-- [`backend-engineer`](../../skills/backend-engineer/SKILL.md): generating UI code from designs.
 - [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for API design, testing, and debugging.

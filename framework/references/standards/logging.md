@@ -38,6 +38,5 @@ Define reusable backend engineering rules for logging decisions across projects.
 
 ## Related Skills
 
-- `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/observability.md`

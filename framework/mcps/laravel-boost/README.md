@@ -49,5 +49,4 @@ Avoid using it as a generic MCP outside Laravel projects.
 
 Relevant skills in this repository:
 
-- [`backend-engineer`](../../skills/backend-engineer/SKILL.md): feature work in Laravel applications.
 - [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for API design, database design, debugging, testing, and security.

@@ -39,6 +39,5 @@ Define reusable backend engineering rules for API decisions across projects. Thi
 
 ## Related Skills
 
-- `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/api-design.md`

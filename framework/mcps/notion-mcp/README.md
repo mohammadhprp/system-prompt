@@ -54,5 +54,4 @@ Avoid using it for fully automated or headless workflows — Notion MCP requires
 
 Relevant skills in this repository:
 
-- [`backend-engineer`](../../skills/backend-engineer/SKILL.md): creating and updating project documentation in Notion.
 - [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for API design, testing, and debugging.

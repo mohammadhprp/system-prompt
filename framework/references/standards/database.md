@@ -38,6 +38,5 @@ Define reusable backend engineering rules for database decisions across projects
 
 ## Related Skills
 
-- `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/database-design.md`

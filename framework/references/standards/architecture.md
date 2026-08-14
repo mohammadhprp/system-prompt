@@ -38,6 +38,5 @@ Define reusable backend engineering rules for architecture decisions across proj
 
 ## Related Skills
 
-- `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/architecture-review.md`

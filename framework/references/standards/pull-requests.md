@@ -38,6 +38,5 @@ Define reusable backend engineering rules for pull request decisions across proj
 
 ## Related Skills
 
-- `skills/backend-engineer/SKILL.md`
 - `skills/code-review/SKILL.md`
 - `skills/pull-request/SKILL.md`
