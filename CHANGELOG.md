@@ -18,6 +18,7 @@ All notable changes to this project are documented here.
 - Sentry skill for inspecting Sentry issues, summarizing production errors, and pulling health data.
 - Spec-Driven Eval skill for scoring how completely an implementation fulfills a PRD or spec.
 - TLC Spec-Driven skill for feature planning and implementation with adaptive phases, EARS requirements, and independent verification.
+- Web Design Guidelines skill for reviewing UI code against Web Interface Guidelines compliance.
 
 ### Removed
 - Backend Engineer skill and Documentation skill.

@@ -36,6 +36,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [spec-driven-eval](./spec-driven-eval/SKILL.md) | Score how completely an implementation fulfills a PRD/spec, case by case, producing a single comparable final grade. | Benchmarking spec-driven implementations, grading acceptance criteria, or auditing implementation and test coverage against a spec. |
 | [technical-design-doc-creator](./technical-design-doc-creator/SKILL.md) | Create comprehensive Technical Design Documents (TDDs) with mandatory and optional sections through interactive discovery, in the user's language. | Writing a design doc, TDD, technical spec, or architecture document before implementing a significant change. |
 | [tlc-spec-driven](./tlc-spec-driven/SKILL.md) | Feature planning and implementation with adaptive phases, EARS testable requirements, atomic Conventional Commits, and independent verification. | Planning features, implementing with verification and atomic commits, or validating an implementation against a spec. |
+| [web-design-guidelines](./web-design-guidelines/SKILL.md) | Review UI code for Web Interface Guidelines compliance — accessibility, focus, forms, animation, typography, and interaction patterns. | Reviewing UI, checking accessibility, auditing design or UX, or checking a site against best practices. |
 
 ## How Skills Are Organized
 

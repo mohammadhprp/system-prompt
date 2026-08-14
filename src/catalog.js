@@ -30,7 +30,8 @@ export const categories = {
       { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' },
       { id: 'spec-driven-eval', name: 'Spec-Driven Eval', description: 'Score how completely an implementation fulfills a PRD/spec, case by case, into a single comparable grade' },
       { id: 'technical-design-doc-creator', name: 'Technical Design Doc Creator', description: 'Create comprehensive Technical Design Documents with mandatory and optional sections through interactive discovery' },
-      { id: 'tlc-spec-driven', name: 'TLC Spec-Driven', description: 'Feature planning and implementation with adaptive phases, EARS testable requirements, atomic commits, and independent verification' }
+      { id: 'tlc-spec-driven', name: 'TLC Spec-Driven', description: 'Feature planning and implementation with adaptive phases, EARS testable requirements, atomic commits, and independent verification' },
+      { id: 'web-design-guidelines', name: 'Web Design Guidelines', description: 'Review UI code for Web Interface Guidelines compliance: accessibility, interaction patterns, and design best practices' }
     ],
   },
 
