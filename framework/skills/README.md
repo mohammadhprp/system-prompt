@@ -35,6 +35,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [skill-creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
 | [spec-driven-eval](./spec-driven-eval/SKILL.md) | Score how completely an implementation fulfills a PRD/spec, case by case, producing a single comparable final grade. | Benchmarking spec-driven implementations, grading acceptance criteria, or auditing implementation and test coverage against a spec. |
 | [technical-design-doc-creator](./technical-design-doc-creator/SKILL.md) | Create comprehensive Technical Design Documents (TDDs) with mandatory and optional sections through interactive discovery, in the user's language. | Writing a design doc, TDD, technical spec, or architecture document before implementing a significant change. |
+| [tlc-spec-driven](./tlc-spec-driven/SKILL.md) | Feature planning and implementation with adaptive phases, EARS testable requirements, atomic Conventional Commits, and independent verification. | Planning features, implementing with verification and atomic commits, or validating an implementation against a spec. |
 
 ## How Skills Are Organized
 
