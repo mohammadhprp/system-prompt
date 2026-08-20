@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Taste skill consolidating all taste disciplines (frontend design, image generation, brand kits, redesigns, Stitch design systems) into a single skill with per-domain references.
+
 ## [v0.11.2] - 2026-08-14
 
 ### Added

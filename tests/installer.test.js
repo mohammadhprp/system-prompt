@@ -82,6 +82,36 @@ test('install writes selected framework files and generated config', async () =>
   }
 });
 
+test('install copies skill references directories with the skill', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    const absTarget = await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {
+        skills: ['taste'],
+      },
+      includeAgentsMd: false,
+    });
+
+    const skill = await readFile(join(absTarget, 'skills/taste/SKILL.md'), 'utf-8');
+    assert.match(skill, /name: taste/);
+    assert.match(skill, /references\/design-taste-frontend\.md/);
+
+    const ref = await readFile(join(absTarget, 'skills/taste/references/design-taste-frontend.md'), 'utf-8');
+    assert.match(ref, /Anti-Slop Frontend Skill/);
+    const brandkit = await readFile(join(absTarget, 'skills/taste/references/brandkit.md'), 'utf-8');
+    assert.match(brandkit, /BRANDKIT IMAGE GENERATION SKILL/);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
 test('install creates merged .env from selected MCP .env.example files', async () => {
   const previousCwd = process.cwd();
   const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
