@@ -4,6 +4,12 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Great Interface skill consolidating interface accessibility, layout, writing, typography, color, UI polish, review, explanation, and variant workflows.
+
+### Removed
+- Brand Guidelines skill.
+
 ## [v0.12.0] - 2026-08-20
 
 ### Added

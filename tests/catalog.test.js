@@ -53,6 +53,15 @@ test('catalog IDs are unique and framework markdown links resolve', async () => 
   }
 });
 
+test('great-interface is the unified interface skill', async () => {
+  const skill = categories.skills.items.find(item => item.id === 'great-interface');
+  assert.ok(skill);
+  assert.equal(categories.skills.items.some(item => item.id === 'brand-guidelines'), false);
+  await access(resolve(packageRoot, 'framework/skills/great-interface/SKILL.md'));
+  await access(resolve(packageRoot, 'framework/skills/great-interface/references/better-accessibility.md'));
+  await access(resolve(packageRoot, 'framework/skills/great-interface/references/picker.md'));
+});
+
 test('subagents deny write access', async () => {
   const files = await readdir(resolve(packageRoot, 'framework/agents'));
   for (const file of files.filter(name => name.endsWith('.md') && name !== 'README.md')) {
