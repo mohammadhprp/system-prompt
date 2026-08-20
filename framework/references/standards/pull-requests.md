@@ -39,4 +39,4 @@ Define reusable backend engineering rules for pull request decisions across proj
 ## Related Skills
 
 - `skills/code-review/SKILL.md`
-- `skills/pull-request/SKILL.md`
+- `commands/pr.md`

@@ -48,4 +48,4 @@ Relevant skills in this repository:
 
 - [`code-review`](../../skills/code-review/SKILL.md): reviewing pull request diffs.
 - [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for testing, debugging, and security review.
-- [`pull-request`](../../skills/pull-request/SKILL.md): preparing and submitting pull requests.
+- [`pr`](../../commands/pr.md): preparing and submitting pull requests.

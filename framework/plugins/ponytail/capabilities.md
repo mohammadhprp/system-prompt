@@ -90,7 +90,7 @@ Or in `~/.config/ponytail/config.json` (`%APPDATA%\ponytail\config.json` on Wind
 - Use `/ponytail-review` after a coding session to catch over-engineering the agent missed.
 - Mark intentional shortcuts with `ponytail:` comments naming the ceiling and upgrade path.
 - Review `/ponytail-debt` regularly to track deferred improvements.
-- Pair with `code-review` and `pull-request` skills for a complete quality workflow.
+- Pair with `code-review` and the `/pr` command for a complete quality workflow.
 
 ## Common Workflows
 

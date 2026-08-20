@@ -6,7 +6,7 @@ permission:
   bash: deny
   read: allow
   edit: deny
-  write: allow
+  write: deny
   patch: deny
   grep: allow
   glob: allow
