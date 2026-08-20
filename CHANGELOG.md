@@ -4,8 +4,18 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.12.0] - 2026-08-20
+
 ### Added
 - Taste skill consolidating all taste disciplines (frontend design, image generation, brand kits, redesigns, Stitch design systems) into a single skill with per-domain references.
+- Non-interactive installation with category flags, `--target`, `--dry-run`, and `--force` options.
+- `--doctor` installation diagnostics for generated OpenCode projects.
+- Managed-file hashes, lock-file validation, catalog integrity tests, and safer reinstall behavior.
+
+### Fixed
+- Prevented modified generated files and framework content from being overwritten or deleted during reinstall.
+- Standardized GitHub MCP authentication on `GITHUB_PERSONAL_ACCESS_TOKEN`.
+- Restricted the researcher subagent to read-only permissions.
 
 ## [v0.11.2] - 2026-08-14
 
