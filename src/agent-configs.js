@@ -15,8 +15,12 @@ export async function loadMcpConfigs(selectedIds) {
       if (parsed.mcp) {
         Object.assign(entries, parsed.mcp);
       }
-    } catch {
-      console.warn(`  ⚠  No opencode.json config found for MCP: ${id}`);
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        console.warn(`  ⚠  No opencode.json config found for MCP: ${id}`);
+        continue;
+      }
+      throw error;
     }
   }
   return entries;

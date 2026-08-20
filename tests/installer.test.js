@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm, writeFile, access } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, rm, writeFile, access, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -155,7 +155,7 @@ test('install merges .env preserving existing values on re-install', async () =>
       includeAgentsMd: false,
     });
 
-    const seeded = 'GITLAB_API_URL=https://gitlab.example.com\nEXTRA_VAR=keep-me\n';
+    const seeded = '# keep this comment\nGITLAB_API_URL=https://gitlab.example.com\nEXTRA_VAR=keep-me\n';
     await writeFile(join(absTarget, '.env'), seeded);
 
     await install({
@@ -168,6 +168,7 @@ test('install merges .env preserving existing values on re-install', async () =>
     });
 
     const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
+    assert.match(envContent, /^# keep this comment$/m);
     assert.match(envContent, /^GITLAB_API_URL=https:\/\/gitlab\.example\.com$/m);
     assert.match(envContent, /^EXTRA_VAR=keep-me$/m);
     assert.match(envContent, /^GITLAB_PERSONAL_ACCESS_TOKEN=$/m);
@@ -264,6 +265,195 @@ test('install removes files for items dropped on re-install', async () => {
     assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
     assert.deepEqual(lock.selections.commands, ['review']);
     assert.equal(lock.selections.agents, undefined);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('re-install preserves user-edited managed files', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { commands: ['review'] },
+      includeAgentsMd: true,
+    });
+    const target = resolve(workspace, '.opencode');
+    await writeFile(join(target, 'AGENTS.md'), 'User instructions\n');
+    const lock = await loadLockFile(target);
+
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { commands: ['review'] },
+      includeAgentsMd: true,
+      oldSelections: lock.selections,
+      oldLock: lock,
+    });
+
+    assert.equal(await readFile(join(target, 'AGENTS.md'), 'utf-8'), 'User instructions\n');
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('loadLockFile rejects malformed and unknown selections', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+    await writeFile(join(workspace, 'system-prompt-lock.json'), JSON.stringify({ selections: { commands: ['../outside'] } }));
+    await assert.rejects(loadLockFile(workspace), /unknown commands item/);
+    await writeFile(join(workspace, 'system-prompt-lock.json'), JSON.stringify({ nope: true }));
+    await assert.rejects(loadLockFile(workspace), /selections must be an object/);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('dry-run does not create the installation directory', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { commands: ['review'] },
+      includeAgentsMd: false,
+      dryRun: true,
+    });
+    await assert.rejects(access(join(workspace, '.opencode')), { code: 'ENOENT' });
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('installer rejects symlink destinations', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+  const outside = await mkdtemp(join(tmpdir(), 'system-prompt-outside-'));
+
+  try {
+    process.chdir(workspace);
+    await mkdir(join(workspace, '.opencode'), { recursive: true });
+    await symlink(outside, join(workspace, '.opencode', 'commands'));
+    await assert.rejects(install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { commands: ['review'] },
+      includeAgentsMd: false,
+    }), /symlink/);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+    await rm(outside, { recursive: true, force: true });
+  }
+});
+
+test('installer rejects nested symlinks during directory cleanup', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+  const outside = await mkdtemp(join(tmpdir(), 'system-prompt-outside-'));
+
+  try {
+    process.chdir(workspace);
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { skills: ['backend-best-practices'] },
+      includeAgentsMd: false,
+    });
+    const target = resolve(workspace, '.opencode');
+    const references = join(target, 'skills/backend-best-practices/references');
+    const lock = await loadLockFile(target);
+    await rm(references, { recursive: true, force: true });
+    await symlink(outside, references);
+
+    await assert.rejects(install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {},
+      includeAgentsMd: false,
+      oldSelections: lock.selections,
+      oldLock: lock,
+    }), /symlink/);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+    await rm(outside, { recursive: true, force: true });
+  }
+});
+
+test('re-install preserves modified directory items when deselected', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { skills: ['backend-best-practices'] },
+      includeAgentsMd: false,
+    });
+    const target = resolve(workspace, '.opencode');
+    const skillPath = join(target, 'skills/backend-best-practices/SKILL.md');
+    await writeFile(skillPath, 'User skill changes\n');
+    const lock = await loadLockFile(target);
+
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {},
+      includeAgentsMd: false,
+      oldSelections: lock.selections,
+      oldLock: lock,
+    });
+
+    assert.equal(await readFile(skillPath, 'utf-8'), 'User skill changes\n');
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
+test('re-install removes deselected generated plugins', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { plugins: ['opencode-goal-plugin'] },
+      includeAgentsMd: false,
+    });
+    const target = resolve(workspace, '.opencode');
+    const lock = await loadLockFile(target);
+
+    await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {},
+      includeAgentsMd: false,
+      oldSelections: lock.selections,
+      oldLock: lock,
+    });
+
+    const config = JSON.parse(await readFile(join(target, 'opencode.json'), 'utf-8'));
+    assert.equal(config.plugin, undefined);
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });
