@@ -89,6 +89,17 @@ test('effective-html is the unified standalone HTML skill', async () => {
   }
 });
 
+test('improve is registered with its required resources', async () => {
+  const skill = categories.skills.items.find(item => item.id === 'improve');
+  assert.ok(skill);
+  assert.equal(skill.name, 'Improve');
+  await access(resolve(packageRoot, 'framework/skills/improve/SKILL.md'));
+  await access(resolve(packageRoot, 'framework/skills/improve/examples.md'));
+  for (const reference of ['audit-playbook', 'plan-template', 'closing-the-loop']) {
+    await access(resolve(packageRoot, 'framework/skills/improve/references', `${reference}.md`));
+  }
+});
+
 test('subagents deny write access', async () => {
   const files = await readdir(resolve(packageRoot, 'framework/agents'));
   for (const file of files.filter(name => name.endsWith('.md') && name !== 'README.md')) {

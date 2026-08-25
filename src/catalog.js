@@ -19,6 +19,7 @@ export const categories = {
       { id: 'great-interface', name: 'Great Interface', description: 'Build, explain, review, and refine product interfaces across accessibility, layout, writing, typography, color, and UI polish' },
       { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Work with GitLab via MCP for MRs, issues, pipelines' },
       { id: 'humanizer', name: 'Humanizer', description: 'Remove signs of AI-generated writing to make text sound more natural and human' },
+      { id: 'improve', name: 'Improve', description: 'Audit repositories and produce prioritized, read-only implementation plans for another agent' },
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Work with Jira MCP for issue management and JQL search' },
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
       { id: 'learning-opportunities', name: 'Learning Opportunities', description: 'Facilitate deliberate skill development during AI-assisted coding with short, interactive exercises' },
