@@ -6,6 +6,7 @@ All notable changes to this project are documented here.
 
 ### Added
 - Great Interface skill consolidating interface accessibility, layout, writing, typography, color, UI polish, review, explanation, and variant workflows.
+- Effective HTML skill consolidating standalone HTML design, wireframe, prototype, plan, and diagram workflows into one routed skill with reference playbooks.
 
 ### Removed
 - Brand Guidelines skill.

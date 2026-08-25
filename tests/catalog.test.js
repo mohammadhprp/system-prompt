@@ -62,6 +62,27 @@ test('great-interface is the unified interface skill', async () => {
   await access(resolve(packageRoot, 'framework/skills/great-interface/references/picker.md'));
 });
 
+test('effective-html is the unified standalone HTML skill', async () => {
+  const skill = categories.skills.items.find(item => item.id === 'effective-html');
+  assert.ok(skill);
+  await access(resolve(packageRoot, 'framework/skills/effective-html/SKILL.md'));
+  await access(resolve(packageRoot, 'framework/skills/effective-html/examples.md'));
+  for (const reference of [
+    'design-artifact',
+    'html-wireframe',
+    'html-prototype',
+    'html-plan',
+    'html-diagram',
+    'creative-direction',
+    'interfaces',
+    'charts-and-data',
+    'diagrams',
+    'documents-and-presentations',
+  ]) {
+    await access(resolve(packageRoot, 'framework/skills/effective-html/references', `${reference}.md`));
+  }
+});
+
 test('subagents deny write access', async () => {
   const files = await readdir(resolve(packageRoot, 'framework/agents'));
   for (const file of files.filter(name => name.endsWith('.md') && name !== 'README.md')) {

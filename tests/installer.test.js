@@ -141,6 +141,33 @@ test('install copies the unified great-interface skill and flat references', asy
   }
 });
 
+test('install copies the unified effective-html skill and references', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    const absTarget = await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { skills: ['effective-html'] },
+      includeAgentsMd: false,
+    });
+
+    const skill = await readFile(join(absTarget, 'skills/effective-html/SKILL.md'), 'utf-8');
+    assert.match(skill, /name: effective-html/);
+    assert.match(skill, /references\/html-prototype\.md/);
+    await access(join(absTarget, 'skills/effective-html/examples.md'));
+    await access(join(absTarget, 'skills/effective-html/references/design-artifact.md'));
+    await access(join(absTarget, 'skills/effective-html/references/html-prototype.md'));
+    await access(join(absTarget, 'skills/effective-html/references/interfaces.md'));
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
 test('install creates merged .env from selected MCP .env.example files', async () => {
   const previousCwd = process.cwd();
   const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));

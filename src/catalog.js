@@ -13,6 +13,7 @@ export const categories = {
       { id: 'design', name: 'Design Like Damien', description: 'Premium UI design philosophy and Lovable prompting' },
       { id: 'diagram-design', name: 'Diagram Design', description: 'Create technical and product diagrams as standalone HTML with inline SVG' },
       { id: 'docs-writer', name: 'Docs Writer', description: 'Write, review, and edit documentation files with consistent structure, tone, and technical accuracy' },
+      { id: 'effective-html', name: 'Effective HTML', description: 'Create self-contained HTML artifacts with routed guidance for design, wireframes, prototypes, plans, and diagrams' },
       { id: 'find-skills', name: 'Find Skills', description: 'Discover, evaluate, and install agent skills for specialized tasks' },
       { id: 'frontend-design', name: 'Frontend Design', description: 'Distinctive, intentional visual design for new UI or reshaping existing UI' },
       { id: 'great-interface', name: 'Great Interface', description: 'Build, explain, review, and refine product interfaces across accessibility, layout, writing, typography, color, and UI polish' },
