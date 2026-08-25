@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.12.1] - 2026-08-25
+
 ### Added
 - Great Interface skill consolidating interface accessibility, layout, writing, typography, color, UI polish, review, explanation, and variant workflows.
 - Effective HTML skill consolidating standalone HTML design, wireframe, prototype, plan, and diagram workflows into one routed skill with reference playbooks.
