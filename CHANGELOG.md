@@ -9,6 +9,8 @@ All notable changes to this project are documented here.
 
 ### Removed
 - Brand Guidelines skill.
+- Removed the unused Lavish skill.
+
 
 ## [v0.12.0] - 2026-08-20
 

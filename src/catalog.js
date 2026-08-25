@@ -21,7 +21,6 @@ export const categories = {
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Work with Jira MCP for issue management and JQL search' },
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
       { id: 'learning-opportunities', name: 'Learning Opportunities', description: 'Facilitate deliberate skill development during AI-assisted coding with short, interactive exercises' },
-      { id: 'lavish', name: 'Lavish', description: 'Turn complex responses into rich HTML artifacts' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Work with Notion MCP for pages, databases, search' },
       { id: 'perf-web-optimization', name: 'Web Performance Optimization', description: 'Optimize web performance: bundle size, images, caching, lazy loading, and overall page speed' },
       { id: 'security-best-practices', name: 'Security Best Practices', description: 'Language and framework specific security best-practice reviews and secure-by-default coding help' },
