@@ -6,8 +6,11 @@ A curated catalog of design system references from [Refero Styles](https://style
 
 | Style | Description | Preview |
 | --- | --- | --- |
-| [Linear](./linear/README.md) | Midnight precision instrument — near-black surfaces, acid-lime accent, tight Inter typography. | ![Linear preview](https://images.refero.design/styles/refero.design/image/eee18c0c-a85f-4a66-83f6-f9f38d284825.jpg) |
-| [Raycast](./raycast/README.md) | Midnight command center, coral neon — almost-black canvas, warm coral brand accent, glass navigation. | ![Raycast preview](https://images.refero.design/styles/refero.design/image/ee40e139-0b24-47a0-9ea0-98372d317c5b.jpg) |
+| [Factory](./factory/README.md) | Terminal war room — stark black canvas, light figure-ground cards, and restrained orange/green data signals. | ![Factory preview](./factory/assets/preview.jpg) |
+| [Huly](./huly/README.md) | Midnight observatory — violet-to-coral aurora hero, dark productivity surfaces, and pill-shaped controls. | ![Huly preview](./huly/assets/preview.jpg) |
+| [Linear](./linear/README.md) | Midnight precision instrument — near-black surfaces, acid-lime accent, tight Inter typography. | ![Linear preview](./linear/assets/preview.jpg) |
+| [Notion](./notion/README.md) | Warm paper notebook — off-white canvas, editorial typography, blue primary action, and playful accent panels. | ![Notion preview](./notion/assets/preview.jpg) |
+| [Raycast](./raycast/README.md) | Midnight command center, coral neon — almost-black canvas, warm coral brand accent, glass navigation. | ![Raycast preview](./raycast/assets/preview.jpg) |
 
 ## How Styles Are Organized
 
@@ -15,7 +18,9 @@ Each style entry follows this structure:
 
 ```text
 styles/<style-name>/
-└── README.md       # Full design system reference: palette, typography, spacing, components, tokens
+├── README.md       # Concise style overview and implementation guidelines
+├── DESIGN.md       # Full design system reference: palette, typography, spacing, components, tokens
+└── assets/         # Preview images and other style assets, when provided
 ```
 
 ## How to Use a Style

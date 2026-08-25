@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Factory, Huly, and Notion design system style references.
+
 ## [v0.12.1] - 2026-08-25
 
 ### Added

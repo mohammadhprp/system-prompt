@@ -34,6 +34,12 @@ test('catalog entries point to framework content', async () => {
   }
 });
 
+test('style entries include README references', async () => {
+  for (const item of categories.styles.items) {
+    await access(resolve(packageRoot, 'framework/styles', item.id, 'README.md'));
+  }
+});
+
 test('catalog IDs are unique and framework markdown links resolve', async () => {
   for (const [category, config] of Object.entries(categories)) {
     const ids = config.items.map(item => item.id);

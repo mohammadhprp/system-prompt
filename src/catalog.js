@@ -96,7 +96,10 @@ export const categories = {
     description: 'Design system references from Refero Styles',
     sourceDir: 'framework/styles',
     items: [
+      { id: 'factory', name: 'Factory', description: 'Terminal war room design system' },
+      { id: 'huly', name: 'Huly', description: 'Midnight observatory design system' },
       { id: 'linear', name: 'Linear', description: 'Midnight precision instrument design system' },
+      { id: 'notion', name: 'Notion', description: 'Warm paper notebook design system' },
       { id: 'raycast', name: 'Raycast', description: 'Midnight command center design system' },
     ],
   },
