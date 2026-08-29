@@ -218,68 +218,6 @@ test('install copies the jira-cli skill with its references', async () => {
   }
 });
 
-test('install creates merged .env from selected MCP .env.example files', async () => {
-  const previousCwd = process.cwd();
-  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
-
-  try {
-    process.chdir(workspace);
-
-    const absTarget = await install({
-      targetDir: '.opencode',
-      agentType: 'opencode',
-      selections: {
-        mcps: ['github-mcp'],
-      },
-      includeAgentsMd: false,
-    });
-
-    const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
-    assert.match(envContent, /^GITHUB_PERSONAL_ACCESS_TOKEN=$/m);
-  } finally {
-    process.chdir(previousCwd);
-    await rm(workspace, { recursive: true, force: true });
-  }
-});
-
-test('install merges .env preserving existing values on re-install', async () => {
-  const previousCwd = process.cwd();
-  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
-
-  try {
-    process.chdir(workspace);
-
-    const absTarget = await install({
-      targetDir: '.opencode',
-      agentType: 'opencode',
-      selections: {
-        mcps: ['github-mcp'],
-      },
-      includeAgentsMd: false,
-    });
-
-    const seeded = '# keep this comment\nGITHUB_PERSONAL_ACCESS_TOKEN=github_pat_existing\nEXTRA_VAR=keep-me\n';
-    await writeFile(join(absTarget, '.env'), seeded);
-
-    await install({
-      targetDir: '.opencode',
-      agentType: 'opencode',
-      selections: {
-        mcps: ['github-mcp'],
-      },
-      includeAgentsMd: false,
-    });
-
-    const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
-    assert.match(envContent, /^# keep this comment$/m);
-    assert.match(envContent, /^GITHUB_PERSONAL_ACCESS_TOKEN=github_pat_existing$/m);
-    assert.match(envContent, /^EXTRA_VAR=keep-me$/m);
-  } finally {
-    process.chdir(previousCwd);
-    await rm(workspace, { recursive: true, force: true });
-  }
-});
-
 test('loadLockFile reads the lock file written by install', async () => {
   const previousCwd = process.cwd();
   const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));

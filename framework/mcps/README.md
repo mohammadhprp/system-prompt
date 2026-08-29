@@ -10,7 +10,6 @@ This catalog is framework-agnostic: each entry documents what the server does, w
 | --- | --- | --- |
 | [Excalidraw MCP](./excalidraw/README.md) | Stream hand-drawn Excalidraw diagrams with interactive fullscreen editing — architecture diagrams, flowcharts, wireframes. | Any project that benefits from visual diagrams, architecture visualization, or design sketching. |
 | [Figma MCP Go](./figma-mcp-go/README.md) | Full read/write access to Figma designs via plugin bridge — no API token or rate limits. | Any project that works with Figma designs. |
-| [GitHub MCP](./github-mcp/README.md) | Connect AI tools to GitHub — browse repos, manage issues and PRs, monitor Actions workflows. | Any project hosted on GitHub. |
 | [Laravel Boost](./laravel-boost/README.md) | Gives AI agents Laravel application context, Laravel ecosystem documentation search, and safe local inspection tools. | Laravel applications. |
 | [Notion MCP](./notion-mcp/README.md) | Search, read, and write content in a Notion workspace — pages, databases, views, comments, and more via remote HTTP MCP. | Any project that uses Notion for documentation, tracking, or collaboration. |
 | [Playwright MCP](./playwright-mcp/README.md) | Cross-browser automation via accessibility snapshots — navigate, click, type, screenshot, evaluate, network control, storage management. | Any project needing browser automation or end-to-end testing. |

@@ -72,7 +72,6 @@ export const categories = {
     items: [
       { id: 'excalidraw', name: 'Excalidraw MCP', description: 'Stream hand-drawn diagrams with interactive editing' },
       { id: 'figma-mcp-go', name: 'Figma MCP Go', description: 'Read/write access to Figma designs via plugin bridge' },
-      { id: 'github-mcp', name: 'GitHub MCP', description: 'Browse repos, manage issues/PRs, monitor Actions' },
       { id: 'laravel-boost', name: 'Laravel Boost MCP', description: 'Laravel application context and ecosystem docs' },
       { id: 'notion-mcp', name: 'Notion MCP', description: 'Search, read, and write Notion content' },
       { id: 'playwright-mcp', name: 'Playwright MCP', description: 'Cross-browser automation with accessibility snapshots' },
