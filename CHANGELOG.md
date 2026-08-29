@@ -7,6 +7,11 @@ All notable changes to this project are documented here.
 ### Added
 - Factory, Huly, and Notion design system style references.
 - Improve skill for read-only repository audits and prioritized implementation handoffs.
+- Glab skill for GitLab workflows via the GitLab CLI (merge requests, issues, pipelines, repositories).
+
+### Removed
+- GitLab MCP catalog entry and `mcps/gitlab-mcp/` documentation.
+- GitLab MCP skill; replaced by the Glab skill.
 
 ## [v0.12.1] - 2026-08-25
 

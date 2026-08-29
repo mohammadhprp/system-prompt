@@ -168,6 +168,31 @@ test('install copies the unified effective-html skill and references', async () 
   }
 });
 
+test('install copies the glab skill with its references', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    const absTarget = await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: { skills: ['glab'] },
+      includeAgentsMd: false,
+    });
+
+    const skill = await readFile(join(absTarget, 'skills/glab/SKILL.md'), 'utf-8');
+    assert.match(skill, /name: glab/);
+    await access(join(absTarget, 'skills/glab/references/commands-detailed.md'));
+    await access(join(absTarget, 'skills/glab/references/quick-reference.md'));
+    await access(join(absTarget, 'skills/glab/references/troubleshooting.md'));
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
 test('install creates merged .env from selected MCP .env.example files', async () => {
   const previousCwd = process.cwd();
   const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
@@ -179,14 +204,12 @@ test('install creates merged .env from selected MCP .env.example files', async (
       targetDir: '.opencode',
       agentType: 'opencode',
       selections: {
-        mcps: ['gitlab-mcp', 'jira-mcp'],
+        mcps: ['jira-mcp'],
       },
       includeAgentsMd: false,
     });
 
     const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
-    assert.match(envContent, /^GITLAB_API_URL=$/m);
-    assert.match(envContent, /^GITLAB_PERSONAL_ACCESS_TOKEN=$/m);
     assert.match(envContent, /^JIRA_BASE_URL=$/m);
     assert.match(envContent, /^JIRA_PAT=$/m);
   } finally {
@@ -206,29 +229,27 @@ test('install merges .env preserving existing values on re-install', async () =>
       targetDir: '.opencode',
       agentType: 'opencode',
       selections: {
-        mcps: ['gitlab-mcp', 'jira-mcp'],
+        mcps: ['jira-mcp'],
       },
       includeAgentsMd: false,
     });
 
-    const seeded = '# keep this comment\nGITLAB_API_URL=https://gitlab.example.com\nEXTRA_VAR=keep-me\n';
+    const seeded = '# keep this comment\nJIRA_BASE_URL=https://jira.example.com\nEXTRA_VAR=keep-me\n';
     await writeFile(join(absTarget, '.env'), seeded);
 
     await install({
       targetDir: '.opencode',
       agentType: 'opencode',
       selections: {
-        mcps: ['gitlab-mcp', 'jira-mcp'],
+        mcps: ['jira-mcp'],
       },
       includeAgentsMd: false,
     });
 
     const envContent = await readFile(join(absTarget, '.env'), 'utf-8');
     assert.match(envContent, /^# keep this comment$/m);
-    assert.match(envContent, /^GITLAB_API_URL=https:\/\/gitlab\.example\.com$/m);
+    assert.match(envContent, /^JIRA_BASE_URL=https:\/\/jira\.example\.com$/m);
     assert.match(envContent, /^EXTRA_VAR=keep-me$/m);
-    assert.match(envContent, /^GITLAB_PERSONAL_ACCESS_TOKEN=$/m);
-    assert.match(envContent, /^JIRA_BASE_URL=$/m);
     assert.match(envContent, /^JIRA_PAT=$/m);
   } finally {
     process.chdir(previousCwd);

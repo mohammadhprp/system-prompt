@@ -33,14 +33,13 @@ Create a merge request for the current branch.
    - Ask: "Shall I create this MR?"
    - Push the changes if user says Yes
 
-6. **Create upon confirmation** - Use `gitlab_create_merge_request`:
-   - `project_id`: `group/repo`
-   - `title`: Prepend "Draft: " to the formatted branch name
-   - `source_branch`: Current branch
-   - `target_branch`: `develop`
-   - `description`: Filled template content
-   - `assignee_ids`: `[1]`
-   - `squash`: `true`
-   - `remove_source_branch`: `true`
+6. **Create upon confirmation** - Use `glab mr create`:
+   - `--source-branch`: Current branch
+   - `--target-branch`: `develop`
+   - `--title`: Prepend "Draft: " to the formatted branch name
+   - `--description`: Filled template content
+   - `--assignee`: `1`
+   - `--squash`
+   - `--remove-source-branch`
 
 7. **Show the resulting URL.**

@@ -16,8 +16,8 @@ export const categories = {
       { id: 'effective-html', name: 'Effective HTML', description: 'Create self-contained HTML artifacts with routed guidance for design, wireframes, prototypes, plans, and diagrams' },
       { id: 'find-skills', name: 'Find Skills', description: 'Discover, evaluate, and install agent skills for specialized tasks' },
       { id: 'frontend-design', name: 'Frontend Design', description: 'Distinctive, intentional visual design for new UI or reshaping existing UI' },
+      { id: 'glab', name: 'Glab', description: 'Work with GitLab via the glab CLI for MRs, issues, and pipelines' },
       { id: 'great-interface', name: 'Great Interface', description: 'Build, explain, review, and refine product interfaces across accessibility, layout, writing, typography, color, and UI polish' },
-      { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Work with GitLab via MCP for MRs, issues, pipelines' },
       { id: 'humanizer', name: 'Humanizer', description: 'Remove signs of AI-generated writing to make text sound more natural and human' },
       { id: 'improve', name: 'Improve', description: 'Audit repositories and produce prioritized, read-only implementation plans for another agent' },
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Work with Jira MCP for issue management and JQL search' },
@@ -72,7 +72,6 @@ export const categories = {
     items: [
       { id: 'excalidraw', name: 'Excalidraw MCP', description: 'Stream hand-drawn diagrams with interactive editing' },
       { id: 'figma-mcp-go', name: 'Figma MCP Go', description: 'Read/write access to Figma designs via plugin bridge' },
-      { id: 'gitlab-mcp', name: 'GitLab MCP', description: 'Comprehensive GitLab integration' },
       { id: 'github-mcp', name: 'GitHub MCP', description: 'Browse repos, manage issues/PRs, monitor Actions' },
       { id: 'jira-mcp', name: 'Jira MCP', description: 'Interact with self-hosted Jira instances' },
       { id: 'laravel-boost', name: 'Laravel Boost MCP', description: 'Laravel application context and ecosystem docs' },

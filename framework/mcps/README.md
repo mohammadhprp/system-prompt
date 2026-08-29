@@ -10,7 +10,6 @@ This catalog is framework-agnostic: each entry documents what the server does, w
 | --- | --- | --- |
 | [Excalidraw MCP](./excalidraw/README.md) | Stream hand-drawn Excalidraw diagrams with interactive fullscreen editing — architecture diagrams, flowcharts, wireframes. | Any project that benefits from visual diagrams, architecture visualization, or design sketching. |
 | [Figma MCP Go](./figma-mcp-go/README.md) | Full read/write access to Figma designs via plugin bridge — no API token or rate limits. | Any project that works with Figma designs. |
-| [GitLab MCP](./gitlab-mcp/README.md) | Comprehensive GitLab integration — projects, MRs, issues, pipelines, wiki, milestones, and more. | Any project hosted on GitLab (SaaS or self-hosted). |
 | [GitHub MCP](./github-mcp/README.md) | Connect AI tools to GitHub — browse repos, manage issues and PRs, monitor Actions workflows. | Any project hosted on GitHub. |
 | [Jira MCP](./jira-mcp/README.md) | Interact with self-hosted Jira instances — issues, JQL search, comments, assignments, and projects. | Any project using self-hosted Jira for issue tracking. |
 | [Laravel Boost](./laravel-boost/README.md) | Gives AI agents Laravel application context, Laravel ecosystem documentation search, and safe local inspection tools. | Laravel applications. |
