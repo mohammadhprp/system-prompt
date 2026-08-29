@@ -42,7 +42,6 @@ export const categories = {
     description: 'Specialized subagents for security, architecture, review, and research',
     sourceDir: 'framework/agents',
     items: [
-      { id: 'backend-architect', name: 'Backend Architect', description: 'Design scalable, secure backend systems' },
       { id: 'researcher', name: 'Researcher', description: 'Fetch and analyze web content from URLs' },
       { id: 'reviewer', name: 'Reviewer', description: 'Review code for correctness and best practices' },
       { id: 'security-auditor', name: 'Security Auditor', description: 'Conduct security audits for REST APIs' },

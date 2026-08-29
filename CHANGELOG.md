@@ -16,6 +16,7 @@ All notable changes to this project are documented here.
 - Jira MCP catalog entry and `mcps/jira-mcp/` documentation.
 - Jira MCP skill; replaced by the Jira CLI skill.
 - GitHub MCP catalog entry and `mcps/github-mcp/` documentation.
+- Backend Architect subagent.
 
 ## [v0.12.1] - 2026-08-25
 

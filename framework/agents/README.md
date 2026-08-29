@@ -8,7 +8,6 @@ Subagents are focused AI agents that handle specific domains — security audits
 
 | Agent | Purpose | Permissions |
 | --- | --- | --- |
-| [Backend Architect](./backend-architect.md) | Design scalable, secure, and maintainable backend systems — APIs, databases, architecture, security, performance, DevOps. | read, bash, grep, glob, webfetch (no edit/write) |
 | [Researcher](./researcher.md) | Fetch and analyze web content from URLs — external documentation, best practices, API docs, online resources. | read, write, grep, glob, webfetch (no bash, no edit) |
 | [Reviewer](./reviewer.md) | Review code for correctness, maintainability, and best practices with focus on bugs. | read, bash, grep, glob (no edit/write) |
 | [Security Auditor](./security-auditor.md) | Conduct security audits for REST APIs — authentication, authorization, input validation, secrets, data protection, rate limiting. | read, bash, grep, glob, webfetch (no edit/write) |
