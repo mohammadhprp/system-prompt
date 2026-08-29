@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.12.2] - 2026-08-29
+
 ### Added
 - Factory, Huly, and Notion design system style references.
 - Improve skill for read-only repository audits and prioritized implementation handoffs.
