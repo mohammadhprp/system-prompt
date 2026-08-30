@@ -4,6 +4,11 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.12.3] - 2026-08-30
+
+### Added
+- Updated the `laravel-best-practices` skill.
+
 ### Removed
 - Brainstorming, CodeNavi, Code Review, Create ADR, Design Like Damien, Great Interface, Learning Opportunities, Spec-Driven Eval, Technical Design Doc Creator, and Web Design Guidelines skills.
 - Notion MCP skill, and the Notion MCP catalog entry with `mcps/notion-mcp/` documentation.
