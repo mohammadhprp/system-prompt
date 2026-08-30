@@ -1,4 +1,3 @@
-
 # Tailwind CSS Development
 
 ## Documentation
