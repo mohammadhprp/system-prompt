@@ -39,5 +39,4 @@ Define reusable backend engineering rules for debugging decisions across project
 
 ## Related Skills
 
-- `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/debugging.md`

@@ -38,5 +38,4 @@ Define reusable backend engineering rules for observability decisions across pro
 
 ## Related Skills
 
-- `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/observability.md`

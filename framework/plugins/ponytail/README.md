@@ -39,6 +39,5 @@ Avoid when the task explicitly needs complex scaffolding, heavy abstractions, or
 
 Relevant skills in this repository:
 
-- [`code-review`](../../skills/code-review/SKILL.md): review backend changes for correctness and maintainability, complementary to ponytail's over-engineering focus.
 - [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for refactoring and behavior-preserving cleanup.
 - [`pr`](../../commands/pr.md): prepare small, reviewable changes aligned with ponytail's minimal-diff philosophy.

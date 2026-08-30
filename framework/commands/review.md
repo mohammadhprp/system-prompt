@@ -9,7 +9,7 @@ Perform comprehensive code quality review.
 
 ## Process
 
-1. **Review conversation and diff** - Read conversation history, run `git diff` for staged/unstaged changes, identify the problem being solved and the behavior being modified. Load [`skills/code-review/SKILL.md`](../skills/code-review/SKILL.md) and related standards: [`references/standards/naming.md`](../references/standards/naming.md), [`references/standards/testing.md`](../references/standards/testing.md), [`references/standards/security.md`](../references/standards/security.md), [`references/standards/performance.md`](../references/standards/performance.md).
+1. **Review conversation and diff** - Read conversation history, run `git diff` for staged/unstaged changes, identify the problem being solved and the behavior being modified. Read related standards: [`references/standards/naming.md`](../references/standards/naming.md), [`references/standards/testing.md`](../references/standards/testing.md), [`references/standards/security.md`](../references/standards/security.md), [`references/standards/performance.md`](../references/standards/performance.md).
 
 2. **Check correctness** - Edge cases, concurrency, error handling, state transitions, backward compatibility. Read contracts and interfaces before implementation.
 

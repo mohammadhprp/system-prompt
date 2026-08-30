@@ -52,20 +52,10 @@ test('catalog IDs are unique and framework markdown links resolve', async () => 
     for (const match of content.matchAll(/\]\(([^)#]+)(?:#[^)]*)?\)/g)) {
       const link = match[1];
       if (/^(https?:|mailto:)/.test(link)) continue;
-      if (file.endsWith('/codenavi/references/notebook-spec.md')) continue;
       if (/[{}]/.test(link)) continue;
       await access(resolve(dirname(file), link));
     }
   }
-});
-
-test('great-interface is the unified interface skill', async () => {
-  const skill = categories.skills.items.find(item => item.id === 'great-interface');
-  assert.ok(skill);
-  assert.equal(categories.skills.items.some(item => item.id === 'brand-guidelines'), false);
-  await access(resolve(packageRoot, 'framework/skills/great-interface/SKILL.md'));
-  await access(resolve(packageRoot, 'framework/skills/great-interface/references/better-accessibility.md'));
-  await access(resolve(packageRoot, 'framework/skills/great-interface/references/picker.md'));
 });
 
 test('effective-html is the unified standalone HTML skill', async () => {

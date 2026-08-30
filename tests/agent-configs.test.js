@@ -46,7 +46,7 @@ test('generateTuiConfig includes the goal plugin when selected', () => {
 });
 
 test('loadMcpConfigs reads framework MCP opencode configs', async () => {
-  const configs = await loadMcpConfigs(['notion-mcp']);
+  const configs = await loadMcpConfigs(['playwright-mcp']);
 
   assert.ok(Object.keys(configs).length > 0);
 });

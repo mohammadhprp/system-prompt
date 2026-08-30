@@ -16,4 +16,4 @@
 
 **User:** Review the changes in my pull request for authorization bugs and missing tests.
 
-**Expected behavior:** Do not use `improve` for this narrow diff review. Route the request to `code-review`, optionally combining it with `security-best-practices` when a security-only review is explicitly requested.
+**Expected behavior:** Do not use `improve` for this narrow diff review. Decline the broad audit and review the pull request directly, combining it with `security-best-practices` when a security-only review is explicitly requested.

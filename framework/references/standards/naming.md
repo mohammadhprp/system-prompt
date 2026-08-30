@@ -38,5 +38,4 @@ Define reusable backend engineering rules for naming decisions across projects. 
 
 ## Related Skills
 
-- `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/refactoring.md`

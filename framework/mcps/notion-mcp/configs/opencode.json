@@ -1,9 +1,0 @@
-{
-  "mcp": {
-    "notion": {
-      "type": "remote",
-      "enabled": true,
-      "url": "https://mcp.notion.com/mcp"
-    }
-  }
-}

@@ -38,5 +38,4 @@ Define reusable backend engineering rules for testing decisions across projects.
 
 ## Related Skills
 
-- `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/testing.md`

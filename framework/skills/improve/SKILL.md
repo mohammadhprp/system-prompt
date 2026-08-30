@@ -1,6 +1,6 @@
 ---
 name: improve
-description: Audit an entire repository as a read-only senior advisor, identify evidence-backed bugs, security risks, performance issues, test gaps, technical debt, DX/docs problems, and grounded roadmap opportunities, then produce prioritized handoff plans for another agent. Use for repository-wide audits, improvement roadmaps, and implementation planning from existing code. Do not use for reviewing a specific diff or pull request (use code-review), security-only audits (use security-best-practices), documentation-only edits (use docs-writer), greenfield feature design or implementation (use brainstorming or tlc-spec-driven), or creating and evaluating agent skills (use skill-creator).
+description: Audit an entire repository as a read-only senior advisor, identify evidence-backed bugs, security risks, performance issues, test gaps, technical debt, DX/docs problems, and grounded roadmap opportunities, then produce prioritized handoff plans for another agent. Use for repository-wide audits, improvement roadmaps, and implementation planning from existing code. Do not use for reviewing a specific diff or pull request, security-only audits (use security-best-practices), documentation-only edits (use docs-writer), greenfield feature design or implementation (use tlc-spec-driven), or creating and evaluating agent skills (use skill-creator).
 license: MIT
 metadata:
   author: shadcn
@@ -28,10 +28,8 @@ The economics of this skill: an expensive, high-ceiling model does the part wher
 
 Use this skill when the user wants a broad assessment of an existing repository or wants possible improvements prioritized across multiple engineering concerns. Keep the audit advisory and read-only; implementation belongs to a separate executor or to the skill that owns the narrower task.
 
-- Review a specific diff, branch, or pull request with `code-review`.
 - Perform a security-only assessment with `security-best-practices`.
 - Edit or restructure documentation with `docs-writer`.
-- Explore an unresolved product or UI direction with `brainstorming`.
 - Specify or implement an approved feature with `tlc-spec-driven`.
 - Create, evaluate, or optimize an agent skill with `skill-creator`.
 

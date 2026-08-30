@@ -4,6 +4,11 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Removed
+- Brainstorming, CodeNavi, Code Review, Create ADR, Design Like Damien, Great Interface, Learning Opportunities, Spec-Driven Eval, Technical Design Doc Creator, and Web Design Guidelines skills.
+- Notion MCP skill, and the Notion MCP catalog entry with `mcps/notion-mcp/` documentation.
+- Cleaned dangling references: `/review` command no longer loads the removed code-review skill; updated improve skill routing, standards Related Skills lists, and ponytail plugin docs.
+
 ## [v0.12.2] - 2026-08-29
 
 ### Added

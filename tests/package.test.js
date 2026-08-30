@@ -13,7 +13,6 @@ test('npm package contains the executable and framework payload', async () => {
   assert.ok(files.has('bin/system-prompt.js'));
   assert.ok(files.has('src/installer.js'));
   assert.ok(files.has('framework/skills/backend-best-practices/SKILL.md'));
-  assert.ok(files.has('framework/skills/great-interface/SKILL.md'));
   assert.ok(files.has('framework/skills/improve/SKILL.md'));
   assert.ok(files.has('framework/skills/improve/examples.md'));
   assert.equal([...files].some(file => file.includes('framework/skills/brand-guidelines/')), false);

@@ -38,4 +38,3 @@ Define reusable backend engineering rules for documentation decisions across pro
 
 ## Related Skills
 
-- `skills/code-review/SKILL.md`

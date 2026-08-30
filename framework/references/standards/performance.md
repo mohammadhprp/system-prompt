@@ -38,5 +38,4 @@ Define reusable backend engineering rules for performance decisions across proje
 
 ## Related Skills
 
-- `skills/code-review/SKILL.md`
 - `skills/backend-best-practices/references/performance.md`

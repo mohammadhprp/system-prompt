@@ -24,7 +24,7 @@ test('install writes selected framework files and generated config', async () =>
         templates: ['adr'],
         plugins: ['opencode-goal-plugin'],
         memory: ['codebase-insights', 'user-preferences'],
-        mcps: ['notion-mcp'],
+        mcps: ['playwright-mcp'],
       },
       includeAgentsMd: true,
     });
@@ -106,35 +106,6 @@ test('install copies skill references directories with the skill', async () => {
     assert.match(ref, /Anti-Slop Frontend Skill/);
     const brandkit = await readFile(join(absTarget, 'skills/taste/references/brandkit.md'), 'utf-8');
     assert.match(brandkit, /BRANDKIT IMAGE GENERATION SKILL/);
-  } finally {
-    process.chdir(previousCwd);
-    await rm(workspace, { recursive: true, force: true });
-  }
-});
-
-test('install copies the unified great-interface skill and flat references', async () => {
-  const previousCwd = process.cwd();
-  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
-
-  try {
-    process.chdir(workspace);
-
-    const absTarget = await install({
-      targetDir: '.opencode',
-      agentType: 'opencode',
-      selections: { skills: ['great-interface'] },
-      includeAgentsMd: false,
-    });
-
-    const skill = await readFile(join(absTarget, 'skills/great-interface/SKILL.md'), 'utf-8');
-    assert.match(skill, /name: great-interface/);
-    assert.match(skill, /references\/better-accessibility\.md/);
-    await access(join(absTarget, 'skills/great-interface/references/better-accessibility.md'));
-    await access(join(absTarget, 'skills/great-interface/references/picker.md'));
-    await assert.rejects(
-      access(join(absTarget, 'skills/great-interface/agents/openai.yaml')),
-      { code: 'ENOENT' }
-    );
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });
