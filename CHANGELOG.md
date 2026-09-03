@@ -6,6 +6,8 @@ All notable changes to this project are documented here.
 
 ### Added
 - Commit, pull-request, merge-request, review, changelog, and release skills converted from the corresponding commands.
+- Added `architect`, `bro`, `how`, `tdd`, `unslop`, and `why` skills to the framework catalog.
+- Added the `arena` skill for comparing parallel candidates and synthesizing results.
 
 ## [v0.12.3] - 2026-08-30
 

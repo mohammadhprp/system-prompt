@@ -5,7 +5,10 @@ export const categories = {
     sourceDir: 'framework/skills',
     items: [
       { id: 'agent-browser', name: 'Agent Browser', description: 'Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction' },
+      { id: 'architect', name: 'Architect', description: 'Sketch architecture and module boundaries before implementation' },
+      { id: 'arena', name: 'Arena', description: 'Compare parallel candidate solutions and synthesize the strongest result' },
       { id: 'backend-best-practices', name: 'Backend Best Practices', description: 'Consolidated backend engineering practices across API, data, security, testing, and operations' },
+      { id: 'bro', name: 'Bro', description: 'Restate the last message in plain human language without jargon' },
       { id: 'changelog', name: 'Changelog', description: 'Create, add, or update CHANGELOG.md entries' },
       { id: 'commit', name: 'Commit', description: 'Create atomic Git commits with conventional messages' },
       { id: 'diagram-design', name: 'Diagram Design', description: 'Create technical and product diagrams as standalone HTML with inline SVG' },
@@ -16,6 +19,7 @@ export const categories = {
       { id: 'glab', name: 'Glab', description: 'Work with GitLab via the glab CLI for MRs, issues, and pipelines' },
       { id: 'humanizer', name: 'Humanizer', description: 'Remove signs of AI-generated writing to make text sound more natural and human' },
       { id: 'improve', name: 'Improve', description: 'Audit repositories and produce prioritized, read-only implementation plans for another agent' },
+      { id: 'how', name: 'How', description: 'Explain subsystem architecture, runtime flow, ownership, and layering' },
       { id: 'jira-cli', name: 'Jira CLI', description: 'Work with Jira via the jira CLI for issues, sprints, and epics' },
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
       { id: 'merge-request', name: 'Merge Request', description: 'Create a GitLab merge request (MR) for the current branch' },
@@ -27,8 +31,11 @@ export const categories = {
       { id: 'sentry', name: 'Sentry', description: 'Inspect Sentry issues, summarize production errors, and pull health data via the Sentry API' },
       { id: 'show-me', name: 'Show Me', description: 'Explain the current topic visually with diagrams, code-shape sketches, and focused HTML artifacts' },
       { id: 'skill-creator', name: 'Skill Creator', description: 'Create and evaluate new agent skills' },
+      { id: 'tdd', name: 'TDD Bug Fix', description: 'Drive clear bug fixes with focused failing regression tests' },
       { id: 'taste', name: 'Taste', description: 'Unified design-quality skill spanning anti-slop frontend, image generation and image-to-code, brand kits, minimalist and industrial UI, and Google Stitch design systems' },
-      { id: 'tlc-spec-driven', name: 'TLC Spec-Driven', description: 'Feature planning and implementation with adaptive phases, EARS testable requirements, atomic commits, and independent verification' }
+      { id: 'tlc-spec-driven', name: 'TLC Spec-Driven', description: 'Feature planning and implementation with adaptive phases, EARS testable requirements, atomic commits, and independent verification' },
+      { id: 'unslop', name: 'Unslop', description: 'Remove AI writing patterns and restore a natural human voice' },
+      { id: 'why', name: 'Why', description: 'Investigate the evidence and rationale behind code and design decisions' }
     ],
   },
 

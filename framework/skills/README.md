@@ -9,7 +9,12 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | Skill | Purpose | Best fit |
 | --- | --- | --- |
 | [agent-browser](./agent-browser/SKILL.md) | Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction. | Website interaction, browser automation, exploratory testing, QA, and Electron desktop app workflows. |
+| [architect](./architect/SKILL.md) | Sketch architecture and module boundaries before implementation. | Non-trivial design and implementation work. |
+| [arena](./arena/SKILL.md) | Compare parallel candidate solutions and synthesize the strongest result. | Non-trivial artifacts and design alternatives. |
 | [backend-best-practices](./backend-best-practices/SKILL.md) | Consolidated backend engineering practices for API design, architecture, data, security, testing, observability, performance, debugging, and refactoring. | Any backend task that benefits from structured domain guidance across multiple backend disciplines. |
+| [bro](./bro/SKILL.md) | Restate the last message in plain human language without jargon. | Simplifying technical explanations. |
+| [changelog](./changelog/SKILL.md) | Create or update `CHANGELOG.md` entries. | Release notes and unreleased changes. |
+| [commit](./commit/SKILL.md) | Create atomic Git commits with conventional messages. | Committing reviewed changes. |
 | [diagram-design](./diagram-design/SKILL.md) | Create technical and product diagrams as standalone HTML files with inline SVG and an opinionated editorial design system. | Architecture, data, process, and other diagrams that communicate more clearly than prose or tables. |
 | [docs-writer](./docs-writer/SKILL.md) | Write, review, and edit documentation files with consistent structure, tone, and technical accuracy. | Creating docs, reviewing markdown files, writing READMEs, or updating `/docs` directories. |
 | [effective-html](./effective-html/SKILL.md) | Create self-contained HTML artifacts with routed guidance for design, wireframes, prototypes, plans, and diagrams. | Standalone HTML reports, explainers, interfaces, wireframes, prototypes, plans, and diagrams. |
@@ -18,6 +23,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [glab](./glab/SKILL.md) | Use the GitLab CLI (glab) to manage merge requests, issues, pipelines, and repositories from the command line. | Any project hosted on GitLab (SaaS or self-hosted). |
 | [humanizer](./humanizer/SKILL.md) | Remove signs of AI-generated writing from text — inflated importance, promotional language, em dash overuse, rule of three, AI vocabulary, and filler phrases. | Editing or reviewing prose to make it sound more natural and human-written. |
 | [improve](./improve/SKILL.md) | Audit repositories as a read-only senior advisor and produce prioritized implementation plans for another agent. | Repository-wide audits, improvement roadmaps, and implementation handoffs. |
+| [how](./how/SKILL.md) | Explain subsystem architecture, runtime flow, ownership, and layering. | Code walkthroughs and architecture questions. |
 | [jira-cli](./jira-cli/SKILL.md) | Use the Jira CLI (jira) to manage issues, sprints, epics, comments, transitions, and worklogs from the command line. | Any project using Jira (Cloud or self-hosted) for issue tracking. |
 | [commit](./commit/SKILL.md) | Create atomic Git commits with conventional messages. | Committing reviewed changes. |
 | [pull-request](./pull-request/SKILL.md) | Create or update GitHub pull requests (PRs). | GitHub contribution workflows. |
@@ -33,6 +39,9 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [skill-creator](./skill-creator/SKILL.md) | Create new skills, modify and improve existing skills, and measure skill performance. | Designing new skills, optimizing existing skills, or running evals. |
 | [tlc-spec-driven](./tlc-spec-driven/SKILL.md) | Feature planning and implementation with adaptive phases, EARS testable requirements, atomic Conventional Commits, and independent verification. | Planning features, implementing with verification and atomic commits, or validating an implementation against a spec. |
 | [taste](./taste/SKILL.md) | Unified design-quality skill spanning anti-slop frontend design, image generation and image-to-code, brand kits, minimalist and industrial UI, redesigns, and Google Stitch design systems. | Landing pages, portfolios, redesigns, website/mobile/brand imagery, or any UI that must not look AI-generated. |
+| [tdd](./tdd/SKILL.md) | Drive clear bug fixes with focused failing regression tests. | Explicit TDD and regression-test workflows. |
+| [unslop](./unslop/SKILL.md) | Remove AI writing patterns and restore a natural human voice. | Editing prose to remove generic or artificial phrasing. |
+| [why](./why/SKILL.md) | Investigate the evidence and rationale behind code and design decisions. | Historical design-reasoning and motivation investigations. |
 
 ## How Skills Are Organized
 
