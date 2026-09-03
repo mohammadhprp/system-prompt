@@ -79,6 +79,15 @@ test('effective-html is the unified standalone HTML skill', async () => {
   }
 });
 
+test('command workflow skills are registered with examples', async () => {
+  for (const id of ['commit', 'pull-request', 'merge-request', 'review', 'changelog', 'release']) {
+    const skill = categories.skills.items.find(item => item.id === id);
+    assert.ok(skill, `${id} is registered as a skill`);
+    await access(resolve(packageRoot, 'framework/skills', id, 'SKILL.md'));
+    await access(resolve(packageRoot, 'framework/skills', id, 'examples.md'));
+  }
+});
+
 test('improve is registered with its required resources', async () => {
   const skill = categories.skills.items.find(item => item.id === 'improve');
   assert.ok(skill);

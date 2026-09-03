@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Commit, pull-request, merge-request, review, changelog, and release skills converted from the corresponding commands.
+
 ## [v0.12.3] - 2026-08-30
 
 ### Added

@@ -19,6 +19,12 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 | [humanizer](./humanizer/SKILL.md) | Remove signs of AI-generated writing from text — inflated importance, promotional language, em dash overuse, rule of three, AI vocabulary, and filler phrases. | Editing or reviewing prose to make it sound more natural and human-written. |
 | [improve](./improve/SKILL.md) | Audit repositories as a read-only senior advisor and produce prioritized implementation plans for another agent. | Repository-wide audits, improvement roadmaps, and implementation handoffs. |
 | [jira-cli](./jira-cli/SKILL.md) | Use the Jira CLI (jira) to manage issues, sprints, epics, comments, transitions, and worklogs from the command line. | Any project using Jira (Cloud or self-hosted) for issue tracking. |
+| [commit](./commit/SKILL.md) | Create atomic Git commits with conventional messages. | Committing reviewed changes. |
+| [pull-request](./pull-request/SKILL.md) | Create or update GitHub pull requests (PRs). | GitHub contribution workflows. |
+| [merge-request](./merge-request/SKILL.md) | Create GitLab merge requests (MRs). | GitLab contribution workflows. |
+| [review](./review/SKILL.md) | Perform comprehensive code quality reviews. | Diff reviews and production-readiness checks. |
+| [changelog](./changelog/SKILL.md) | Create or update `CHANGELOG.md` entries. | Release notes and unreleased changes. |
+| [release](./release/SKILL.md) | Prepare and tag semantic-versioned releases. | Release management. |
 | [laravel-best-practices](./laravel-best-practices/SKILL.md) | Apply Laravel PHP patterns for Eloquent, validation, security, testing, caching, and architecture. | Writing, reviewing, or refactoring Laravel PHP code. |
 | [perf-web-optimization](./perf-web-optimization/SKILL.md) | Optimize web performance: bundle size, images, caching, lazy loading, and overall page speed. | A slow site, large bundles, layout shifts, poor Time to Interactive, or low Lighthouse scores. |
 | [security-best-practices](./security-best-practices/SKILL.md) | Perform language- and framework-specific security best-practice reviews and suggest improvements, with support for Python, JavaScript/TypeScript, and Go. | Explicit security reviews or reports, secure-by-default coding, or auditing existing code for major vulnerabilities. |
