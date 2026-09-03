@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.12.4] - 2026-09-03
+
 ### Added
 - Commit, pull-request, merge-request, review, changelog, and release skills converted from the corresponding commands.
 - Added `architect`, `bro`, `how`, `tdd`, `unslop`, and `why` skills to the framework catalog.
