@@ -99,6 +99,30 @@ test('improve is registered with its required resources', async () => {
   }
 });
 
+test('ponytail is registered with its workflow references', async () => {
+  const skill = categories.skills.items.find(item => item.id === 'ponytail');
+  assert.ok(skill);
+  await access(resolve(packageRoot, 'framework/skills/ponytail/SKILL.md'));
+  for (const reference of [
+    'ponytail-mode',
+    'ponytail-review',
+    'ponytail-audit',
+    'ponytail-debt',
+    'ponytail-gain',
+    'ponytail-help',
+    'ponytail-rules',
+    'principle-boundary-discipline',
+    'principle-encode-lessons-in-structure',
+    'principle-fix-root-causes',
+    'principle-make-operations-idempotent',
+    'principle-model-the-domain',
+    'principle-prove-it-works',
+    'principle-sequence-verifiable-units',
+  ]) {
+    await access(resolve(packageRoot, 'framework/skills/ponytail/references', `${reference}.md`));
+  }
+});
+
 test('subagents deny write access', async () => {
   const files = await readdir(resolve(packageRoot, 'framework/agents'));
   for (const file of files.filter(name => name.endsWith('.md') && name !== 'README.md')) {

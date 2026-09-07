@@ -24,6 +24,7 @@ export const categories = {
       { id: 'laravel-best-practices', name: 'Laravel Best Practices', description: 'Laravel patterns for Eloquent, validation, testing' },
       { id: 'merge-request', name: 'Merge Request', description: 'Create a GitLab merge request (MR) for the current branch' },
       { id: 'perf-web-optimization', name: 'Web Performance Optimization', description: 'Optimize web performance: bundle size, images, caching, lazy loading, and overall page speed' },
+      { id: 'ponytail', name: 'Ponytail', description: 'Lazy senior developer workflow focused on YAGNI, reuse, and the smallest working change' },
       { id: 'pull-request', name: 'Pull Request', description: 'Create or update a GitHub pull request (PR) for the current branch' },
       { id: 'release', name: 'Release', description: 'Prepare and tag semantic-versioned releases' },
       { id: 'review', name: 'Review', description: 'Perform comprehensive code quality review' },

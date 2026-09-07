@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Added the Ponytail skill for YAGNI-first, reuse-first implementation and review workflows.
+
 ## [v0.12.4] - 2026-09-03
 
 ### Added
