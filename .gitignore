@@ -4,3 +4,4 @@ node_modules/
 .opencode
 .agents
 skills-lock.json
+.codebase-guide

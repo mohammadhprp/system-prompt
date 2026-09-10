@@ -58,6 +58,7 @@ export const categories = {
     sourceDir: 'framework/commands',
     items: [
       { id: 'audit-your-codebase', name: 'Audit Your Codebase', description: 'Audit for materially useful simplifications in structure, state, algorithms, and ownership' },
+      { id: 'explain-codebase', name: 'Explain Codebase', description: 'Map a codebase and teach it interactively, from overview to focused deep-dives' },
       { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },
       { id: 'summarize-changes', name: 'Summarize Changes', description: 'Summarize uncommitted changes and flag risks' },
     ],
