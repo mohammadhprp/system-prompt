@@ -1,11 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { access, readFile, readdir } from 'node:fs/promises';
+import { access, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 
 import { categories } from '../src/catalog.js';
 
 const packageRoot = resolve(import.meta.dirname, '..');
+const execFileAsync = promisify(execFile);
 
 async function markdownFiles(directory) {
   const files = [];
@@ -85,6 +89,35 @@ test('command workflow skills are registered with examples', async () => {
     assert.ok(skill, `${id} is registered as a skill`);
     await access(resolve(packageRoot, 'framework/skills', id, 'SKILL.md'));
     await access(resolve(packageRoot, 'framework/skills', id, 'examples.md'));
+  }
+});
+
+test('review skill renders review.json as standalone HTML', async () => {
+  const workspace = await mkdtemp(resolve(tmpdir(), 'system-prompt-review-'));
+  try {
+    const input = resolve(workspace, 'review.json');
+    const output = resolve(workspace, 'review.html');
+    await writeFile(input, JSON.stringify({
+      verdict: 'REJECT',
+      body: 'Found: 1 critical, 0 important, 0 suggestions\n\nRequest changes',
+      comments: [{ path: 'src/app.js', line: 4, side: 'RIGHT', body: '🚨 [CRITICAL] Fix this' }],
+    }));
+    await execFileAsync('python3', [
+      resolve(packageRoot, 'framework/skills/review/scripts/render_review.py'),
+      '--review-json', input,
+      '--output', output,
+    ]);
+    const html = await readFile(output, 'utf8');
+    assert.match(html, /--bg:#121212/);
+    assert.match(html, /data-filter="critical"/);
+    assert.match(html, /tok-keyword/);
+    assert.match(html, /data-finding/);
+    assert.match(html, /const severity/);
+    assert.match(html, /fixPrompt/);
+    assert.match(html, /src\/app\.js/);
+    assert.match(html, /Fix this/);
+  } finally {
+    await rm(workspace, { recursive: true, force: true });
   }
 });
 

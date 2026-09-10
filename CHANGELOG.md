@@ -8,6 +8,10 @@ All notable changes to this project are documented here.
 - Added the Ponytail skill for YAGNI-first, reuse-first implementation and review workflows.
 - GitHub CLI skill for repository, issue, pull request, Actions, release, and API workflows.
 
+### Changed
+- Replaced the review skill with the structured review-pr workflow for read-only local, GitHub, and GitLab change reviews.
+- Added a self-contained Excalidraw-inspired dark HTML renderer for `review.json`.
+
 ## [v0.12.4] - 2026-09-03
 
 ### Added

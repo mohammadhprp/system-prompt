@@ -1,24 +1,9 @@
 ---
-description: Perform comprehensive code quality review
+description: Review local, GitHub, or GitLab changes and write review.json
 agent: plan
 ---
 
-Review $ARGUMENTS
-
-Perform comprehensive code quality review.
-
-## Process
-
-1. **Review conversation and diff** - Read conversation history, run `git diff` for staged/unstaged changes, identify the problem being solved and the behavior being modified. Read related standards: [`references/standards/naming.md`](../references/standards/naming.md), [`references/standards/testing.md`](../references/standards/testing.md), [`references/standards/security.md`](../references/standards/security.md), [`references/standards/performance.md`](../references/standards/performance.md).
-
-2. **Check correctness** - Edge cases, concurrency, error handling, state transitions, backward compatibility. Read contracts and interfaces before implementation.
-
-3. **Check maintainability** - Naming reflects business meaning, structure matches project conventions, comments explain why not what.
-
-4. **Check testing** - Do tests prove the behavior change? Missing edge cases or failure paths? Tests should verify behavior, not mirror implementation.
-
-5. **Check performance** - N+1 queries, unbounded loops, unnecessary allocations, caching opportunities.
-
-6. **Check security** - Input validation, authentication enforcement, secrets exposure, least privilege.
-
-7. **Present findings** - Distinguish blockers from suggestions, explain reasoning for each, summarize overall risk and production readiness.
+Review `$ARGUMENTS` using the `review` skill. Select local changes, a GitHub
+pull request, or a GitLab merge request from the arguments. Use `gh` or `glab`
+for read-only remote inspection, never publish comments, and write the required
+`review.json` artifact.
