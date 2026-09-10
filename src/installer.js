@@ -86,6 +86,47 @@ package-lock.json
 bun.lock
 `;
 
+export const LOCK_VERSION = 1;
+export const LOCK_CATEGORIES = ['skills', 'agents', 'commands', 'mcps', 'plugins', 'styles', 'modes', 'memory', 'standards', 'templates'];
+
+const FILE_BASED = new Set(['agents', 'commands', 'memory', 'modes', 'standards', 'templates']);
+
+export function lockToSelections(lock) {
+  const selections = {};
+  if (!lock) return selections;
+  for (const category of LOCK_CATEGORIES) {
+    const ids = Object.keys(lock[category] || {});
+    if (ids.length) selections[category] = ids;
+  }
+  return selections;
+}
+
+function itemSourcePath(category, id) {
+  const config = categories[category];
+  if (FILE_BASED.has(category)) return `${config.sourceDir}/${id}.md`;
+  return `${config.sourceDir}/${id}`;
+}
+
+function buildComputedHash(files, fallbackId) {
+  const keys = Object.keys(files).sort();
+  if (keys.length === 0) return hash(fallbackId);
+  if (keys.length === 1) return files[keys[0]];
+  return hash(keys.map(path => `${path}:${files[path]}`).join('\n'));
+}
+
+function getExpectedHash(oldLock, relativePath) {
+  const generated = oldLock?.generated?.[relativePath]?.computedHash;
+  if (generated) return generated;
+  for (const category of LOCK_CATEGORIES) {
+    const entries = oldLock?.[category];
+    if (!entries) continue;
+    for (const entry of Object.values(entries)) {
+      const value = entry?.files?.[relativePath];
+      if (value) return value;
+    }
+  }
+  return undefined;
+}
 export async function getPackageVersion() {
   try {
     const pkg = JSON.parse(await readFile(resolve(packageRoot, 'package.json'), 'utf-8'));
@@ -114,26 +155,63 @@ function validateLock(lock) {
   if (!lock || typeof lock !== 'object' || Array.isArray(lock)) {
     throw new Error('Invalid system-prompt lock: expected an object');
   }
-  if (!lock.selections || typeof lock.selections !== 'object' || Array.isArray(lock.selections)) {
-    throw new Error('Invalid system-prompt lock: selections must be an object');
+  if (lock.selections !== undefined || lock.managedFiles !== undefined) {
+    throw new Error('Invalid system-prompt lock: legacy lock format no longer supported');
   }
-  for (const [category, ids] of Object.entries(lock.selections)) {
-    const config = categories[category];
-    if (!config || !Array.isArray(ids) || ids.some(id => typeof id !== 'string')) {
+  if (lock.version !== LOCK_VERSION) {
+    throw new Error('Invalid system-prompt lock: unsupported version');
+  }
+  if (typeof lock.agentType !== 'string' || typeof lock.installedAt !== 'string') {
+    throw new Error('Invalid system-prompt lock: missing installation metadata');
+  }
+  if (typeof lock.includeAgentsMd !== 'boolean') {
+    throw new Error('Invalid system-prompt lock: includeAgentsMd must be a boolean');
+  }
+  const allowed = new Set(['version', 'agentType', 'installedAt', 'includeAgentsMd', 'generated', ...LOCK_CATEGORIES]);
+  for (const key of Object.keys(lock)) {
+    if (!allowed.has(key)) {
+      throw new Error(`Invalid system-prompt lock: unknown key ${key}`);
+    }
+  }
+  for (const category of LOCK_CATEGORIES) {
+    const entries = lock[category];
+    if (entries === undefined) continue;
+    if (!entries || typeof entries !== 'object' || Array.isArray(entries)) {
       throw new Error(`Invalid system-prompt lock: invalid ${category} selection`);
     }
+    const config = categories[category];
     const knownIds = new Set(config.items.map(item => item.id));
-    if (ids.some(id => !knownIds.has(id))) {
-      throw new Error(`Invalid system-prompt lock: unknown ${category} item`);
+    for (const [id, entry] of Object.entries(entries)) {
+      if (!knownIds.has(id)) {
+        throw new Error(`Invalid system-prompt lock: unknown ${category} item`);
+      }
+      if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+        throw new Error(`Invalid system-prompt lock: invalid ${category} entry`);
+      }
+      if (typeof entry.source !== 'string' || typeof entry.sourceType !== 'string' || typeof entry.itemPath !== 'string') {
+        throw new Error(`Invalid system-prompt lock: invalid ${category} entry source`);
+      }
+      if (!/^[a-f0-9]{64}$/.test(entry.computedHash || '')) {
+        throw new Error(`Invalid system-prompt lock: invalid ${category} entry hash`);
+      }
+      if (!entry.files || typeof entry.files !== 'object' || Array.isArray(entry.files)) {
+        throw new Error(`Invalid system-prompt lock: invalid ${category} entry files`);
+      }
+      for (const [path, checksum] of Object.entries(entry.files)) {
+        if (path.startsWith('/') || path.split('/').includes('..') || !/^[a-f0-9]{64}$/.test(checksum)) {
+          throw new Error('Invalid system-prompt lock: unsafe managed file entry');
+        }
+      }
     }
   }
-  if (lock.managedFiles !== undefined) {
-    if (!lock.managedFiles || typeof lock.managedFiles !== 'object' || Array.isArray(lock.managedFiles)) {
-      throw new Error('Invalid system-prompt lock: managedFiles must be an object');
+  const generated = lock.generated;
+  if (generated !== undefined) {
+    if (!generated || typeof generated !== 'object' || Array.isArray(generated)) {
+      throw new Error('Invalid system-prompt lock: generated must be an object');
     }
-    for (const [path, checksum] of Object.entries(lock.managedFiles)) {
-      if (path.startsWith('/') || path.split('/').includes('..') || !/^[a-f0-9]{64}$/.test(checksum)) {
-        throw new Error('Invalid system-prompt lock: unsafe managed file entry');
+    for (const [path, entry] of Object.entries(generated)) {
+      if (path.startsWith('/') || path.split('/').includes('..') || !/^[a-f0-9]{64}$/.test(entry?.computedHash || '')) {
+        throw new Error('Invalid system-prompt lock: unsafe generated file entry');
       }
     }
   }
@@ -152,7 +230,7 @@ async function canWrite(destFile, relativePath, oldLock, force) {
   if (force) return true;
   try {
     const existing = await readFile(destFile);
-    const previousHash = oldLock?.managedFiles?.[relativePath];
+    const previousHash = getExpectedHash(oldLock, relativePath);
     return Boolean(previousHash && previousHash === hash(existing));
   } catch (error) {
     if (error.code === 'ENOENT') return true;
@@ -160,7 +238,7 @@ async function canWrite(destFile, relativePath, oldLock, force) {
   }
 }
 
-async function writeManagedFile(destFile, content, relativePath, options) {
+async function writeManagedFile(destFile, content, relativePath, options, owner) {
   await assertSafeDestination(options.targetDir, destFile);
   if (!options.allowExistingMerge && !(await canWrite(destFile, relativePath, options.oldLock, options.force))) {
     console.warn(`  ⚠  Preserving existing file: ${relativePath}`);
@@ -169,10 +247,11 @@ async function writeManagedFile(destFile, content, relativePath, options) {
   if (!options.dryRun) await mkdir(dirname(destFile), { recursive: true });
   if (!options.dryRun) await writeFile(destFile, content);
   options.managedFiles[relativePath] = hash(content);
+  if (owner) options.fileOwners[relativePath] = owner;
   return true;
 }
 
-async function copyDir(src, dest, relativeDir, options) {
+async function copyDir(src, dest, relativeDir, options, owner) {
   if (!options.dryRun) await mkdir(dest, { recursive: true });
   const entries = await readdir(src, { withFileTypes: true });
 
@@ -183,10 +262,10 @@ async function copyDir(src, dest, relativeDir, options) {
     const relativePath = `${relativeDir}/${entry.name}`;
 
     if (entry.isDirectory()) {
-      await copyDir(srcPath, destPath, relativePath, options);
+      await copyDir(srcPath, destPath, relativePath, options, owner);
     } else if (entry.isFile()) {
       const content = await readFile(srcPath);
-      await writeManagedFile(destPath, content, relativePath, options);
+      await writeManagedFile(destPath, content, relativePath, options, owner);
     }
   }
 }
@@ -241,7 +320,7 @@ async function copySelectedDirs(targetDir, category, selectedIds, options) {
 
     try {
       await stat(srcPath);
-      await copyDir(srcPath, destPath, `${relativeDir}/${id}`, options);
+      await copyDir(srcPath, destPath, `${relativeDir}/${id}`, options, { category, id });
     } catch (error) {
       if (sourceMissing(error)) {
         console.warn(`  ⚠  Source not found: ${catConfig.sourceDir}/${id}`);
@@ -268,7 +347,7 @@ async function copySelectedFiles(targetDir, category, selectedIds, options) {
     await assertSafeDestination(targetDir, destFile);
     try {
       const content = await readFile(srcFile);
-      await writeManagedFile(destFile, content, `${relativeDir}/${id}.md`, options);
+      await writeManagedFile(destFile, content, `${relativeDir}/${id}.md`, options, { category, id });
     } catch (error) {
       if (sourceMissing(error)) {
         console.warn(`  ⚠  Source not found: ${catConfig.sourceDir}/${id}.md`);
@@ -283,7 +362,6 @@ async function deleteSelectedItems(absTarget, category, ids, oldLock, force, dry
   const catConfig = categories[category];
   if (!catConfig || !ids?.length) return;
 
-  const FILE_BASED = new Set(['agents', 'commands', 'memory', 'modes', 'standards', 'templates']);
   if (!FILE_BASED.has(category) && category !== 'skills' && category !== 'styles') return;
 
   const relativeDir = targetSubdir(catConfig.sourceDir);
@@ -294,8 +372,8 @@ async function deleteSelectedItems(absTarget, category, ids, oldLock, force, dry
     const destPath = resolve(absTarget, relativePath);
     await assertSafeDestination(absTarget, destPath);
     if (!force && oldLock) {
-      const managedEntries = Object.entries(oldLock.managedFiles || {})
-        .filter(([path]) => path === relativePath || path.startsWith(`${relativePath}/`));
+      const oldFiles = oldLock?.[category]?.[id]?.files || {};
+      const managedEntries = Object.entries(oldFiles);
       if (managedEntries.length === 0) {
         console.warn(`  ⚠  Preserving unmanaged item: ${relativePath}`);
         continue;
@@ -363,7 +441,7 @@ async function mergeJsonFile(destFile, generated, relativePath, options, previou
   return writeManagedFile(destFile, Buffer.from(JSON.stringify(merged, null, 4)), relativePath, {
     ...options,
     allowExistingMerge: !options.oldLock,
-  });
+  }, { generated: true });
 }
 
 async function mergeGitignore(destFile, options) {
@@ -378,7 +456,7 @@ async function mergeGitignore(destFile, options) {
   return writeManagedFile(destFile, Buffer.from(`${[...lines].join('\n')}\n`), '.gitignore', {
     ...options,
     allowExistingMerge: !options.oldLock,
-  });
+  }, { generated: true });
 }
 
 export function validateSelections(selections) {
@@ -405,8 +483,27 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     oldLock,
     force,
     dryRun,
-    managedFiles: { ...(oldLock?.managedFiles || {}) },
+    managedFiles: {},
+    fileOwners: {},
   };
+  if (oldLock) {
+    for (const category of LOCK_CATEGORIES) {
+      for (const [id, entry] of Object.entries(oldLock[category] || {})) {
+        for (const [path, checksum] of Object.entries(entry.files || {})) {
+          if (!(path in options.managedFiles)) {
+            options.managedFiles[path] = checksum;
+            options.fileOwners[path] = { category, id };
+          }
+        }
+      }
+    }
+    for (const [path, entry] of Object.entries(oldLock.generated || {})) {
+      if (!(path in options.managedFiles)) {
+        options.managedFiles[path] = entry.computedHash;
+        options.fileOwners[path] = { generated: true };
+      }
+    }
+  }
 
   // Delete items that are no longer selected.
   if (oldSelections) {
@@ -428,7 +525,7 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
   await Promise.all(tasks);
 
   if (writeAgentsMd) {
-    await writeManagedFile(resolve(absTarget, 'AGENTS.md'), Buffer.from(AGENTS_MD), 'AGENTS.md', options);
+    await writeManagedFile(resolve(absTarget, 'AGENTS.md'), Buffer.from(AGENTS_MD), 'AGENTS.md', options, { generated: true });
   }
 
   if (agentType === 'opencode') {
@@ -437,14 +534,15 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
     let previousOpenCodeConfig;
     let previousTuiConfig;
     if (oldLock) {
+      const oldSelections = lockToSelections(oldLock);
       let previousMcpEntries = {};
-      if (oldLock.selections.mcps?.length) previousMcpEntries = await loadMcpConfigs(oldLock.selections.mcps);
+      if (oldSelections.mcps?.length) previousMcpEntries = await loadMcpConfigs(oldSelections.mcps);
       previousOpenCodeConfig = JSON.parse(generateOpenCodeConfig({
-        selections: oldLock.selections,
+        selections: oldSelections,
         mcpEntries: previousMcpEntries,
         includeAgentsMd: oldLock.includeAgentsMd ?? true,
       }));
-      previousTuiConfig = JSON.parse(generateTuiConfig({ selections: oldLock.selections }));
+      previousTuiConfig = JSON.parse(generateTuiConfig({ selections: oldSelections }));
     }
     const configJson = generateOpenCodeConfig({ selections, mcpEntries, includeAgentsMd });
     await mergeJsonFile(resolve(absTarget, 'opencode.json'), JSON.parse(configJson), 'opencode.json', options, previousOpenCodeConfig);
@@ -458,16 +556,38 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
   }
 
   if (dryRun) return absTarget;
-  const version = await getPackageVersion();
+  const pkgVersion = await getPackageVersion();
+  const source = `system-prompt@${pkgVersion}`;
   const lockData = {
-    version,
+    version: LOCK_VERSION,
     agentType,
-    targetDir,
     installedAt: new Date().toISOString(),
-    selections: Object.fromEntries(Object.entries(selections).map(([k, v]) => [k, [...v]])),
     includeAgentsMd,
-    managedFiles: options.managedFiles,
   };
+  for (const category of LOCK_CATEGORIES) {
+    const entries = {};
+    for (const id of selections[category] || []) {
+      if (await isRemoved(category, id)) continue;
+      const files = {};
+      for (const [path, checksum] of Object.entries(options.managedFiles)) {
+        const owner = options.fileOwners[path];
+        if (owner?.category === category && owner?.id === id) files[path] = checksum;
+      }
+      entries[id] = {
+        source,
+        sourceType: 'bundled',
+        itemPath: itemSourcePath(category, id),
+        computedHash: buildComputedHash(files, id),
+        files,
+      };
+    }
+    lockData[category] = entries;
+  }
+  const generated = {};
+  for (const [path, checksum] of Object.entries(options.managedFiles)) {
+    if (options.fileOwners[path]?.generated) generated[path] = { computedHash: checksum };
+  }
+  lockData.generated = generated;
   await writeFile(resolve(absTarget, 'system-prompt-lock.json'), JSON.stringify(lockData, null, 2));
   return absTarget;
 }
@@ -548,4 +668,5 @@ async function writeMergedEnv(absTarget, examples, options) {
   const content = Buffer.from(`${existingContent}${separator}${additions.join('\n')}\n`);
   if (!options.dryRun) await writeFile(envPath, content);
   options.managedFiles['.env'] = hash(content);
+  options.fileOwners['.env'] = { generated: true };
 }

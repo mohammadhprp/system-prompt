@@ -4,7 +4,7 @@ import { mkdtemp, mkdir, readFile, rm, writeFile, access, symlink } from 'node:f
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
-import { install, loadLockFile } from '../src/installer.js';
+import { install, loadLockFile, lockToSelections } from '../src/installer.js';
 
 test('install writes selected framework files and generated config', async () => {
   const previousCwd = process.cwd();
@@ -72,10 +72,20 @@ test('install writes selected framework files and generated config', async () =>
     assert.match(gitignore, /^\.env\*$/m);
 
     const lock = JSON.parse(await readFile(join(absTarget, 'system-prompt-lock.json'), 'utf-8'));
+    assert.equal(lock.version, 1);
     assert.equal(lock.agentType, 'opencode');
-    assert.equal(lock.targetDir, '.opencode');
-    assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
+    assert.equal(lock.includeAgentsMd, true);
     assert.match(lock.installedAt, /^\d{4}-\d{2}-\d{2}T/);
+    assert.ok(lock.skills['backend-best-practices']);
+    assert.equal(lock.skills['backend-best-practices'].sourceType, 'bundled');
+    assert.match(lock.skills['backend-best-practices'].source, /^system-prompt@/);
+    assert.equal(lock.skills['backend-best-practices'].itemPath, 'framework/skills/backend-best-practices');
+    assert.match(lock.skills['backend-best-practices'].computedHash, /^[a-f0-9]{64}$/);
+    assert.match(lock.skills['backend-best-practices'].files['skills/backend-best-practices/SKILL.md'], /^[a-f0-9]{64}$/);
+    assert.ok(lock.agents.reviewer);
+    assert.ok(lock.generated['AGENTS.md']);
+    assert.ok(lock.generated['opencode.json']);
+    assert.deepEqual(lockToSelections(lock).skills, ['backend-best-practices']);
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });
@@ -209,10 +219,10 @@ test('loadLockFile reads the lock file written by install', async () => {
     const absTarget = resolve(workspace, '.opencode');
     const lock = await loadLockFile(absTarget);
     assert.ok(lock);
+    assert.equal(lock.version, 1);
     assert.equal(lock.agentType, 'opencode');
-    assert.equal(lock.targetDir, '.opencode');
-    assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
-    assert.deepEqual(lock.selections.agents, ['reviewer']);
+    assert.deepEqual(lockToSelections(lock).skills, ['backend-best-practices']);
+    assert.deepEqual(lockToSelections(lock).agents, ['reviewer']);
     assert.equal(lock.includeAgentsMd, true);
     assert.match(lock.installedAt, /^\d{4}-\d{2}-\d{2}T/);
 
@@ -271,9 +281,9 @@ test('install removes files for items dropped on re-install', async () => {
 
     const lock = await loadLockFile(absTarget);
     assert.ok(lock);
-    assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
-    assert.deepEqual(lock.selections.commands, ['summarize-changes']);
-    assert.equal(lock.selections.agents, undefined);
+    assert.deepEqual(lockToSelections(lock).skills, ['backend-best-practices']);
+    assert.deepEqual(lockToSelections(lock).commands, ['summarize-changes']);
+    assert.equal(lock.agents?.reviewer, undefined);
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });
@@ -301,7 +311,7 @@ test('re-install preserves user-edited managed files', async () => {
       agentType: 'opencode',
       selections: { commands: ['summarize-changes'] },
       includeAgentsMd: true,
-      oldSelections: lock.selections,
+      oldSelections: lockToSelections(lock),
       oldLock: lock,
     });
 
@@ -318,10 +328,19 @@ test('loadLockFile rejects malformed and unknown selections', async () => {
 
   try {
     process.chdir(workspace);
-    await writeFile(join(workspace, 'system-prompt-lock.json'), JSON.stringify({ selections: { commands: ['../outside'] } }));
+    await writeFile(join(workspace, 'system-prompt-lock.json'), JSON.stringify({
+      version: 1,
+      agentType: 'opencode',
+      installedAt: new Date().toISOString(),
+      includeAgentsMd: false,
+      commands: { '../outside': { source: 'x', sourceType: 'bundled', itemPath: 'y', computedHash: '0'.repeat(64), files: {} } },
+      generated: {},
+    }));
     await assert.rejects(loadLockFile(workspace), /unknown commands item/);
     await writeFile(join(workspace, 'system-prompt-lock.json'), JSON.stringify({ nope: true }));
-    await assert.rejects(loadLockFile(workspace), /selections must be an object/);
+    await assert.rejects(loadLockFile(workspace), /unsupported version/);
+    await writeFile(join(workspace, 'system-prompt-lock.json'), JSON.stringify({ selections: { commands: ['summarize-changes'] } }));
+    await assert.rejects(loadLockFile(workspace), /legacy lock format/);
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });
@@ -394,7 +413,7 @@ test('installer rejects nested symlinks during directory cleanup', async () => {
       agentType: 'opencode',
       selections: {},
       includeAgentsMd: false,
-      oldSelections: lock.selections,
+      oldSelections: lockToSelections(lock),
       oldLock: lock,
     }), /symlink/);
   } finally {
@@ -426,7 +445,7 @@ test('re-install preserves modified directory items when deselected', async () =
       agentType: 'opencode',
       selections: {},
       includeAgentsMd: false,
-      oldSelections: lock.selections,
+      oldSelections: lockToSelections(lock),
       oldLock: lock,
     });
 
@@ -457,7 +476,7 @@ test('re-install removes deselected generated plugins', async () => {
       agentType: 'opencode',
       selections: {},
       includeAgentsMd: false,
-      oldSelections: lock.selections,
+      oldSelections: lockToSelections(lock),
       oldLock: lock,
     });
 

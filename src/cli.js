@@ -2,7 +2,7 @@ import { intro, outro, confirm, multiselect, spinner, isCancel } from '@clack/pr
 import { resolve } from 'node:path';
 
 import { categories } from './catalog.js';
-import { getPackageVersion, install, loadLockFile } from './installer.js';
+import { getPackageVersion, install, loadLockFile, lockToSelections } from './installer.js';
 import { doctor } from './doctor.js';
 
 const CATEGORY_FLAGS = new Set(Object.keys(categories));
@@ -71,7 +71,7 @@ function buildSummary(selections) {
 }
 
 function computeDiff(oldLock, selections) {
-  const oldSels = oldLock.selections;
+  const oldSels = lockToSelections(oldLock);
   const added = {};
   const removed = {};
   const kept = {};
@@ -161,7 +161,7 @@ export async function main(argv = process.argv.slice(2)) {
       agentType,
       selections,
       includeAgentsMd: args.includeAgentsMd,
-      oldSelections: oldLock?.selections,
+      oldSelections: oldLock ? lockToSelections(oldLock) : undefined,
       oldLock,
       force: args.force,
       dryRun: args.dryRun,
@@ -315,7 +315,7 @@ export async function main(argv = process.argv.slice(2)) {
     agentType,
     selections,
     includeAgentsMd,
-    oldSelections: oldLock?.selections,
+    oldSelections: oldLock ? lockToSelections(oldLock) : undefined,
     oldLock,
     force: args.force,
     dryRun: args.dryRun,

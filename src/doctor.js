@@ -3,7 +3,7 @@ import { access, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 
 import { categories } from './catalog.js';
-import { loadLockFile } from './installer.js';
+import { loadLockFile, lockToSelections } from './installer.js';
 
 async function exists(path) {
   try {
@@ -31,17 +31,32 @@ export async function inspectInstallation(targetDir) {
     return { targetDir: absTarget, issues };
   }
 
-  for (const [path, expected] of Object.entries(lock.managedFiles || {})) {
+  for (const [path, entry] of Object.entries(lock.generated || {})) {
     try {
       const actual = createHash('sha256').update(await readFile(resolve(absTarget, path))).digest('hex');
-      if (actual !== expected) issues.push(`Modified managed file: ${path}`);
+      if (actual !== entry.computedHash) issues.push(`Modified managed file: ${path}`);
     } catch (error) {
       if (error.code === 'ENOENT') issues.push(`Missing managed file: ${path}`);
       else throw error;
     }
   }
 
-  for (const [category, ids] of Object.entries(lock.selections)) {
+  for (const [category, entries] of Object.entries(lock)) {
+    if (!categories[category]) continue;
+    for (const [id, entry] of Object.entries(entries)) {
+      for (const [path, expected] of Object.entries(entry.files || {})) {
+        try {
+          const actual = createHash('sha256').update(await readFile(resolve(absTarget, path))).digest('hex');
+          if (actual !== expected) issues.push(`Modified managed file: ${path}`);
+        } catch (error) {
+          if (error.code === 'ENOENT') issues.push(`Missing managed file: ${path}`);
+          else throw error;
+        }
+      }
+    }
+  }
+
+  for (const [category, ids] of Object.entries(lockToSelections(lock))) {
     const config = categories[category];
     for (const id of ids) {
       const item = config.items.find(entry => entry.id === id);
