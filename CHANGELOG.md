@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Added the `grilling` skill for relentlessly stress-testing plans and decisions through design-tree rounds until shared understanding is reached (adapted from `mattpocock/skills`, MIT).
+
 ## [v0.13.0] - 2026-09-10
 
 ### Changed
