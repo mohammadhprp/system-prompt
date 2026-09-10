@@ -4,8 +4,11 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.12.6] - 2026-09-10
+
 ### Added
 - Added the `adhd` skill for ADHD-friendly output: action first, numbered steps, restated state, no tangents (adapted from `ayghri/i-have-adhd`, MIT).
+- Merged `no-ai-slop` patterns into the `unslop` skill: detect mode, voice-preservation rules, dramatic setup/ending patterns (32–46), and a `references/eval.md` checklist (adapted from `petergyang/no-ai-slop`, MIT).
 - Added the `/audit-your-codebase` command for read-only structural simplification audits.
 - Added the `/explain-codebase` command: self-contained codebase mapping and multi-session teaching workflow (module vocabulary, hotspot scoping, HTML map report, lessons, references, glossary, and learning records under `./.codebase-guide/`).
 
