@@ -4,6 +4,7 @@ export const categories = {
     description: 'Task-specific procedures for AI coding agents',
     sourceDir: 'framework/skills',
     items: [
+      { id: 'adhd', name: 'ADHD', description: 'Shape output for ADHD readers: action first, numbered steps, restated state, no tangents' },
       { id: 'agent-browser', name: 'Agent Browser', description: 'Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction' },
       { id: 'architect', name: 'Architect', description: 'Sketch architecture and module boundaries before implementation' },
       { id: 'arena', name: 'Arena', description: 'Compare parallel candidate solutions and synthesize the strongest result' },

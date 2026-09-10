@@ -5,6 +5,7 @@ All notable changes to this project are documented here.
 ## Unreleased
 
 ### Added
+- Added the `adhd` skill for ADHD-friendly output: action first, numbered steps, restated state, no tangents (adapted from `ayghri/i-have-adhd`, MIT).
 - Added the `/audit-your-codebase` command for read-only structural simplification audits.
 - Added the `/explain-codebase` command: self-contained codebase mapping and multi-session teaching workflow (module vocabulary, hotspot scoping, HTML map report, lessons, references, glossary, and learning records under `./.codebase-guide/`).
 

@@ -8,6 +8,7 @@ This catalog is framework-agnostic: each skill defines when to activate, a step-
 
 | Skill | Purpose | Best fit |
 | --- | --- | --- |
+| [adhd](./adhd/SKILL.md) | Shape output for ADHD readers: action first, numbered steps, restated state, no tangents. | Any task where the response must be immediately actionable without preamble or recap. |
 | [agent-browser](./agent-browser/SKILL.md) | Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction. | Website interaction, browser automation, exploratory testing, QA, and Electron desktop app workflows. |
 | [architect](./architect/SKILL.md) | Sketch architecture and module boundaries before implementation. | Non-trivial design and implementation work. |
 | [arena](./arena/SKILL.md) | Compare parallel candidate solutions and synthesize the strongest result. | Non-trivial artifacts and design alternatives. |
