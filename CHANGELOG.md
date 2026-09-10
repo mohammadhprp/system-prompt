@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.13.0] - 2026-09-10
+
 ### Changed
 - Reworked `system-prompt-lock.json` to `skills-lock.json` style: `version: 1` with per-category maps (`skills`, `agents`, `commands`, ...) where each entry stores `source`, `sourceType`, `itemPath`, `computedHash`, and `files`, plus a `generated` section. Legacy locks are rejected.
 
