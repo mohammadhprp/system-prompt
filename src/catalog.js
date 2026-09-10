@@ -57,6 +57,7 @@ export const categories = {
     description: 'Slash command workflows for repeatable tasks',
     sourceDir: 'framework/commands',
     items: [
+      { id: 'audit-your-codebase', name: 'Audit Your Codebase', description: 'Audit for materially useful simplifications in structure, state, algorithms, and ownership' },
       { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },
       { id: 'summarize-changes', name: 'Summarize Changes', description: 'Summarize uncommitted changes and flag risks' },
     ],

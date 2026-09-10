@@ -8,6 +8,7 @@ Commands define repeatable workflows that agents execute on demand, triggered by
 
 | Command | Purpose | Loads |
 | --- | --- | --- |
+| [`/audit-your-codebase`](./audit-your-codebase.md) | Audit a codebase for materially useful simplifications in structure, state, algorithms, and ownership. | — |
 | [`/learn`](./learn.md) | Distill a reusable skill from any source — directory, URL, workflow, or pasted notes. | skill-creator skill |
 | [`/summarize-changes`](./summarize-changes.md) | Summarize uncommitted changes and flag risky patterns. | — |
 

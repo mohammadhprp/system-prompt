@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Added
+- Added the `/audit-your-codebase` command for read-only structural simplification audits.
+
 ### Removed
 - Removed commands that now have equivalent skills: `changelog`, `commit`, `mr`, `pr`, `release`, and `review`.
 
