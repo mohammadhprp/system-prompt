@@ -19,7 +19,7 @@ test('install writes selected framework files and generated config', async () =>
       selections: {
         skills: ['backend-best-practices'],
         agents: ['reviewer'],
-        commands: ['review'],
+        commands: ['summarize-changes'],
         standards: ['security'],
         templates: ['adr'],
         plugins: ['opencode-goal-plugin'],
@@ -37,8 +37,8 @@ test('install writes selected framework files and generated config', async () =>
     const agent = await readFile(join(absTarget, 'agents/reviewer.md'), 'utf-8');
     assert.match(agent, /review code changes/i);
 
-    const command = await readFile(join(absTarget, 'commands/review.md'), 'utf-8');
-    assert.match(command, /review/i);
+    const command = await readFile(join(absTarget, 'commands/summarize-changes.md'), 'utf-8');
+    assert.match(command, /summarize/i);
 
     const standard = await readFile(join(absTarget, 'references/standards/security.md'), 'utf-8');
     assert.match(standard, /Security/);
@@ -237,26 +237,26 @@ test('install removes files for items dropped on re-install', async () => {
       selections: {
         skills: ['backend-best-practices'],
         agents: ['reviewer'],
-        commands: ['review'],
+        commands: ['summarize-changes'],
       },
       includeAgentsMd: false,
     });
 
     await access(join(absTarget, 'skills/backend-best-practices/SKILL.md'));
     await access(join(absTarget, 'agents/reviewer.md'));
-    await access(join(absTarget, 'commands/review.md'));
+    await access(join(absTarget, 'commands/summarize-changes.md'));
 
     await install({
       targetDir: '.opencode',
       agentType: 'opencode',
       selections: {
         skills: ['backend-best-practices'],
-        commands: ['review'],
+        commands: ['summarize-changes'],
       },
       oldSelections: {
         skills: ['backend-best-practices'],
         agents: ['reviewer'],
-        commands: ['review'],
+        commands: ['summarize-changes'],
       },
       includeAgentsMd: false,
     });
@@ -267,12 +267,12 @@ test('install removes files for items dropped on re-install', async () => {
     );
 
     await access(join(absTarget, 'skills/backend-best-practices/SKILL.md'));
-    await access(join(absTarget, 'commands/review.md'));
+    await access(join(absTarget, 'commands/summarize-changes.md'));
 
     const lock = await loadLockFile(absTarget);
     assert.ok(lock);
     assert.deepEqual(lock.selections.skills, ['backend-best-practices']);
-    assert.deepEqual(lock.selections.commands, ['review']);
+    assert.deepEqual(lock.selections.commands, ['summarize-changes']);
     assert.equal(lock.selections.agents, undefined);
   } finally {
     process.chdir(previousCwd);
@@ -289,7 +289,7 @@ test('re-install preserves user-edited managed files', async () => {
     await install({
       targetDir: '.opencode',
       agentType: 'opencode',
-      selections: { commands: ['review'] },
+      selections: { commands: ['summarize-changes'] },
       includeAgentsMd: true,
     });
     const target = resolve(workspace, '.opencode');
@@ -299,7 +299,7 @@ test('re-install preserves user-edited managed files', async () => {
     await install({
       targetDir: '.opencode',
       agentType: 'opencode',
-      selections: { commands: ['review'] },
+      selections: { commands: ['summarize-changes'] },
       includeAgentsMd: true,
       oldSelections: lock.selections,
       oldLock: lock,
@@ -337,7 +337,7 @@ test('dry-run does not create the installation directory', async () => {
     await install({
       targetDir: '.opencode',
       agentType: 'opencode',
-      selections: { commands: ['review'] },
+      selections: { commands: ['summarize-changes'] },
       includeAgentsMd: false,
       dryRun: true,
     });
@@ -360,7 +360,7 @@ test('installer rejects symlink destinations', async () => {
     await assert.rejects(install({
       targetDir: '.opencode',
       agentType: 'opencode',
-      selections: { commands: ['review'] },
+      selections: { commands: ['summarize-changes'] },
       includeAgentsMd: false,
     }), /symlink/);
   } finally {

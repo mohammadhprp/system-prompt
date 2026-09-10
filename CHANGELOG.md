@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Removed
+- Removed commands that now have equivalent skills: `changelog`, `commit`, `mr`, `pr`, `release`, and `review`.
+
 ## [v0.12.5] - 2026-09-10
 
 ### Added

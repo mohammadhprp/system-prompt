@@ -40,4 +40,4 @@ Avoid when the task explicitly needs complex scaffolding, heavy abstractions, or
 Relevant skills in this repository:
 
 - [`backend-best-practices`](../../skills/backend-best-practices/SKILL.md): backend best practices for refactoring and behavior-preserving cleanup.
-- [`pr`](../../commands/pr.md): prepare small, reviewable changes aligned with ponytail's minimal-diff philosophy.
+- [`pull-request`](../../skills/pull-request/SKILL.md): prepare small, reviewable changes aligned with ponytail's minimal-diff philosophy.

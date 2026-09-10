@@ -16,14 +16,14 @@ test('doctor reports modified managed files', async () => {
     const target = await install({
       targetDir: '.opencode',
       agentType: 'opencode',
-      selections: { commands: ['review'] },
+      selections: { commands: ['summarize-changes'] },
       includeAgentsMd: false,
     });
-    const commandPath = join(target, 'commands/review.md');
+    const commandPath = join(target, 'commands/summarize-changes.md');
     await writeFile(commandPath, `${await readFile(commandPath, 'utf-8')}\nUser change\n`);
 
     const result = await inspectInstallation('.opencode');
-    assert.ok(result.issues.some(issue => issue.includes('Modified managed file: commands/review.md')));
+    assert.ok(result.issues.some(issue => issue.includes('Modified managed file: commands/summarize-changes.md')));
   } finally {
     process.chdir(previousCwd);
     await rm(workspace, { recursive: true, force: true });

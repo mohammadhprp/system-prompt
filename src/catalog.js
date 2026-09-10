@@ -57,13 +57,7 @@ export const categories = {
     description: 'Slash command workflows for repeatable tasks',
     sourceDir: 'framework/commands',
     items: [
-      { id: 'changelog', name: 'Changelog', description: 'Create, add, or update CHANGELOG.md entries' },
-      { id: 'commit', name: 'Commit', description: 'Create atomic git commits with conventional messages' },
       { id: 'learn', name: 'Learn', description: 'Distill a reusable skill from any source' },
-      { id: 'pr', name: 'PR', description: 'Create a GitHub PR for the current branch' },
-      { id: 'mr', name: 'MR', description: 'Create a GitLab MR for the current branch' },
-      { id: 'release', name: 'Release', description: 'Tag releases, update changelog, and bump versions' },
-      { id: 'review', name: 'Review', description: 'Review local, GitHub, or GitLab changes and write review.json' },
       { id: 'summarize-changes', name: 'Summarize Changes', description: 'Summarize uncommitted changes and flag risks' },
     ],
   },
