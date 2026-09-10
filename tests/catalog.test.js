@@ -88,6 +88,14 @@ test('command workflow skills are registered with examples', async () => {
   }
 });
 
+test('GitHub CLI skill is registered', async () => {
+  const skill = categories.skills.items.find(item => item.id === 'gh');
+  assert.ok(skill);
+  assert.equal(skill.name, 'GitHub CLI');
+  await access(resolve(packageRoot, 'framework/skills/gh/SKILL.md'));
+  await access(resolve(packageRoot, 'framework/skills/gh/examples.md'));
+});
+
 test('improve is registered with its required resources', async () => {
   const skill = categories.skills.items.find(item => item.id === 'improve');
   assert.ok(skill);

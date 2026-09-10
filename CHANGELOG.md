@@ -6,6 +6,7 @@ All notable changes to this project are documented here.
 
 ### Added
 - Added the Ponytail skill for YAGNI-first, reuse-first implementation and review workflows.
+- GitHub CLI skill for repository, issue, pull request, Actions, release, and API workflows.
 
 ## [v0.12.4] - 2026-09-03
 

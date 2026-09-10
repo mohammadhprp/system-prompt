@@ -16,6 +16,7 @@ export const categories = {
       { id: 'effective-html', name: 'Effective HTML', description: 'Create self-contained HTML artifacts with routed guidance for design, wireframes, prototypes, plans, and diagrams' },
       { id: 'find-skills', name: 'Find Skills', description: 'Discover, evaluate, and install agent skills for specialized tasks' },
       { id: 'frontend-design', name: 'Frontend Design', description: 'Distinctive, intentional visual design for new UI or reshaping existing UI' },
+      { id: 'gh', name: 'GitHub CLI', description: 'Work with GitHub via the gh CLI for repositories, issues, pull requests, Actions, releases, and APIs' },
       { id: 'glab', name: 'Glab', description: 'Work with GitLab via the glab CLI for MRs, issues, and pipelines' },
       { id: 'humanizer', name: 'Humanizer', description: 'Remove signs of AI-generated writing to make text sound more natural and human' },
       { id: 'improve', name: 'Improve', description: 'Audit repositories and produce prioritized, read-only implementation plans for another agent' },
