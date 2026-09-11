@@ -1,4 +1,4 @@
-import { intro, outro, confirm, multiselect, spinner, select, isCancel } from '@clack/prompts';
+import { intro, outro, confirm, multiselect, spinner, select, note, isCancel } from '@clack/prompts';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -6,6 +6,7 @@ import { categories } from './catalog.js';
 import { getPackageVersion, install, loadLockFile, lockToSelections } from './installer.js';
 import { doctor } from './doctor.js';
 import { normalizeTuiPreferences, tuiPreferencesFromConfig, TUI_THEMES } from './agent-configs.js';
+import { status } from './ui.js';
 
 const CATEGORY_FLAGS = new Set(Object.keys(categories));
 
@@ -16,6 +17,7 @@ const defaultUi = {
   multiselect,
   spinner,
   select,
+  note,
   isCancel,
   log: (...args) => console.log(...args),
 };
@@ -77,9 +79,22 @@ function buildSummary(selections) {
   for (const [cat, ids] of Object.entries(selections)) {
     if (!ids?.length) continue;
     const catConfig = categories[cat];
-    lines.push(`  ${catConfig?.title || cat}: ${itemNames(catConfig, ids).join(', ')}`);
+    lines.push(`• ${catConfig?.title || cat}: ${itemNames(catConfig, ids).join(', ')}`);
   }
   return lines.join('\n');
+}
+
+function generatedFiles(selections, includeAgentsMd) {
+  const files = [];
+  if (includeAgentsMd) files.push('AGENTS.md');
+  files.push('opencode.json', 'tui.json', '.gitignore');
+  if (selections.mcps?.length) files.push('.env');
+  if (selections.memory?.length) files.push('memory/');
+  return files;
+}
+
+function fileList(files) {
+  return files.map(file => `• ${file}`).join('\n');
 }
 
 export function computeDiff(oldLock, selections) {
@@ -301,43 +316,18 @@ async function installGeneratedFiles({ ui, targetDir, agentType, force, dryRun, 
   });
   progress.stop('Done.');
 
-  const installed = includeAgentsMd ? ['AGENTS.md'] : [];
-  ui.outro(`${installed.join(' and ')} written. Open them in your project to get started.`);
+  ui.outro(includeAgentsMd ? 'AGENTS.md and configuration written.' : 'Configuration written.');
   return { status: 'installed' };
 }
 
 function reportPlan({ ui, oldLock, selections, includeAgentsMd }) {
   if (oldLock) {
     const diffText = formatDiff(computeDiff(oldLock, selections));
-    ui.log('\n📦 Changes from previous installation:\n');
-    if (diffText) {
-      ui.log(diffText);
-      ui.log();
-    } else {
-      ui.log('  No changes — same selections as before.\n');
-    }
-
-    const generatedFiles = [];
-    if (includeAgentsMd) generatedFiles.push('AGENTS.md');
-    generatedFiles.push('opencode.json', 'tui.json', '.gitignore');
-    if (selections.mcps?.length) generatedFiles.push('.env');
-    if (selections.memory?.length) generatedFiles.push('memory/');
-
-    if (generatedFiles.length) {
-      ui.log('  Generated files:');
-      for (const file of generatedFiles) ui.log(`    📄 ${file}`);
-      ui.log();
-    }
-    return;
+    ui.note(diffText || 'No changes — same selections as before.', 'Changes from previous installation');
+  } else {
+    ui.note(buildSummary(selections), 'What will be installed');
   }
-
-  ui.log('\n📦 Summary of what will be installed:\n');
-  if (includeAgentsMd) ui.log('  📄 AGENTS.md');
-  ui.log('  📄 opencode.json');
-  ui.log('  📄 tui.json');
-  ui.log('  📄 .gitignore');
-  ui.log(buildSummary(selections));
-  ui.log();
+  ui.note(fileList(generatedFiles(selections, includeAgentsMd)), 'Generated files');
 }
 
 async function collectSelections({ ui, selectedCategories, existingSelections }) {
@@ -442,12 +432,16 @@ async function installSelectedItems({ ui, targetDir, agentType, force, dryRun, o
 
   const fileCount = Object.values(selections).reduce((sum, ids) => sum + (ids?.length || 0), 0);
   const verb = oldLock ? 'Updated' : 'Installed';
-  ui.outro(`${verb} ${fileCount} components to ${finalTarget}
-
-Next steps:
-  ${agentType === 'opencode' ? '- Open your project in OpenCode — it will read opencode.json and AGENTS.md automatically' : '- Point your AI coding agent to AGENTS.md as the entry point'}
-  - Run /help in your agent to see available commands
-`);
+  ui.note(
+    [
+      agentType === 'opencode'
+        ? 'Open your project in OpenCode — it reads opencode.json and AGENTS.md automatically.'
+        : 'Point your AI coding agent to AGENTS.md as the entry point.',
+      'Run /help in your agent to see available commands.',
+    ].join('\n'),
+    'Next steps',
+  );
+  ui.outro(`${verb} ${fileCount} components to ${finalTarget}`);
   return { status: 'installed', target: finalTarget };
 }
 
@@ -474,7 +468,7 @@ export async function runNonInteractive({ targetDir, selections, all, includeAge
   const resolvedSelections = all ? allSelections() : selections;
   const absTarget = resolve(process.cwd(), targetDir);
   const oldLock = await loadLockFile(absTarget);
-  if (!dryRun) ui.log(`Installing selected components into ${absTarget}`);
+  if (!dryRun) ui.log(status('info', `Installing selected components into ${absTarget}`));
   await install({
     targetDir,
     agentType,
@@ -485,7 +479,7 @@ export async function runNonInteractive({ targetDir, selections, all, includeAge
     force,
     dryRun,
   });
-  ui.log(dryRun ? 'Dry run complete.' : 'Installation complete.');
+  ui.log(status(dryRun ? 'info' : 'success', dryRun ? 'Dry run complete.' : 'Installation complete.'));
 }
 
 export async function main(argv = process.argv.slice(2)) {
@@ -497,7 +491,7 @@ export async function main(argv = process.argv.slice(2)) {
   }
 
   const version = await getPackageVersion();
-  defaultUi.intro(`System prompt (v${version})`);
+  defaultUi.intro(`System prompt  ·  v${version}`);
 
   const agentType = 'opencode';
 

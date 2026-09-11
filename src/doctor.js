@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { categories } from './catalog.js';
 import { loadLockFile, lockToSelections } from './installer.js';
 import { itemRelativePath } from './item-layout.js';
+import { status } from './ui.js';
 
 async function exists(path) {
   try {
@@ -85,11 +86,12 @@ export async function inspectInstallation(targetDir) {
 
 export async function doctor(targetDir = '.opencode', output = console.log) {
   const result = await inspectInstallation(targetDir);
-  output(`Checking ${result.targetDir}`);
+  output(status('info', `Checking ${result.targetDir}`));
   if (result.issues.length === 0) {
-    output('No issues found.');
+    output(status('success', 'No issues found.'));
     return true;
   }
-  for (const issue of result.issues) output(`  ⚠  ${issue}`);
+  output(status('error', `${result.issues.length} issue${result.issues.length === 1 ? '' : 's'} found:`));
+  for (const issue of result.issues) output(`  ${status('warn', issue)}`);
   return false;
 }

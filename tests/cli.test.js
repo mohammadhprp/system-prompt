@@ -21,6 +21,7 @@ function makeUi({ confirm = () => true, multiselect = () => [], select = () => C
   return {
     intro() {},
     outro() {},
+    note() {},
     log() {},
     isCancel: value => value === CANCEL,
     spinner: () => ({ start() {}, stop() {} }),
@@ -139,6 +140,21 @@ test('runInteractive installs the selected items', () => withWorkspace(async () 
   await assert.rejects(access(join('.opencode', 'AGENTS.md')), { code: 'ENOENT' });
 }));
 
+test('runInteractive presents the plan and next steps as notes', () => withWorkspace(async () => {
+  const notes = [];
+  const ui = makeUi({ multiselect: () => ['commands'], confirm: scripted([false, true, false, true]) });
+  ui.note = (message, title) => notes.push({ message, title });
+
+  const result = await runInteractive({ targetDir: '.opencode', ui });
+
+  assert.equal(result.status, 'installed');
+  assert.deepEqual(notes.map(entry => entry.title), ['What will be installed', 'Generated files', 'Next steps']);
+  assert.match(notes[0].message, /Slash Commands: /);
+  assert.match(notes[0].message, /Summarize Changes/);
+  assert.match(notes[1].message, /opencode\.json/);
+  assert.match(notes[2].message, /OpenCode/);
+}));
+
 test('runInteractive writes nothing when the final confirmation is declined', () => withWorkspace(async () => {
   const ui = makeUi({ multiselect: () => ['commands'], confirm: scripted([false, true, false, false]) });
 
@@ -212,6 +228,27 @@ test('runInteractive keeps deselected items when the user declines removal', () 
   assert.equal(result.status, 'installed');
   await access(join('.opencode', 'commands/summarize-changes.md'));
   await access(join('.opencode', 'skills/adhd/SKILL.md'));
+}));
+
+test('runInteractive summarizes changes when updating a previous installation', () => withWorkspace(async () => {
+  await install({
+    targetDir: '.opencode',
+    agentType: 'opencode',
+    selections: { commands: ['summarize-changes'] },
+    includeAgentsMd: false,
+  });
+
+  const notes = [];
+  const ui = makeUi({
+    multiselect: options => (options.message.startsWith('Which') ? ['adhd'] : ['skills']),
+    confirm: scripted([false, false, false, false, true]),
+  });
+  ui.note = (message, title) => notes.push({ message, title });
+
+  await runInteractive({ targetDir: '.opencode', ui });
+
+  assert.equal(notes[0].title, 'Changes from previous installation');
+  assert.match(notes[0].message, /\+ Added:/);
 }));
 
 test('runNonInteractive performs a dry run without writing files', () => withWorkspace(async () => {

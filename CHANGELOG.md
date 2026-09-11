@@ -4,6 +4,10 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Changed
+- Polished the interactive CLI output: the installation plan, generated-files list, and next steps now render as structured boxes instead of loose emoji log lines, and the intro shows the package version.
+- Added `src/ui.js`, a dependency-free, color-aware status helper (`✓` / `›` / `!` / `✗`) now used by `doctor`, non-interactive logs, and installer/config warnings so CLI output is consistent.
+
 ## [v0.13.1] - 2026-09-11
 
 ### Added

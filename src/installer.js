@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto';
 import { categories } from './catalog.js';
 import { loadMcpConfigs, generateOpenCodeConfig, generateTuiConfig } from './agent-configs.js';
 import { LOCK_CATEGORIES, isFileBased, isCopyable, itemSourcePath, itemRelativePath, targetSubdir } from './item-layout.js';
+import { status } from './ui.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
@@ -233,7 +234,7 @@ async function canWrite(destFile, relativePath, oldLock, force) {
 async function writeManagedFile(destFile, content, relativePath, options, owner) {
   await assertSafeDestination(options.targetDir, destFile);
   if (!options.allowExistingMerge && !(await canWrite(destFile, relativePath, options.oldLock, options.force))) {
-    console.warn(`  ⚠  Preserving existing file: ${relativePath}`);
+    console.warn(status('warn', `Preserving existing file: ${relativePath}`));
     return false;
   }
   if (!options.dryRun) await mkdir(dirname(destFile), { recursive: true });
@@ -315,7 +316,7 @@ async function copySelectedDirs(targetDir, category, selectedIds, options) {
       await copyDir(srcPath, destPath, itemRelativePath(category, id), options, { category, id });
     } catch (error) {
       if (sourceMissing(error)) {
-        console.warn(`  ⚠  Source not found: ${source}`);
+        console.warn(status('warn', `Source not found: ${source}`));
         continue;
       }
       throw error;
@@ -342,7 +343,7 @@ async function copySelectedFiles(targetDir, category, selectedIds, options) {
       await writeManagedFile(destFile, content, relativePath, options, { category, id });
     } catch (error) {
       if (sourceMissing(error)) {
-        console.warn(`  ⚠  Source not found: ${source}`);
+        console.warn(status('warn', `Source not found: ${source}`));
         continue;
       }
       throw error;
@@ -360,7 +361,7 @@ async function deleteSelectedItems(absTarget, category, ids, oldLock, force, dry
     if (!force && oldLock) {
       const managedEntries = Object.entries(oldLock?.[category]?.[id]?.files || {});
       if (managedEntries.length === 0) {
-        console.warn(`  ⚠  Preserving unmanaged item: ${relativePath}`);
+        console.warn(status('warn', `Preserving unmanaged item: ${relativePath}`));
         continue;
       }
       let modified = false;
@@ -373,7 +374,7 @@ async function deleteSelectedItems(absTarget, category, ids, oldLock, force, dry
         }
       }
       if (modified) {
-        console.warn(`  ⚠  Preserving modified item: ${relativePath}`);
+        console.warn(status('warn', `Preserving modified item: ${relativePath}`));
         continue;
       }
       if (!isFileBased(category)) {

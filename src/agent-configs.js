@@ -2,6 +2,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { readFile } from 'node:fs/promises';
 
+import { status } from './ui.js';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
 
@@ -17,7 +19,7 @@ export async function loadMcpConfigs(selectedIds) {
       }
     } catch (error) {
       if (error.code === 'ENOENT') {
-        console.warn(`  ⚠  No opencode.json config found for MCP: ${id}`);
+        console.warn(status('warn', `No opencode.json config found for MCP: ${id}`));
         continue;
       }
       throw error;
