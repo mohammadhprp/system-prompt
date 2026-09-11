@@ -106,5 +106,9 @@ test('tuiPreferencesFromConfig extracts only known settings', () => {
 test('loadMcpConfigs reads framework MCP opencode configs', async () => {
   const configs = await loadMcpConfigs(['playwright-mcp']);
 
-  assert.ok(Object.keys(configs).length > 0);
+  assert.deepEqual(configs.playwright, {
+    type: 'local',
+    enabled: true,
+    command: ['npx', '@playwright/mcp@latest'],
+  });
 });

@@ -1,31 +1,64 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { install } from '../src/installer.js';
 import { inspectInstallation } from '../src/doctor.js';
+import { withWorkspace } from './helpers/workspace.js';
 
-test('doctor reports modified managed files', async () => {
-  const previousCwd = process.cwd();
-  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+const SELECTIONS = { commands: ['summarize-changes'] };
 
-  try {
-    process.chdir(workspace);
-    const target = await install({
-      targetDir: '.opencode',
-      agentType: 'opencode',
-      selections: { commands: ['summarize-changes'] },
-      includeAgentsMd: false,
-    });
-    const commandPath = join(target, 'commands/summarize-changes.md');
-    await writeFile(commandPath, `${await readFile(commandPath, 'utf-8')}\nUser change\n`);
+async function healthyInstall() {
+  return install({
+    targetDir: '.opencode',
+    agentType: 'opencode',
+    selections: SELECTIONS,
+    includeAgentsMd: true,
+  });
+}
 
-    const result = await inspectInstallation('.opencode');
-    assert.ok(result.issues.some(issue => issue.includes('Modified managed file: commands/summarize-changes.md')));
-  } finally {
-    process.chdir(previousCwd);
-    await rm(workspace, { recursive: true, force: true });
-  }
-});
+test('doctor reports no issues for a healthy installation', () => withWorkspace(async () => {
+  await healthyInstall();
+  const result = await inspectInstallation('.opencode');
+  assert.deepEqual(result.issues, []);
+}));
+
+test('doctor reports a missing lock file', () => withWorkspace(async () => {
+  const result = await inspectInstallation('.opencode');
+  assert.deepEqual(result.issues, ['No system-prompt-lock.json found.']);
+}));
+
+test('doctor reports a malformed lock file', () => withWorkspace(async () => {
+  const target = await healthyInstall();
+  await writeFile(join(target, 'system-prompt-lock.json'), '{ not valid json');
+
+  const result = await inspectInstallation('.opencode');
+  assert.equal(result.issues.length, 1);
+  assert.match(result.issues[0], /system-prompt-lock\.json/);
+}));
+
+test('doctor reports modified managed files', () => withWorkspace(async () => {
+  const target = await healthyInstall();
+  const commandPath = join(target, 'commands/summarize-changes.md');
+  await writeFile(commandPath, `${await readFile(commandPath, 'utf-8')}\nUser change\n`);
+
+  const result = await inspectInstallation('.opencode');
+  assert.ok(result.issues.some(issue => issue === 'Modified managed file: commands/summarize-changes.md'));
+}));
+
+test('doctor reports missing managed files', () => withWorkspace(async () => {
+  const target = await healthyInstall();
+  await rm(join(target, 'commands/summarize-changes.md'));
+
+  const result = await inspectInstallation('.opencode');
+  assert.ok(result.issues.some(issue => issue === 'Missing managed file: commands/summarize-changes.md'));
+}));
+
+test('doctor reports invalid generated JSON', () => withWorkspace(async () => {
+  const target = await healthyInstall();
+  await writeFile(join(target, 'opencode.json'), '{ nope');
+
+  const result = await inspectInstallation('.opencode');
+  assert.ok(result.issues.some(issue => issue === 'Invalid JSON: opencode.json'));
+}));

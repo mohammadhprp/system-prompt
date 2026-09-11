@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 
 import { categories } from '../src/catalog.js';
+import { itemSourcePath } from '../src/item-layout.js';
 
 const packageRoot = resolve(import.meta.dirname, '..');
 const execFileAsync = promisify(execFile);
@@ -25,6 +26,7 @@ test('catalog entries point to framework content', async () => {
   for (const [category, config] of Object.entries(categories)) {
     assert.ok(config.title, `${category} has a title`);
     assert.ok(config.sourceDir, `${category} has a sourceDir`);
+    assert.ok(['file', 'directory'].includes(config.itemLayout), `${category} has an itemLayout`);
     assert.ok(config.items.length > 0, `${category} has items`);
 
     for (const item of config.items) {
@@ -32,8 +34,7 @@ test('catalog entries point to framework content', async () => {
       assert.ok(item.name, `${category}:${item.id} has a name`);
       assert.ok(item.description, `${category}:${item.id} has a description`);
 
-      const suffix = ['agents', 'commands', 'memory', 'standards', 'templates', 'modes'].includes(category) ? `${item.id}.md` : item.id;
-      await access(resolve(packageRoot, config.sourceDir, suffix));
+      await access(resolve(packageRoot, itemSourcePath(category, item.id)));
     }
   }
 });
