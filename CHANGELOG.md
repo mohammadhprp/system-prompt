@@ -5,6 +5,7 @@ All notable changes to this project are documented here.
 ## Unreleased
 
 ### Changed
+- Reorganized `src/` from seven flat modules into responsibility-based directories: `src/config/` (OpenCode/TUI/MCP config), `src/install/` (installer, lock, file and env handling), and `src/cli/` (args, plan, interactive, TUI prompts, clack adapter). Shared foundations (`catalog.js`, `item-layout.js`, `ui.js`, `paths.js`, `hash.js`, `doctor.js`) stay at the top level; the lock schema, safe-path checks, templates, and MCP env merging are now their own modules.
 - Polished the interactive CLI output: the installation plan, generated-files list, and next steps now render as structured boxes instead of loose emoji log lines, and the intro shows the package version.
 - Added `src/ui.js`, a dependency-free, color-aware status helper (`✓` / `›` / `!` / `✗`) now used by `doctor`, non-interactive logs, and installer/config warnings so CLI output is consistent.
 
