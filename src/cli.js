@@ -1,9 +1,11 @@
-import { intro, outro, confirm, multiselect, spinner, isCancel } from '@clack/prompts';
+import { intro, outro, confirm, multiselect, spinner, select, isCancel } from '@clack/prompts';
+import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 import { categories } from './catalog.js';
 import { getPackageVersion, install, loadLockFile, lockToSelections } from './installer.js';
 import { doctor } from './doctor.js';
+import { normalizeTuiPreferences, tuiPreferencesFromConfig, TUI_THEMES } from './agent-configs.js';
 
 const CATEGORY_FLAGS = new Set(Object.keys(categories));
 
@@ -137,6 +139,130 @@ function formatDiff(diff) {
   return lines.join('\n');
 }
 
+export function initialItemValues(visibleItems, existingIds = []) {
+  const visible = new Set(visibleItems.map(item => item.id));
+  return existingIds.filter(id => visible.has(id));
+}
+
+export function shouldPreselectAll(visibleItems, existingIds = []) {
+  if (existingIds.length) return existingIds.length === visibleItems.length;
+  return visibleItems.length <= 12;
+}
+
+async function readTuiPreferences(absTarget) {
+  try {
+    return tuiPreferencesFromConfig(JSON.parse(await readFile(resolve(absTarget, 'tui.json'), 'utf-8')));
+  } catch (error) {
+    if (error.code === 'ENOENT' || error instanceof SyntaxError) return {};
+    throw error;
+  }
+}
+
+async function collectTuiPreferences(existing = {}) {
+  const base = normalizeTuiPreferences(existing);
+
+  const theme = await select({
+    message: 'TUI theme',
+    options: TUI_THEMES.map(value => ({
+      value,
+      label: value,
+      hint: value === 'system' ? 'Adapts to your terminal' : undefined,
+    })),
+    initialValue: base.theme,
+  });
+  if (isCancel(theme)) return null;
+
+  const diffStyle = await select({
+    message: 'Diff style',
+    options: [
+      { value: 'auto', label: 'auto', hint: 'Adapts to terminal width' },
+      { value: 'stacked', label: 'stacked', hint: 'Always single column' },
+    ],
+    initialValue: base.diff_style,
+  });
+  if (isCancel(diffStyle)) return null;
+
+  const cursorStyle = await select({
+    message: 'Cursor style',
+    options: ['block', 'underline', 'line', 'default'].map(value => ({ value, label: value })),
+    initialValue: base.cursor.style,
+  });
+  if (isCancel(cursorStyle)) return null;
+
+  const scrollSpeed = await select({
+    message: 'Scroll speed',
+    options: [
+      { value: 1, label: '1', hint: 'Slow' },
+      { value: 2, label: '2' },
+      { value: 3, label: '3', hint: 'Default' },
+      { value: 4, label: '4' },
+      { value: 5, label: '5', hint: 'Fast' },
+    ],
+    initialValue: base.scroll_speed,
+  });
+  if (isCancel(scrollSpeed)) return null;
+
+  const scrollAcceleration = await confirm({
+    message: 'Enable scroll acceleration?',
+    initialValue: base.scroll_acceleration,
+  });
+  if (isCancel(scrollAcceleration)) return null;
+
+  const mouse = await confirm({
+    message: 'Enable mouse support?',
+    initialValue: base.mouse,
+  });
+  if (isCancel(mouse)) return null;
+
+  const attentionEnabled = await confirm({
+    message: 'Enable attention notifications and sounds?',
+    initialValue: base.attention.enabled,
+  });
+  if (isCancel(attentionEnabled)) return null;
+
+  const attention = { ...base.attention, enabled: attentionEnabled };
+  if (attentionEnabled) {
+    const notifications = await confirm({
+      message: 'Desktop notifications?',
+      initialValue: base.attention.notifications,
+    });
+    if (isCancel(notifications)) return null;
+
+    const sound = await confirm({
+      message: 'Sound alerts?',
+      initialValue: base.attention.sound,
+    });
+    if (isCancel(sound)) return null;
+
+    const volume = await select({
+      message: 'Alert volume',
+      options: [
+        { value: 0.2, label: '20%' },
+        { value: 0.4, label: '40%', hint: 'Default' },
+        { value: 0.6, label: '60%' },
+        { value: 0.8, label: '80%' },
+        { value: 1, label: '100%' },
+      ],
+      initialValue: base.attention.volume,
+    });
+    if (isCancel(volume)) return null;
+
+    attention.notifications = notifications;
+    attention.sound = sound;
+    attention.volume = volume;
+  }
+
+  return normalizeTuiPreferences({
+    theme,
+    diff_style: diffStyle,
+    cursor: { style: cursorStyle, blinking: base.cursor.blinking },
+    scroll_speed: scrollSpeed,
+    scroll_acceleration: scrollAcceleration,
+    mouse,
+    attention,
+  });
+}
+
 export async function main(argv = process.argv.slice(2)) {
   const args = parseArgs(argv);
   if (args.doctor) {
@@ -179,9 +305,15 @@ export async function main(argv = process.argv.slice(2)) {
     };
   });
 
+  const absTarget = resolve(process.cwd(), targetDir);
+  const oldLock = await loadLockFile(absTarget);
+  const existingSelections = lockToSelections(oldLock);
+  const existingTuiPreferences = await readTuiPreferences(absTarget);
+
   const selectedCategories = await multiselect({
     message: 'What would you like to install?',
     options: categoryOptions,
+    initialValues: Object.keys(existingSelections),
     required: false,
   });
   if (isCancel(selectedCategories)) {
@@ -192,20 +324,37 @@ export async function main(argv = process.argv.slice(2)) {
   if (!selectedCategories?.length) {
     const includeAgentsMd = await confirm({
       message: 'Generate AGENTS.md?',
-      initialValue: true,
+      initialValue: oldLock ? oldLock.includeAgentsMd : true,
     });
     if (isCancel(includeAgentsMd)) {
       outro('Cancelled.');
       process.exit(0);
     }
 
+    const hasExisting = Object.keys(existingSelections).length > 0;
+    let keepExisting = false;
+    if (hasExisting) {
+      const removeAll = await confirm({
+        message: 'Remove all previously installed components?',
+        initialValue: false,
+      });
+      if (isCancel(removeAll)) {
+        outro('Cancelled.');
+        process.exit(0);
+      }
+      keepExisting = !removeAll;
+    }
+
     const s = spinner();
     s.start('Writing files...');
     await install({
-       targetDir,
+      targetDir,
       agentType,
-      selections: {},
+      selections: keepExisting ? existingSelections : {},
       includeAgentsMd,
+      oldSelections: hasExisting ? existingSelections : undefined,
+      oldLock,
+      tuiPreferences: existingTuiPreferences,
     });
     s.stop('Done.');
     const installed = [];
@@ -218,7 +367,7 @@ export async function main(argv = process.argv.slice(2)) {
 
   const includeAgentsMd = await confirm({
     message: 'Generate AGENTS.md?',
-    initialValue: true,
+    initialValue: oldLock ? oldLock.includeAgentsMd : true,
   });
   if (isCancel(includeAgentsMd)) {
     outro('Cancelled.');
@@ -227,31 +376,31 @@ export async function main(argv = process.argv.slice(2)) {
 
   for (const cat of selectedCategories) {
     const catConfig = categories[cat];
-    const allIds = catConfig.items.map(i => i.id);
+    const visibleItems = catConfig.items.filter(i => !i.removed);
+    const existingIds = initialItemValues(visibleItems, existingSelections[cat] || []);
 
-      const visibleItems = catConfig.items.filter(i => !i.removed);
+    const all = await confirm({
+      message: `Install all ${catConfig.title.toLowerCase()}?`,
+      initialValue: shouldPreselectAll(visibleItems, existingIds),
+    });
+    if (isCancel(all)) {
+      outro('Cancelled.');
+      process.exit(0);
+    }
 
-      const all = await confirm({
-        message: `Install all ${catConfig.title.toLowerCase()}?`,
-        initialValue: visibleItems.length <= 12,
+    if (all) {
+      selections[cat] = visibleItems.map(i => i.id);
+    } else {
+      const picked = await multiselect({
+        message: `Which ${catConfig.title.toLowerCase()} do you want?`,
+        options: visibleItems.map(item => ({
+          value: item.id,
+          label: item.deprecated ? `${item.name} (deprecated)` : item.name,
+          hint: item.deprecated ? '⚠  Deprecated — consider alternatives' : item.description,
+        })),
+        initialValues: existingIds,
+        required: true,
       });
-      if (isCancel(all)) {
-        outro('Cancelled.');
-        process.exit(0);
-      }
-
-      if (all) {
-        selections[cat] = visibleItems.map(i => i.id);
-      } else {
-        const picked = await multiselect({
-          message: `Which ${catConfig.title.toLowerCase()} do you want?`,
-          options: visibleItems.map(item => ({
-            value: item.id,
-            label: item.deprecated ? `${item.name} (deprecated)` : item.name,
-            hint: item.deprecated ? '⚠  Deprecated — consider alternatives' : item.description,
-          })),
-          required: true,
-        });
       if (isCancel(picked)) {
         outro('Cancelled.');
         process.exit(0);
@@ -260,8 +409,42 @@ export async function main(argv = process.argv.slice(2)) {
     }
   }
 
-  const absTarget = resolve(process.cwd(), targetDir);
-  const oldLock = await loadLockFile(absTarget);
+  let tuiPreferences = existingTuiPreferences;
+  const customizeTui = await confirm({
+    message: 'Customize OpenCode TUI settings?',
+    initialValue: false,
+  });
+  if (isCancel(customizeTui)) {
+    outro('Cancelled.');
+    process.exit(0);
+  }
+  if (customizeTui) {
+    const custom = await collectTuiPreferences(existingTuiPreferences);
+    if (!custom) {
+      outro('Cancelled.');
+      process.exit(0);
+    }
+    tuiPreferences = custom;
+  }
+
+  if (oldLock) {
+    const initialDiff = computeDiff(oldLock, selections);
+    if (Object.keys(initialDiff.removed).length) {
+      const removeDeselected = await confirm({
+        message: 'Remove deselected items from the previous installation?',
+        initialValue: false,
+      });
+      if (isCancel(removeDeselected)) {
+        outro('Cancelled.');
+        process.exit(0);
+      }
+      if (!removeDeselected) {
+        for (const [cat, data] of Object.entries(initialDiff.removed)) {
+          selections[cat] = [...new Set([...(selections[cat] || []), ...data.ids])];
+        }
+      }
+    }
+  }
 
   if (oldLock) {
     const diff = computeDiff(oldLock, selections);
@@ -315,8 +498,9 @@ export async function main(argv = process.argv.slice(2)) {
     agentType,
     selections,
     includeAgentsMd,
-    oldSelections: oldLock ? lockToSelections(oldLock) : undefined,
+    oldSelections: oldLock ? existingSelections : undefined,
     oldLock,
+    tuiPreferences,
     force: args.force,
     dryRun: args.dryRun,
   });

@@ -6,6 +6,10 @@ All notable changes to this project are documented here.
 
 ### Added
 - Added the `grilling` skill for relentlessly stress-testing plans and decisions through design-tree rounds until shared understanding is reached (adapted from `mattpocock/skills`, MIT).
+- Interactive TUI setup: the CLI can now prompt for OpenCode `tui.json` preferences (theme, diff style, cursor, scroll, mouse, and attention notifications/sounds/volume) and writes them instead of always using hardcoded defaults.
+
+### Changed
+- Re-running the installer no longer starts from an empty selection. Previously installed categories and items are pre-selected from `system-prompt-lock.json`, and deselected items are only removed after an explicit confirmation.
 
 ## [v0.13.0] - 2026-09-10
 

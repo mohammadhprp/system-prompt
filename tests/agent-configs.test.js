@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { generateOpenCodeConfig, generateTuiConfig, loadMcpConfigs } from '../src/agent-configs.js';
+import { generateOpenCodeConfig, generateTuiConfig, loadMcpConfigs, normalizeTuiPreferences, tuiPreferencesFromConfig } from '../src/agent-configs.js';
 
 test('generateOpenCodeConfig includes selected plugins, references, and MCPs', () => {
   const config = JSON.parse(generateOpenCodeConfig({
@@ -43,6 +43,64 @@ test('generateTuiConfig includes the goal plugin when selected', () => {
 
   assert.equal(config.$schema, 'https://opencode.ai/tui.json');
   assert.deepEqual(config.plugin, ['@prevalentware/opencode-goal-plugin']);
+});
+
+test('generateTuiConfig applies user preferences over defaults', () => {
+  const config = JSON.parse(generateTuiConfig({
+    selections: {},
+    preferences: {
+      theme: 'tokyonight',
+      scroll_speed: 5,
+      scroll_acceleration: false,
+      diff_style: 'stacked',
+      mouse: false,
+      cursor: { style: 'line', blinking: false },
+      attention: { enabled: false, sound: false, volume: 0.8 },
+    },
+  }));
+
+  assert.equal(config.theme, 'tokyonight');
+  assert.equal(config.scroll_speed, 5);
+  assert.equal(config.scroll_acceleration.enabled, false);
+  assert.equal(config.diff_style, 'stacked');
+  assert.equal(config.mouse, false);
+  assert.deepEqual(config.cursor, { style: 'line', blinking: false });
+  assert.equal(config.attention.enabled, false);
+  assert.equal(config.attention.sound, false);
+  assert.equal(config.attention.volume, 0.8);
+  assert.equal(config.attention.notifications, true);
+});
+
+test('normalizeTuiPreferences falls back on invalid values', () => {
+  const prefs = normalizeTuiPreferences({
+    theme: '',
+    scroll_speed: -5,
+    diff_style: 'bogus',
+    cursor: { style: 'nope' },
+    attention: { volume: 3 },
+  });
+
+  assert.equal(prefs.theme, 'system');
+  assert.equal(prefs.scroll_speed, 3);
+  assert.equal(prefs.diff_style, 'auto');
+  assert.equal(prefs.cursor.style, 'block');
+  assert.equal(prefs.attention.volume, 0.4);
+});
+
+test('tuiPreferencesFromConfig extracts only known settings', () => {
+  const prefs = tuiPreferencesFromConfig({
+    theme: 'nord',
+    diff_style: 'stacked',
+    scroll_acceleration: { enabled: false },
+    mouse: false,
+    unknown: true,
+  });
+
+  assert.equal(prefs.theme, 'nord');
+  assert.equal(prefs.diff_style, 'stacked');
+  assert.equal(prefs.scroll_acceleration, false);
+  assert.equal(prefs.mouse, false);
+  assert.equal('unknown' in prefs, false);
 });
 
 test('loadMcpConfigs reads framework MCP opencode configs', async () => {

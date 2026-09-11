@@ -199,6 +199,38 @@ test('install copies the jira-cli skill with its references', async () => {
   }
 });
 
+test('install writes TUI preferences into tui.json', async () => {
+  const previousCwd = process.cwd();
+  const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));
+
+  try {
+    process.chdir(workspace);
+
+    const absTarget = await install({
+      targetDir: '.opencode',
+      agentType: 'opencode',
+      selections: {},
+      includeAgentsMd: false,
+      tuiPreferences: {
+        theme: 'nord',
+        diff_style: 'stacked',
+        mouse: false,
+        attention: { enabled: false },
+      },
+    });
+
+    const tui = JSON.parse(await readFile(join(absTarget, 'tui.json'), 'utf-8'));
+    assert.equal(tui.theme, 'nord');
+    assert.equal(tui.diff_style, 'stacked');
+    assert.equal(tui.mouse, false);
+    assert.equal(tui.attention.enabled, false);
+    assert.equal(tui.attention.notifications, true);
+  } finally {
+    process.chdir(previousCwd);
+    await rm(workspace, { recursive: true, force: true });
+  }
+});
+
 test('loadLockFile reads the lock file written by install', async () => {
   const previousCwd = process.cwd();
   const workspace = await mkdtemp(join(tmpdir(), 'system-prompt-test-'));

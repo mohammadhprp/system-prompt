@@ -472,7 +472,7 @@ export function validateSelections(selections) {
   return selections;
 }
 
-export async function install({ targetDir, agentType, selections, includeAgentsMd = true, writeAgentsMd, oldSelections, oldLock, force = false, dryRun = false }) {
+export async function install({ targetDir, agentType, selections, includeAgentsMd = true, writeAgentsMd, oldSelections, oldLock, force = false, dryRun = false, tuiPreferences }) {
   validateSelections(selections);
   if (oldLock) validateLock(oldLock);
   writeAgentsMd = writeAgentsMd ?? includeAgentsMd;
@@ -542,11 +542,11 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
         mcpEntries: previousMcpEntries,
         includeAgentsMd: oldLock.includeAgentsMd ?? true,
       }));
-      previousTuiConfig = JSON.parse(generateTuiConfig({ selections: oldSelections }));
+      previousTuiConfig = JSON.parse(generateTuiConfig({ selections: oldSelections, preferences: tuiPreferences }));
     }
     const configJson = generateOpenCodeConfig({ selections, mcpEntries, includeAgentsMd });
     await mergeJsonFile(resolve(absTarget, 'opencode.json'), JSON.parse(configJson), 'opencode.json', options, previousOpenCodeConfig);
-    await mergeJsonFile(resolve(absTarget, 'tui.json'), JSON.parse(generateTuiConfig({ selections })), 'tui.json', options, previousTuiConfig);
+    await mergeJsonFile(resolve(absTarget, 'tui.json'), JSON.parse(generateTuiConfig({ selections, preferences: tuiPreferences })), 'tui.json', options, previousTuiConfig);
     await mergeGitignore(resolve(absTarget, '.gitignore'), options);
   }
 
