@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 
 import { categories } from './catalog.js';
 import { loadMcpConfigs, generateOpenCodeConfig, generateTuiConfig } from './agent-configs.js';
+import { LOCK_CATEGORIES, isFileBased, isCopyable, itemSourcePath, itemRelativePath, targetSubdir } from './item-layout.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
@@ -87,9 +88,6 @@ bun.lock
 `;
 
 export const LOCK_VERSION = 1;
-export const LOCK_CATEGORIES = ['skills', 'agents', 'commands', 'mcps', 'plugins', 'styles', 'modes', 'memory', 'standards', 'templates'];
-
-const FILE_BASED = new Set(['agents', 'commands', 'memory', 'modes', 'standards', 'templates']);
 
 export function lockToSelections(lock) {
   const selections = {};
@@ -99,12 +97,6 @@ export function lockToSelections(lock) {
     if (ids.length) selections[category] = ids;
   }
   return selections;
-}
-
-function itemSourcePath(category, id) {
-  const config = categories[category];
-  if (FILE_BASED.has(category)) return `${config.sourceDir}/${id}.md`;
-  return `${config.sourceDir}/${id}`;
 }
 
 function buildComputedHash(files, fallbackId) {
@@ -308,22 +300,22 @@ async function copySelectedDirs(targetDir, category, selectedIds, options) {
   const catConfig = categories[category];
   if (!catConfig || !selectedIds?.length) return;
 
-  const relativeDir = targetSubdir(catConfig.sourceDir);
-  const destParent = resolve(targetDir, relativeDir);
+  const destParent = resolve(targetDir, targetSubdir(catConfig.sourceDir));
 
   for (const id of selectedIds) {
     if (await isRemoved(category, id)) continue;
 
-    const srcPath = resolveSource(`${catConfig.sourceDir}/${id}`);
+    const source = itemSourcePath(category, id);
+    const srcPath = resolveSource(source);
     const destPath = resolve(destParent, id);
     await assertSafeDestination(targetDir, destPath);
 
     try {
       await stat(srcPath);
-      await copyDir(srcPath, destPath, `${relativeDir}/${id}`, options, { category, id });
+      await copyDir(srcPath, destPath, itemRelativePath(category, id), options, { category, id });
     } catch (error) {
       if (sourceMissing(error)) {
-        console.warn(`  ⚠  Source not found: ${catConfig.sourceDir}/${id}`);
+        console.warn(`  ⚠  Source not found: ${source}`);
         continue;
       }
       throw error;
@@ -335,22 +327,22 @@ async function copySelectedFiles(targetDir, category, selectedIds, options) {
   const catConfig = categories[category];
   if (!catConfig || !selectedIds?.length) return;
 
-  const relativeDir = targetSubdir(catConfig.sourceDir);
-  const destParent = resolve(targetDir, relativeDir);
+  const destParent = resolve(targetDir, targetSubdir(catConfig.sourceDir));
   if (!options.dryRun) await mkdir(destParent, { recursive: true });
 
   for (const id of selectedIds) {
     if (await isRemoved(category, id)) continue;
 
-    const srcFile = resolveSource(`${catConfig.sourceDir}/${id}.md`);
-    const destFile = resolve(destParent, `${id}.md`);
+    const source = itemSourcePath(category, id);
+    const relativePath = itemRelativePath(category, id);
+    const destFile = resolve(targetDir, relativePath);
     await assertSafeDestination(targetDir, destFile);
     try {
-      const content = await readFile(srcFile);
-      await writeManagedFile(destFile, content, `${relativeDir}/${id}.md`, options, { category, id });
+      const content = await readFile(resolveSource(source));
+      await writeManagedFile(destFile, content, relativePath, options, { category, id });
     } catch (error) {
       if (sourceMissing(error)) {
-        console.warn(`  ⚠  Source not found: ${catConfig.sourceDir}/${id}.md`);
+        console.warn(`  ⚠  Source not found: ${source}`);
         continue;
       }
       throw error;
@@ -359,21 +351,14 @@ async function copySelectedFiles(targetDir, category, selectedIds, options) {
 }
 
 async function deleteSelectedItems(absTarget, category, ids, oldLock, force, dryRun) {
-  const catConfig = categories[category];
-  if (!catConfig || !ids?.length) return;
+  if (!categories[category] || !ids?.length || !isCopyable(category)) return;
 
-  if (!FILE_BASED.has(category) && category !== 'skills' && category !== 'styles') return;
-
-  const relativeDir = targetSubdir(catConfig.sourceDir);
   for (const id of ids) {
-    const relativePath = FILE_BASED.has(category)
-      ? `${relativeDir}/${id}.md`
-      : `${relativeDir}/${id}`;
+    const relativePath = itemRelativePath(category, id);
     const destPath = resolve(absTarget, relativePath);
     await assertSafeDestination(absTarget, destPath);
     if (!force && oldLock) {
-      const oldFiles = oldLock?.[category]?.[id]?.files || {};
-      const managedEntries = Object.entries(oldFiles);
+      const managedEntries = Object.entries(oldLock?.[category]?.[id]?.files || {});
       if (managedEntries.length === 0) {
         console.warn(`  ⚠  Preserving unmanaged item: ${relativePath}`);
         continue;
@@ -391,7 +376,7 @@ async function deleteSelectedItems(absTarget, category, ids, oldLock, force, dry
         console.warn(`  ⚠  Preserving modified item: ${relativePath}`);
         continue;
       }
-      if (!FILE_BASED.has(category)) {
+      if (!isFileBased(category)) {
         if (!dryRun) {
           for (const [path] of managedEntries) await rm(resolve(absTarget, path), { force: true });
         }
@@ -516,11 +501,11 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
   }
 
   const tasks = [];
-  for (const category of ['skills', 'styles']) {
-    if (selections[category]?.length) tasks.push(copySelectedDirs(absTarget, category, selections[category], options));
-  }
-  for (const category of ['agents', 'commands', 'modes', 'memory', 'standards', 'templates']) {
-    if (selections[category]?.length) tasks.push(copySelectedFiles(absTarget, category, selections[category], options));
+  for (const category of LOCK_CATEGORIES) {
+    if (!isCopyable(category) || !selections[category]?.length) continue;
+    tasks.push(isFileBased(category)
+      ? copySelectedFiles(absTarget, category, selections[category], options)
+      : copySelectedDirs(absTarget, category, selections[category], options));
   }
   await Promise.all(tasks);
 
@@ -594,10 +579,6 @@ export async function install({ targetDir, agentType, selections, includeAgentsM
 
 function resolveSource(subpath) {
   return resolve(packageRoot, subpath);
-}
-
-function targetSubdir(sourceDir) {
-  return sourceDir.replace(/^framework\//, '');
 }
 
 async function isRemoved(category, id) {

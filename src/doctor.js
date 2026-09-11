@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 
 import { categories } from './catalog.js';
 import { loadLockFile, lockToSelections } from './installer.js';
+import { itemRelativePath } from './item-layout.js';
 
 async function exists(path) {
   try {
@@ -11,6 +12,16 @@ async function exists(path) {
     return true;
   } catch {
     return false;
+  }
+}
+
+async function checkManagedFile(absTarget, relativePath, expectedHash, issues) {
+  try {
+    const actual = createHash('sha256').update(await readFile(resolve(absTarget, relativePath))).digest('hex');
+    if (actual !== expectedHash) issues.push(`Modified managed file: ${relativePath}`);
+  } catch (error) {
+    if (error.code === 'ENOENT') issues.push(`Missing managed file: ${relativePath}`);
+    else throw error;
   }
 }
 
@@ -32,26 +43,14 @@ export async function inspectInstallation(targetDir) {
   }
 
   for (const [path, entry] of Object.entries(lock.generated || {})) {
-    try {
-      const actual = createHash('sha256').update(await readFile(resolve(absTarget, path))).digest('hex');
-      if (actual !== entry.computedHash) issues.push(`Modified managed file: ${path}`);
-    } catch (error) {
-      if (error.code === 'ENOENT') issues.push(`Missing managed file: ${path}`);
-      else throw error;
-    }
+    await checkManagedFile(absTarget, path, entry.computedHash, issues);
   }
 
   for (const [category, entries] of Object.entries(lock)) {
     if (!categories[category]) continue;
-    for (const [id, entry] of Object.entries(entries)) {
+    for (const entry of Object.values(entries)) {
       for (const [path, expected] of Object.entries(entry.files || {})) {
-        try {
-          const actual = createHash('sha256').update(await readFile(resolve(absTarget, path))).digest('hex');
-          if (actual !== expected) issues.push(`Modified managed file: ${path}`);
-        } catch (error) {
-          if (error.code === 'ENOENT') issues.push(`Missing managed file: ${path}`);
-          else throw error;
-        }
+        await checkManagedFile(absTarget, path, expected, issues);
       }
     }
   }
@@ -60,10 +59,7 @@ export async function inspectInstallation(targetDir) {
     const config = categories[category];
     for (const id of ids) {
       const item = config.items.find(entry => entry.id === id);
-      const relativePath = ['agents', 'commands', 'memory', 'modes', 'standards', 'templates'].includes(category)
-        ? `${config.sourceDir.replace(/^framework\//, '')}/${id}.md`
-        : `${config.sourceDir.replace(/^framework\//, '')}/${id}`;
-      if (!item || !(await exists(resolve(absTarget, relativePath)))) {
+      if (!item || !(await exists(resolve(absTarget, itemRelativePath(category, id))))) {
         issues.push(`Missing installed ${category} item: ${id}`);
       }
     }

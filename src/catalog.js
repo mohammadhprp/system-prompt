@@ -3,6 +3,7 @@ export const categories = {
     title: 'Skills',
     description: 'Task-specific procedures for AI coding agents',
     sourceDir: 'framework/skills',
+    itemLayout: 'directory',
     items: [
       { id: 'adhd', name: 'ADHD', description: 'Shape output for ADHD readers: action first, numbered steps, restated state, no tangents' },
       { id: 'agent-browser', name: 'Agent Browser', description: 'Automate browser and Electron workflows for navigation, testing, screenshots, and data extraction' },
@@ -47,6 +48,7 @@ export const categories = {
     title: 'Subagents',
     description: 'Specialized subagents for security, architecture, review, and research',
     sourceDir: 'framework/agents',
+    itemLayout: 'file',
     items: [
       { id: 'researcher', name: 'Researcher', description: 'Fetch and analyze web content from URLs' },
       { id: 'reviewer', name: 'Reviewer', description: 'Review code for correctness and best practices' },
@@ -58,6 +60,7 @@ export const categories = {
     title: 'Slash Commands',
     description: 'Slash command workflows for repeatable tasks',
     sourceDir: 'framework/commands',
+    itemLayout: 'file',
     items: [
       { id: 'audit-your-codebase', name: 'Audit Your Codebase', description: 'Audit for materially useful simplifications in structure, state, algorithms, and ownership' },
       { id: 'explain-codebase', name: 'Explain Codebase', description: 'Map a codebase and teach it interactively, from overview to focused deep-dives' },
@@ -70,6 +73,8 @@ export const categories = {
     title: 'MCPs',
     description: 'Model Context Protocol servers for AI coding agents',
     sourceDir: 'framework/mcps',
+    itemLayout: 'directory',
+    copyItems: false,
     items: [
       { id: 'excalidraw', name: 'Excalidraw MCP', description: 'Stream hand-drawn diagrams with interactive editing' },
       { id: 'figma-mcp-go', name: 'Figma MCP Go', description: 'Read/write access to Figma designs via plugin bridge' },
@@ -83,6 +88,8 @@ export const categories = {
     title: 'Plugins',
     description: 'OpenCode plugins that extend the core agent',
     sourceDir: 'framework/plugins',
+    itemLayout: 'directory',
+    copyItems: false,
     items: [
       { id: 'opencode-goal-plugin', name: 'OpenCode Goal Plugin', description: 'Goal-driven long-running tasks with persistence' },
       { id: 'ponytail', name: 'Ponytail', description: 'Lazy senior dev mode — YAGNI-first, reuse-first ladder that reduces code bloat and cost' },
@@ -93,6 +100,7 @@ export const categories = {
     title: 'Styles',
     description: 'Design system references from Refero Styles',
     sourceDir: 'framework/styles',
+    itemLayout: 'directory',
     items: [
       { id: 'factory', name: 'Factory', description: 'Terminal war room design system' },
       { id: 'huly', name: 'Huly', description: 'Midnight observatory design system' },
@@ -106,6 +114,7 @@ export const categories = {
     title: 'Modes',
     description: 'Behavior, tool, and prompt presets for different use cases',
     sourceDir: 'framework/modes',
+    itemLayout: 'file',
     items: [
       { id: 'audit', name: 'Audit', description: 'Read-only high-scrutiny review mode for evaluating artifacts' },
     ],
@@ -115,6 +124,7 @@ export const categories = {
     title: 'Memory',
     description: 'Persistent agent memory files for cross-session context',
     sourceDir: 'framework/memory',
+    itemLayout: 'file',
     items: [
       { id: 'codebase-insights', name: 'Codebase Insights', description: 'Non-obvious facts, gotchas, past decisions, and architecture quirks' },
       { id: 'user-preferences', name: 'User Preferences', description: 'Coding style, naming conventions, and architectural preferences' },
@@ -125,6 +135,7 @@ export const categories = {
     title: 'Standards',
     description: 'Canonical engineering standards',
     sourceDir: 'framework/references/standards',
+    itemLayout: 'file',
     items: [
       { id: 'api', name: 'API Design', description: 'REST API design standards' },
       { id: 'architecture', name: 'Architecture', description: 'System architecture standards' },
@@ -145,6 +156,7 @@ export const categories = {
     title: 'Templates',
     description: 'Fillable workflow documents',
     sourceDir: 'framework/references/templates',
+    itemLayout: 'file',
     items: [
       { id: 'adr', name: 'ADR', description: 'Architecture Decision Record' },
       { id: 'api-spec', name: 'API Spec', description: 'API specification document' },
