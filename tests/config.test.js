@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { generateOpenCodeConfig, generateTuiConfig, loadMcpConfigs, normalizeTuiPreferences, tuiPreferencesFromConfig } from '../src/agent-configs.js';
+import { loadMcpConfigs } from '../src/config/mcp.js';
+import { generateOpenCodeConfig } from '../src/config/opencode.js';
+import { generateTuiConfig, normalizeTuiPreferences, tuiPreferencesFromConfig } from '../src/config/tui.js';
 
 test('generateOpenCodeConfig includes selected plugins, references, and MCPs', () => {
   const config = JSON.parse(generateOpenCodeConfig({

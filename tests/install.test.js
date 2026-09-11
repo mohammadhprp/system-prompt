@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { access, mkdir, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
-import { install, loadLockFile, lockToSelections } from '../src/installer.js';
+import { install } from '../src/install/index.js';
+import { loadLockFile, lockToSelections } from '../src/install/lock.js';
 import { withWorkspace } from './helpers/workspace.js';
 
 const SKILL_FIXTURES = [

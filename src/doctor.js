@@ -1,10 +1,11 @@
 import { resolve } from 'node:path';
 import { access, readFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 
 import { categories } from './catalog.js';
-import { loadLockFile, lockToSelections } from './installer.js';
+import { hash } from './hash.js';
 import { itemRelativePath } from './item-layout.js';
+import { loadLockFile, lockToSelections } from './install/lock.js';
+import { isMissing } from './paths.js';
 import { status } from './ui.js';
 
 async function exists(path) {
@@ -18,10 +19,10 @@ async function exists(path) {
 
 async function checkManagedFile(absTarget, relativePath, expectedHash, issues) {
   try {
-    const actual = createHash('sha256').update(await readFile(resolve(absTarget, relativePath))).digest('hex');
+    const actual = hash(await readFile(resolve(absTarget, relativePath)));
     if (actual !== expectedHash) issues.push(`Modified managed file: ${relativePath}`);
   } catch (error) {
-    if (error.code === 'ENOENT') issues.push(`Missing managed file: ${relativePath}`);
+    if (isMissing(error)) issues.push(`Missing managed file: ${relativePath}`);
     else throw error;
   }
 }

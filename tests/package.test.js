@@ -11,7 +11,7 @@ test('npm package contains the executable and framework payload', async () => {
   const files = new Set(report[0].files.map(file => file.path));
 
   assert.ok(files.has('bin/system-prompt.js'));
-  assert.ok(files.has('src/installer.js'));
+  assert.ok(files.has('src/install/index.js'));
   assert.ok(files.has('framework/skills/backend-best-practices/SKILL.md'));
   assert.ok(files.has('framework/skills/improve/SKILL.md'));
   assert.ok(files.has('framework/skills/improve/examples.md'));

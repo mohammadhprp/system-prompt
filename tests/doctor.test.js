@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { install } from '../src/installer.js';
+import { install } from '../src/install/index.js';
 import { doctor, inspectInstallation } from '../src/doctor.js';
 import { withWorkspace } from './helpers/workspace.js';
 

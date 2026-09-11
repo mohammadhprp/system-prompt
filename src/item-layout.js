@@ -24,3 +24,8 @@ export function itemRelativePath(category, id) {
   const dir = targetSubdir(categories[category].sourceDir);
   return isFileBased(category) ? `${dir}/${id}.md` : `${dir}/${id}`;
 }
+
+export function isRemoved(category, id) {
+  const item = categories[category]?.items.find(entry => entry.id === id);
+  return item?.removed === true;
+}

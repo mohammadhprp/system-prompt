@@ -3,16 +3,11 @@ import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import {
-  parseArgs,
-  initialItemValues,
-  shouldPreselectAll,
-  computeDiff,
-  formatDiff,
-  runInteractive,
-  runNonInteractive,
-} from '../src/cli.js';
-import { install } from '../src/installer.js';
+import { parseArgs } from '../src/cli/args.js';
+import { runInteractive } from '../src/cli/interactive.js';
+import { runNonInteractive } from '../src/cli/index.js';
+import { computeDiff, formatDiff, initialItemValues, shouldPreselectAll } from '../src/cli/plan.js';
+import { install } from '../src/install/index.js';
 import { withWorkspace } from './helpers/workspace.js';
 
 const CANCEL = Symbol('cancel');
