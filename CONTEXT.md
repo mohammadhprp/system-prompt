@@ -5,7 +5,7 @@ You are a developer working on the **system-prompt** bootstrap CLI. This project
 ## Project Structure
 
 - `bin/system-prompt.js` — CLI entry point. Keep it slim; delegate logic to `src/`.
-- `src/` — CLI source code (catalog, installer, prompts, config generation).
+- `src/` — CLI source code (catalog, installer, prompts, config generation). `catalog.js` owns each category's `itemLayout`/`copyItems`; `item-layout.js` derives paths, lock categories, and copy/delete behavior from it — add a category there, not in per-consumer lists.
 - `framework/` — All framework content that the CLI installs (agents, skills, commands, MCPs, plugins, styles, and references).
 - `package.json` — Package metadata with `"private": true`. Only `src/`, `bin/`, and `framework/` are published.
 

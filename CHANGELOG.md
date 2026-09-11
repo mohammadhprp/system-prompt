@@ -10,6 +10,11 @@ All notable changes to this project are documented here.
 
 ### Changed
 - Re-running the installer no longer starts from an empty selection. Previously installed categories and items are pre-selected from `system-prompt-lock.json`, and deselected items are only removed after an explicit confirmation.
+- Consolidated framework item layout into `catalog.js` (`itemLayout`, `copyItems`) and the new `src/item-layout.js`. `installer.js` and `doctor.js` now derive paths, lock categories, and copy/delete behavior from one source instead of hardcoded category lists.
+- Split the interactive `cli.js` flow into testable `runInteractive`/`runNonInteractive` functions with an injectable UI, removing repeated cancel/exit boilerplate.
+
+### Fixed
+- The interactive "generated files only" flow (no categories selected) now honors `--dry-run` and `--force`, matching the item-selection flow.
 
 ## [v0.13.0] - 2026-09-10
 
