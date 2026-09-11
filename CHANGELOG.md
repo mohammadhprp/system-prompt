@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## [v0.13.1] - 2026-09-11
+
 ### Added
 - Added the `grilling` skill for relentlessly stress-testing plans and decisions through design-tree rounds until shared understanding is reached (adapted from `mattpocock/skills`, MIT).
 - Interactive TUI setup: the CLI can now prompt for OpenCode `tui.json` preferences (theme, diff style, cursor, scroll, mouse, and attention notifications/sounds/volume) and writes them instead of always using hardcoded defaults.
